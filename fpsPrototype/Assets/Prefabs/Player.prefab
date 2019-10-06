@@ -169,7 +169,6 @@ MonoBehaviour:
   rjBlast_Radius: 5
   rjBlast_Power: 550
   movement_SpeedMultiplier: 50
-  movement_AirSpeedReduction: 0.5
   mouseSensitivity_X: 6
   mouseSensitivity_Y: 3
   matchXYSensitivity: 0
