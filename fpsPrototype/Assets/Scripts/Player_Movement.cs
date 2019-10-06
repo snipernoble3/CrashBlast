@@ -164,7 +164,6 @@ public class Player_Movement : MonoBehaviour
 			if (fade_Duration < shake_Duration) // If there won't be enough time to complete the fade in and the fade out, then don't shake at all.
 			{
 				float fade_Multiplier = 0.0f; // Start with the shake faded out completely.
-				float fade_Progress = 0.0f; // Fade progress in the Lerp is 0.0f
 				float fade_Rate = fade_Rate_In; // Set the fade rate so that the shake will fade in over time.
 				
 				bool fade_isFadingIn = true;
@@ -179,9 +178,8 @@ public class Player_Movement : MonoBehaviour
 					
 					if (fade_isFadingIn || fade_isFadingOut)
 					{
-						fade_Multiplier = Mathf.Lerp(0.0f, 1.0f, fade_Progress);
-						fade_Progress = Mathf.Clamp(fade_Progress + (fade_Rate * Time.deltaTime), 0.0f, 1.0f);
-						if (fade_Progress == 1.0f) fade_isFadingIn = false;
+						fade_Multiplier = Mathf.Clamp(fade_Multiplier + (fade_Rate * Time.deltaTime), 0.0f, 1.0f);
+						if (fade_Multiplier == 1.0f) fade_isFadingIn = false;
 					}
 					
 					if (!fade_isFadingIn && !fade_isFadingOut && shake_timeElapsed < shake_Duration + (fade_Rate_Out * Time.deltaTime))
