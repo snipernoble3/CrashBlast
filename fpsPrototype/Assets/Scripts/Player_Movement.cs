@@ -58,7 +58,7 @@ public class Player_Movement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 		
 		// Set up references
-		firstPersonCam = transform.Find("Camera Position Offset/First Person Camera").gameObject;
+		firstPersonCam = transform.Find("Camera Position Offset/Main Camera").gameObject;
 		camOffset = transform.Find("Camera Position Offset").gameObject;
         rigidbody = GetComponent<Rigidbody>();
     }
