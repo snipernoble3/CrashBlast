@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player_Movement : MonoBehaviour
 {
 	// User Preference Head Bob
-	public bool enableLandingShake = true;
+	public bool userPreference_EnableLandingShake = true;
 	
 	// Object References
 	private GameObject camOffset;
@@ -124,7 +124,7 @@ public class Player_Movement : MonoBehaviour
 		if (Physics.SphereCast(transform.position + Vector3.up, 0.95f, Vector3.down, out RaycastHit hit, groundCheckDistance))
 		{
 			isGrounded = true;
-			if (enableLandingShake && rjBlast_NumSinceGrounded > 0) StartCoroutine(UpDownCameraShake(0.6f, 5.0f, 25.0f));
+			if (rjBlast_NumSinceGrounded > 0) StartCoroutine(UpDownCameraShake(0.6f, 5.0f, 25.0f));
 			rjBlast_NumSinceGrounded = 0;
 		}
 		else
@@ -153,47 +153,58 @@ public class Player_Movement : MonoBehaviour
 		firstPersonCam.transform.localRotation = Quaternion.AngleAxis(lookUpDownAngle_Current, Vector3.right);
 	}
 	
-	private IEnumerator UpDownCameraShake(float duration, float amplitude, float frequency)
+	private IEnumerator UpDownCameraShake(float shake_Duration, float shake_amplitude, float shake_frequency)
 	{
-		float fadeInOut = 0.0f;
-		
-		bool isFadingIn = true;
-		bool isFadingOut = false;
-		
-		float fadeIn_Rate = 5.0f;
-		float fadeOut_Rate = -3.0f;
-		
-		float fadeInOut_Rate = fadeIn_Rate;
-		float fadeInOut_Progress = 0.0f;
-		
-		float timeElapsed = 0.0f;
-		float shakeUpDown = 0.0f;
-		
-		while (timeElapsed < duration)
+		if (userPreference_EnableLandingShake)
 		{
-			shakeUpDown = Mathf.Sin(Time.time * frequency) * amplitude * fadeInOut;
-			
-			if (isFadingIn || isFadingOut)
-			{
-				fadeInOut = Mathf.Lerp(0.0f, 1.0f, fadeInOut_Progress);
-				fadeInOut_Progress = Mathf.Clamp(fadeInOut_Progress + (fadeInOut_Rate * Time.deltaTime), 0.0f, 1.0f);
-				if (fadeInOut_Progress == 1.0f) isFadingIn = false;
-			}
-			
-			if (!isFadingIn && !isFadingOut && timeElapsed < duration + (fadeOut_Rate * Time.deltaTime))
-			{
-				fadeInOut_Rate = fadeOut_Rate;
-				isFadingOut = true;
-			}
-			
-			camOffset.transform.localRotation = Quaternion.AngleAxis(shakeUpDown, Vector3.right);	
-			
-			timeElapsed += Time.deltaTime;
-			
-			yield return null;
-		}
+			float fade_Rate_In = 5.0f;
+			float fade_Rate_Out = -3.0f;
+			float fade_Duration = fade_Rate_In + fade_Rate_Out; //(fade_Rate_In * Time.deltaTime) + (fade_Rate_Out * Time.deltaTime);
 		
-		camOffset.transform.localRotation = Quaternion.AngleAxis(0.0f, Vector3.right);
+			//if (fade_Duration < shake_Duration) // If there won't be enough time to complete the fade in and the fade out, then don't shake at all.
+			if (true) // If there won't be enough time to complete the fade in and the fade out, then don't shake at all.
+			{
+				float fade_Multiplier = 0.0f; // Start with the shake faded out completely.
+				float fade_Progress = 0.0f; // Fade progress in the Lerp is 0.0f
+				float fade_Rate = fade_Rate_In; // Set the fade rate so that the shake will fade in over time.
+				
+				bool fade_isFadingIn = true;
+				bool fade_isFadingOut = false;
+				
+				float shake_timeElapsed = 0.0f;
+				float shake_UpDownAngle = 0.0f;
+				
+				while (shake_timeElapsed < shake_Duration)
+				{
+					shake_UpDownAngle = Mathf.Sin(Time.time * shake_frequency) * shake_amplitude * fade_Multiplier;
+					
+					if (fade_isFadingIn || fade_isFadingOut)
+					{
+						fade_Multiplier = Mathf.Lerp(0.0f, 1.0f, fade_Progress);
+						fade_Progress = Mathf.Clamp(fade_Progress + (fade_Rate * Time.deltaTime), 0.0f, 1.0f);
+						if (fade_Progress == 1.0f) fade_isFadingIn = false;
+					}
+					
+					if (!fade_isFadingIn && !fade_isFadingOut && shake_timeElapsed < shake_Duration + (fade_Rate_Out * Time.deltaTime))
+					{
+						fade_Rate = fade_Rate_Out;
+						fade_isFadingOut = true;
+					}
+					
+					// Shake the camera
+					camOffset.transform.localRotation = Quaternion.AngleAxis(shake_UpDownAngle, Vector3.right);	
+					
+					shake_timeElapsed += Time.deltaTime;
+
+					yield return null;
+				}
+				
+				// Ensure that the camera is back to zero when the shake is done.
+				camOffset.transform.localRotation = Quaternion.AngleAxis(0.0f, Vector3.right);
+			}
+			else Debug.Log("Requested shake duration was " + shake_Duration + " seconds, but the time needed to fade in and out is " + fade_Duration + " seconds, so the shake was not performed.");
+		}
+		else Debug.Log("Shake is disabled"); // If the player has chosen to disable camera shake, then do nothing.
 	}
 	
 	void FixedUpdate()
