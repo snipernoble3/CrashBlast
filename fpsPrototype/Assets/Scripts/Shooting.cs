@@ -12,6 +12,10 @@ public class Shooting : MonoBehaviour
 
     private float fireRate = 0.1f;
     private float timeToFire = 0f;
+    private float shotCount;
+    private float timeToReduce = 0f;
+
+    private bool reloading;
 
     public GameObject firingPosition;
     public GameObject target;
@@ -26,7 +30,7 @@ public class Shooting : MonoBehaviour
         currAmmo = maxAmmo;
 
         if (target.activeInHierarchy) {
-            target.transform.localScale = new Vector3(maxDeviation, target.transform.localScale.y, maxDeviation);
+            target.transform.localScale = new Vector3(maxDeviation * 2, target.transform.localScale.y, maxDeviation * 2);
         }
 
     }
@@ -45,7 +49,26 @@ public class Shooting : MonoBehaviour
             Fire();
             timeToFire = fireRate;
         }
+
+        if (Input.GetKey(KeyCode.R) && !reloading && currAmmo != maxAmmo) {
+            StartCoroutine(Reload());
+        }
+        
+
     }
+
+    private void LateUpdate () {
+        if (timeToReduce > 0 && shotCount > 0) {
+            timeToReduce -= Time.fixedDeltaTime;
+        }
+
+        if (!Input.GetMouseButton(0) && timeToReduce <= 0 && !reloading) {
+            shotCount = Mathf.Clamp(shotCount - 0.75f, 0, maxAmmo);
+            timeToReduce = 0.1f;
+            UpdateSpread();
+        }
+    }
+
 
     void Fire () {
 
@@ -53,21 +76,9 @@ public class Shooting : MonoBehaviour
             return;
         }
 
-        int shotsFired = maxAmmo - currAmmo;
+        shotCount++;
 
-        if (shotsFired == 0) {
-            maxDeviation = 0.001f;
-        } else if (shotsFired < 3) {
-            maxDeviation = (-.00738f * shotsFired * shotsFired * shotsFired) + (.0999f * shotsFired * shotsFired) - (.1799f * shotsFired) + .0873f;
-        } else if (shotsFired < 10) {
-            maxDeviation = (.0016f * shotsFired * shotsFired * shotsFired) - (.0299f * shotsFired * shotsFired) + (.2467f * shotsFired) - .3092f;
-        } else {
-            maxDeviation = Mathf.Clamp(1f + (.25f * (shotsFired - 10)), 1f, 2f);
-        }
-
-        if (target.activeInHierarchy) {
-            target.transform.localScale = new Vector3(maxDeviation * 2, target.transform.localScale.y, maxDeviation * 2);
-        }
+        UpdateSpread();
 
         Vector3 deviation3D = Random.insideUnitCircle * maxDeviation;
         Quaternion rot = Quaternion.LookRotation(Vector3.forward * deviationDistance + deviation3D);
@@ -81,13 +92,29 @@ public class Shooting : MonoBehaviour
             
         }
 
-        StartCoroutine(laser(hit));
+        StartCoroutine(Laser(hit));
 
         currAmmo--;
 
     }
 
-    IEnumerator laser (RaycastHit hit) {
+    void UpdateSpread () {
+        if (shotCount == 0) {
+            maxDeviation = 0.001f;
+        } else if (shotCount < 3) {
+            maxDeviation = (-.00738f * shotCount * shotCount * shotCount) + (.0999f * shotCount * shotCount) - (.1799f * shotCount) + .0873f;
+        } else if (shotCount < 10) {
+            maxDeviation = (.0016f * shotCount * shotCount * shotCount) - (.0299f * shotCount * shotCount) + (.2467f * shotCount) - .3092f;
+        } else {
+            maxDeviation = Mathf.Clamp(1f + (.25f * (shotCount - 10)), 1f, 2f);
+        }
+
+        if (target.activeInHierarchy) {
+            target.transform.localScale = new Vector3(maxDeviation * 2, target.transform.localScale.y, maxDeviation * 2);
+        }
+    }
+
+    IEnumerator Laser (RaycastHit hit) {
         linePositions[0] = endOfGun.transform.position;
         linePositions[1] = hit.point;
 
@@ -97,5 +124,13 @@ public class Shooting : MonoBehaviour
         GetComponent<LineRenderer>().enabled = false;
     }
 
+    IEnumerator Reload () {
+        reloading = true;
 
+        yield return new WaitForSeconds(1f); //reload time
+        
+        currAmmo = maxAmmo;
+        reloading = false;
+    }
+    
 }
