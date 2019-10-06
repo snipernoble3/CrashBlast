@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_Movement : MonoBehaviour
 {
 	// Object References
+	private GameObject camOffset;
 	private GameObject firstPersonCam;
 	private Rigidbody rigidbody;
 	
@@ -23,12 +24,16 @@ public class Player_Movement : MonoBehaviour
 	private int rjBlast_NumSinceGrounded = 0;
 	[SerializeField] private const int rjBlast_NumLimit = 2;
 	private Vector3 rjBlast_Epicenter;
-	[SerializeField] private float rjBlast_Range = 3.0f;
-	[SerializeField] private float rjBlast_Radius = 5.0f;
-	[SerializeField] private float rjBlast_Power = 550.0f;
+	[SerializeField] private const float rjBlast_Range = 3.0f;
+	[SerializeField] private const float rjBlast_Radius = 5.0f;
+	[SerializeField] private const float rjBlast_Power = 550.0f;
+	[SerializeField] private const float rjBlast_UpPower = 0.5f;
 	
 	[SerializeField] private float movement_SpeedMultiplier = 50.0f;
-	[SerializeField] private float movement_AirSpeedReduction = 0.5f;
+	private float movement_SpeedReduction_Multiplier = 1.0f;
+	[SerializeField] private const float movement_SpeedReduction_Air = 0.5f;
+	[SerializeField] private const float movement_SpeedReduction_Water = 0.75f;
+	
 	[SerializeField] private const float movement_MaxSpeed = 20.0f;
 	
 	// Mouse Input
@@ -50,6 +55,7 @@ public class Player_Movement : MonoBehaviour
 		
 		// Set up references
 		firstPersonCam = transform.Find("Camera Position Offset/First Person Camera").gameObject;
+		camOffset = transform.Find("Camera Position Offset").gameObject;
         rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -63,6 +69,7 @@ public class Player_Movement : MonoBehaviour
 		CheckIfGrounded();
 		
 		if (Input.GetButtonDown("Fire2")) RocketJump();
+		if (Input.GetButtonDown("Fire1")) StartCoroutine(UpDownCameraShake(3.0f, 5.0f, 15.0f));
 		
 		// Get input for Movement:
 		// Get input from project input manager and build a Vector3 to store the two inputs
@@ -99,9 +106,9 @@ public class Player_Movement : MonoBehaviour
 				Rigidbody rb = objectToBlast.GetComponent<Rigidbody>();
 				if (rb != null) // If the object has a rigidbody component
 				{
-					// If this is the player, check if the player is grounded, if so, don't add the force.
+					// If this is the player, check if the player is grounded, if so, don't add the rocket jump force to the player.
 					if (rb == rigidbody && isGrounded) continue;
-					rb.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, 0.0f, ForceMode.Impulse);
+					rb.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpPower, ForceMode.Impulse);
 				}
 			}
 			
@@ -142,6 +149,41 @@ public class Player_Movement : MonoBehaviour
 		firstPersonCam.transform.localRotation = Quaternion.AngleAxis(lookUpDownAngle_Current, Vector3.right);
 	}
 	
+	private IEnumerator UpDownCameraShake(float duration, float amplitude, float frequency)
+	{
+		float wiggleFade_Rate = 0.5f;
+		float wiggleFade_Duration = 0.0f;
+		float wiggleFade_Amount = 0.0f;
+		bool isFadingIn = true;
+		bool isFadingOut = false;
+		float timeElapsed = 0.0f;
+		float wiggleRotation = 0.0f;
+		while (timeElapsed < duration)
+		{
+			if (!isFadingIn && !isFadingOut && timeElapsed >= duration - wiggleFade_Duration)
+			{
+				wiggleFade_Rate *= -1.0f;
+				isFadingOut = true;
+			}
+			wiggleFade_Amount = Mathf.Clamp(wiggleFade_Amount + wiggleFade_Rate * Time.deltaTime, 0.0f, 1.0f);
+			if (wiggleFade_Amount == 1.0f)
+			{
+				wiggleFade_Duration = timeElapsed;
+				isFadingIn = false;
+			}
+			
+			wiggleRotation = Mathf.Sin(Time.time * frequency) * amplitude * wiggleFade_Amount;
+			
+			camOffset.transform.localRotation = Quaternion.AngleAxis(wiggleRotation, Vector3.right);	
+			
+			timeElapsed += Time.deltaTime;
+			
+			yield return null;
+		}
+		
+		camOffset.transform.localRotation = Quaternion.AngleAxis(0.0f, Vector3.right);
+	}
+	
 	void FixedUpdate()
 	{
 		LookLeftRight();
@@ -151,12 +193,18 @@ public class Player_Movement : MonoBehaviour
 		// Check if adding the requested input movement vector to the current player velocity will result in the player moving too fast.
 		// If the resulting velocity is fater than the max move speed, then don't add any new force.
 		
-		movement_vectorRequestedMegnitude = rigidbody.velocity.magnitude + movement_vector.magnitude;
+		//movement_vectorRequestedMegnitude = rigidbody.velocity.magnitude + movement_vector.magnitude;
+		
+		
+		
 		
 		//if (rigidbody.velocity.magnitude + movement_vector.magnitude < movement_MaxSpeed)
-		//{
-			if (isGrounded) rigidbody.AddRelativeForce(movement_vector, ForceMode.Impulse);
-			else rigidbody.AddRelativeForce(movement_vector * movement_AirSpeedReduction, ForceMode.Impulse);
+		//{		
+			if (isGrounded) movement_SpeedReduction_Multiplier = 1.0f;
+			else movement_SpeedReduction_Multiplier = movement_SpeedReduction_Air;
+			
+			rigidbody.AddRelativeForce(movement_vector * movement_SpeedReduction_Multiplier, ForceMode.Impulse);
+			//rigidbody.AddRelativeForce (rigidbody.velocity +  movement_vector * movement_SpeedReduction_Multiplier, ForceMode.VelocityChange);
 		//}
 	}
 	
