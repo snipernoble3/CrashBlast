@@ -124,7 +124,7 @@ public class Player_Movement : MonoBehaviour
 		if (Physics.SphereCast(transform.position + Vector3.up, 0.95f, Vector3.down, out RaycastHit hit, groundCheckDistance))
 		{
 			isGrounded = true;
-			if (rjBlast_NumSinceGrounded > 0) StartCoroutine(UpDownCameraShake(0.6f, 5.0f, 25.0f));
+			if (rjBlast_NumSinceGrounded > 0) StartCoroutine(UpDownCameraShake(5.0f, 25.0f, 0.5f, 0.1f, 0.25f));
 			rjBlast_NumSinceGrounded = 0;
 		}
 		else
@@ -153,18 +153,17 @@ public class Player_Movement : MonoBehaviour
 		firstPersonCam.transform.localRotation = Quaternion.AngleAxis(lookUpDownAngle_Current, Vector3.right);
 	}
 	
-	private IEnumerator UpDownCameraShake(float shake_Duration, float shake_amplitude, float shake_frequency)
+	public IEnumerator UpDownCameraShake(float shake_amplitude, float shake_frequency, float shake_Duration, float fade_Duration_In, float fade_Duration_Out)
 	{
 		if (userPreference_EnableLandingShake) // If the player has chosen to disable camera shake, then do nothing.
 		{
-			float fade_Rate_In = 5.0f;
-			float fade_Rate_Out = 3.0f;
-			float fade_Duration = (1.0f / fade_Rate_In) + (1.0f / fade_Rate_Out);
-		
-			if (fade_Duration < shake_Duration) // If there won't be enough time to complete the fade in and the fade out, then don't shake at all.
+			if (fade_Duration_In + fade_Duration_Out < shake_Duration) // If there won't be enough time to complete the fade in and the fade out, then don't shake at all.
 			{
-				float fade_Multiplier = 0.0f; // Start with the shake faded out completely.
-				float fade_Rate = fade_Rate_In; // Set the fade rate so that the shake will fade in over time.
+				float fade_Min = 0.0f;
+				float fade_Max = 1.0f;
+
+				float fade_Multiplier = fade_Min; // Start with the shake faded out completely.
+				float fade_Rate = fade_Max / fade_Duration_In; // Set the fade rate so that the shake will fade in over time.
 				
 				bool fade_isFadingIn = true;
 				bool fade_isFadingOut = false;
@@ -176,15 +175,17 @@ public class Player_Movement : MonoBehaviour
 				{
 					shake_UpDownAngle = Mathf.Sin(Time.time * shake_frequency) * shake_amplitude * fade_Multiplier;
 					
+					// Increase or decrease the fade multiplier
 					if (fade_isFadingIn || fade_isFadingOut)
 					{
-						fade_Multiplier = Mathf.Clamp(fade_Multiplier + (fade_Rate * Time.deltaTime), 0.0f, 1.0f);
-						if (fade_Multiplier == 1.0f) fade_isFadingIn = false;
+						fade_Multiplier = Mathf.Clamp(fade_Multiplier + (fade_Rate * Time.deltaTime), fade_Min, fade_Max);
+						if (fade_Multiplier == fade_Max) fade_isFadingIn = false;
 					}
 					
-					if (!fade_isFadingIn && !fade_isFadingOut && shake_timeElapsed < shake_Duration + (fade_Rate_Out * Time.deltaTime))
+					// Check if it's time to start fading out
+					if (!fade_isFadingIn && !fade_isFadingOut && shake_timeElapsed >= shake_Duration - fade_Duration_Out)
 					{
-						fade_Rate = -fade_Rate_Out;
+						fade_Rate = fade_Max / -fade_Duration_Out;
 						fade_isFadingOut = true;
 					}
 					
@@ -199,7 +200,7 @@ public class Player_Movement : MonoBehaviour
 				// Ensure that the camera is back to zero when the shake is done.
 				camOffset.transform.localRotation = Quaternion.AngleAxis(0.0f, Vector3.right);
 			}
-			else Debug.Log("Requested shake duration was " + shake_Duration + " seconds, but the time needed to fade in and out is " + fade_Duration + " seconds, so the shake was not performed.");
+			else Debug.Log("Fade duration ("+ (fade_Duration_In + fade_Duration_Out) +" seconds) can not be longer than the shake duration (" + shake_Duration + " seconds). The camera shake was not performed.");
 		}
 	}
 	
