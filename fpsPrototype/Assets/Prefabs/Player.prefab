@@ -164,11 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c29164178c6e2409d413548932329f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableLandingShake: 0
   movement_vectorRequestedMegnitude: 0
   jumpForceMultiplier: 400
-  rjBlast_Range: 3
-  rjBlast_Radius: 5
-  rjBlast_Power: 550
   movement_SpeedMultiplier: 50
   mouseSensitivity_X: 6
   mouseSensitivity_Y: 3
