@@ -155,14 +155,13 @@ public class Player_Movement : MonoBehaviour
 	
 	private IEnumerator UpDownCameraShake(float shake_Duration, float shake_amplitude, float shake_frequency)
 	{
-		if (userPreference_EnableLandingShake)
+		if (userPreference_EnableLandingShake) // If the player has chosen to disable camera shake, then do nothing.
 		{
 			float fade_Rate_In = 5.0f;
-			float fade_Rate_Out = -3.0f;
-			float fade_Duration = fade_Rate_In + fade_Rate_Out; //(fade_Rate_In * Time.deltaTime) + (fade_Rate_Out * Time.deltaTime);
+			float fade_Rate_Out = 3.0f;
+			float fade_Duration = (1.0f / fade_Rate_In) + (1.0f / fade_Rate_Out);
 		
-			//if (fade_Duration < shake_Duration) // If there won't be enough time to complete the fade in and the fade out, then don't shake at all.
-			if (true) // If there won't be enough time to complete the fade in and the fade out, then don't shake at all.
+			if (fade_Duration < shake_Duration) // If there won't be enough time to complete the fade in and the fade out, then don't shake at all.
 			{
 				float fade_Multiplier = 0.0f; // Start with the shake faded out completely.
 				float fade_Progress = 0.0f; // Fade progress in the Lerp is 0.0f
@@ -187,7 +186,7 @@ public class Player_Movement : MonoBehaviour
 					
 					if (!fade_isFadingIn && !fade_isFadingOut && shake_timeElapsed < shake_Duration + (fade_Rate_Out * Time.deltaTime))
 					{
-						fade_Rate = fade_Rate_Out;
+						fade_Rate = -fade_Rate_Out;
 						fade_isFadingOut = true;
 					}
 					
@@ -204,7 +203,6 @@ public class Player_Movement : MonoBehaviour
 			}
 			else Debug.Log("Requested shake duration was " + shake_Duration + " seconds, but the time needed to fade in and out is " + fade_Duration + " seconds, so the shake was not performed.");
 		}
-		else Debug.Log("Shake is disabled"); // If the player has chosen to disable camera shake, then do nothing.
 	}
 	
 	void FixedUpdate()

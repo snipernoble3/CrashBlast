@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c29164178c6e2409d413548932329f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableLandingShake: 1
+  userPreference_EnableLandingShake: 1
   movement_vectorRequestedMegnitude: 0
   jumpForceMultiplier: 400
   movement_SpeedMultiplier: 50
