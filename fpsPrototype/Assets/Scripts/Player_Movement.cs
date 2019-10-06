@@ -15,7 +15,7 @@ public class Player_Movement : MonoBehaviour
 	public float movement_vectorRequestedMegnitude;
 	
 	// Jumping Variables
-	[SerializeField] private float jumpForceMultiplier =  500.0f;
+	[SerializeField] private float jumpForceMultiplier =  400.0f;
 	private const float groundCheckDistance = 0.15f;
 	private bool isGrounded = true;
 	
@@ -25,7 +25,7 @@ public class Player_Movement : MonoBehaviour
 	private Vector3 rjBlast_Epicenter;
 	[SerializeField] private float rjBlast_Range = 3.0f;
 	[SerializeField] private float rjBlast_Radius = 5.0f;
-	[SerializeField] private float rjBlast_Power = 750.0f;
+	[SerializeField] private float rjBlast_Power = 550.0f;
 	
 	[SerializeField] private float movement_SpeedMultiplier = 50.0f;
 	[SerializeField] private float movement_AirSpeedReduction = 0.5f;
@@ -97,8 +97,10 @@ public class Player_Movement : MonoBehaviour
 			foreach (Collider objectToBlast in colliders)
 			{
 				Rigidbody rb = objectToBlast.GetComponent<Rigidbody>();
-				if (rb != null)
+				if (rb != null) // If the object has a rigidbody component
 				{
+					// If this is the player, check if the player is grounded, if so, don't add the force.
+					if (rb == rigidbody && isGrounded) continue;
 					rb.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, 0.0f, ForceMode.Impulse);
 				}
 			}

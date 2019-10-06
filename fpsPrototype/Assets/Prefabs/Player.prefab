@@ -164,10 +164,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement_vectorRequestedMegnitude: 0
-  jumpForceMultiplier: 500
+  jumpForceMultiplier: 400
   rjBlast_Range: 3
   rjBlast_Radius: 5
-  rjBlast_Power: 750
+  rjBlast_Power: 550
   movement_SpeedMultiplier: 50
   movement_AirSpeedReduction: 0.5
   mouseSensitivity_X: 6
