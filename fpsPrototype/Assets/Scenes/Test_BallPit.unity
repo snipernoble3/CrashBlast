@@ -1467,7 +1467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &778003092
 Transform:
   m_ObjectHideFlags: 0
@@ -2050,7 +2050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1085181043
 Transform:
   m_ObjectHideFlags: 0
@@ -4675,6 +4675,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1831727058968780900, guid: 43c90cac9c69efc4995a15cda40e8a72,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5221531139006772982, guid: 43c90cac9c69efc4995a15cda40e8a72,
         type: 3}
       propertyPath: endOfGun
@@ -4689,11 +4694,6 @@ PrefabInstance:
         type: 3}
       propertyPath: maxAmmo
       value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1831727058968780900, guid: 43c90cac9c69efc4995a15cda40e8a72,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6847225911403119535, guid: 43c90cac9c69efc4995a15cda40e8a72,
         type: 3}
