@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player_Movement : MonoBehaviour
 {
+	// User Preference Head Bob
+	public bool enableLandingShake = true;
+	
 	// Object References
 	private GameObject camOffset;
 	private GameObject firstPersonCam;
@@ -19,6 +22,7 @@ public class Player_Movement : MonoBehaviour
 	[SerializeField] private float jumpForceMultiplier =  400.0f;
 	private const float groundCheckDistance = 0.15f;
 	private bool isGrounded = true;
+	private bool wasGroundedLastFrame = true;
 	
 	// Rocket Jumping Variables
 	private int rjBlast_NumSinceGrounded = 0;
@@ -69,7 +73,6 @@ public class Player_Movement : MonoBehaviour
 		CheckIfGrounded();
 		
 		if (Input.GetButtonDown("Fire2")) RocketJump();
-		if (Input.GetButtonDown("Fire1")) StartCoroutine(UpDownCameraShake(3.0f, 5.0f, 15.0f));
 		
 		// Get input for Movement:
 		// Get input from project input manager and build a Vector3 to store the two inputs
@@ -122,6 +125,7 @@ public class Player_Movement : MonoBehaviour
 		{
 			isGrounded = true;
 			rjBlast_NumSinceGrounded = 0;
+			if (enableLandingShake) StartCoroutine(UpDownCameraShake(0.8f, 10.0f, 25.0f));
 		}
 		else
 		{
@@ -151,30 +155,38 @@ public class Player_Movement : MonoBehaviour
 	
 	private IEnumerator UpDownCameraShake(float duration, float amplitude, float frequency)
 	{
-		float wiggleFade_Rate = 0.5f;
-		float wiggleFade_Duration = 0.0f;
-		float wiggleFade_Amount = 0.0f;
+		float fadeInOut = 0.0f;
+		
 		bool isFadingIn = true;
 		bool isFadingOut = false;
+		
+		float fadeIn_Rate = 4.0f;
+		float fadeOut_Rate = -2.0f;
+		
+		float fadeInOut_Rate = fadeIn_Rate;
+		float fadeInOut_Progress = 0.0f;
+		
 		float timeElapsed = 0.0f;
-		float wiggleRotation = 0.0f;
+		float shakeUpDown = 0.0f;
+		
 		while (timeElapsed < duration)
 		{
-			if (!isFadingIn && !isFadingOut && timeElapsed >= duration - wiggleFade_Duration)
+			shakeUpDown = Mathf.Sin(Time.time * frequency) * amplitude * fadeInOut;
+			
+			if (isFadingIn || isFadingOut)
 			{
-				wiggleFade_Rate *= -1.0f;
+				fadeInOut = Mathf.Lerp(0.0f, 1.0f, fadeInOut_Progress);
+				fadeInOut_Progress = Mathf.Clamp(fadeInOut_Progress + (fadeInOut_Rate * Time.deltaTime), 0.0f, 1.0f);
+				if (fadeInOut_Progress == 1.0f) isFadingIn = false;
+			}
+			
+			if (!isFadingIn && !isFadingOut && timeElapsed < duration + (fadeOut_Rate * Time.deltaTime))
+			{
+				fadeInOut_Rate = fadeOut_Rate;
 				isFadingOut = true;
 			}
-			wiggleFade_Amount = Mathf.Clamp(wiggleFade_Amount + wiggleFade_Rate * Time.deltaTime, 0.0f, 1.0f);
-			if (wiggleFade_Amount == 1.0f)
-			{
-				wiggleFade_Duration = timeElapsed;
-				isFadingIn = false;
-			}
 			
-			wiggleRotation = Mathf.Sin(Time.time * frequency) * amplitude * wiggleFade_Amount;
-			
-			camOffset.transform.localRotation = Quaternion.AngleAxis(wiggleRotation, Vector3.right);	
+			camOffset.transform.localRotation = Quaternion.AngleAxis(shakeUpDown, Vector3.right);	
 			
 			timeElapsed += Time.deltaTime;
 			
@@ -194,9 +206,6 @@ public class Player_Movement : MonoBehaviour
 		// If the resulting velocity is fater than the max move speed, then don't add any new force.
 		
 		//movement_vectorRequestedMegnitude = rigidbody.velocity.magnitude + movement_vector.magnitude;
-		
-		
-		
 		
 		//if (rigidbody.velocity.magnitude + movement_vector.magnitude < movement_MaxSpeed)
 		//{		
