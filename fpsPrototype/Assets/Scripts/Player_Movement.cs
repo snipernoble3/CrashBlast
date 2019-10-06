@@ -124,8 +124,8 @@ public class Player_Movement : MonoBehaviour
 		if (Physics.SphereCast(transform.position + Vector3.up, 0.95f, Vector3.down, out RaycastHit hit, groundCheckDistance))
 		{
 			isGrounded = true;
+			if (enableLandingShake && rjBlast_NumSinceGrounded > 0) StartCoroutine(UpDownCameraShake(0.6f, 5.0f, 25.0f));
 			rjBlast_NumSinceGrounded = 0;
-			if (enableLandingShake) StartCoroutine(UpDownCameraShake(0.8f, 10.0f, 25.0f));
 		}
 		else
 		{
@@ -160,8 +160,8 @@ public class Player_Movement : MonoBehaviour
 		bool isFadingIn = true;
 		bool isFadingOut = false;
 		
-		float fadeIn_Rate = 4.0f;
-		float fadeOut_Rate = -2.0f;
+		float fadeIn_Rate = 5.0f;
+		float fadeOut_Rate = -3.0f;
 		
 		float fadeInOut_Rate = fadeIn_Rate;
 		float fadeInOut_Progress = 0.0f;
