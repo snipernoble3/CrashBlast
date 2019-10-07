@@ -25,8 +25,7 @@ public class Shooting : MonoBehaviour
     private Vector3[] linePositions = new Vector3[2];
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         currAmmo = maxAmmo;
 
         if (target.activeInHierarchy) {
@@ -88,8 +87,12 @@ public class Shooting : MonoBehaviour
 
         if (Physics.Raycast(firingPosition.transform.position, forwardVector, out hit, range)) {
             //Debug.Log("Hit something");
-            Debug.DrawRay(firingPosition.transform.position, forwardVector * range, Color.green, 2f);
-            
+            //Debug.DrawRay(firingPosition.transform.position, forwardVector * range, Color.green, 2f);
+
+            if (hit.collider.gameObject.GetComponent<Health>() != null && hit.collider.gameObject.GetComponent<Health>().GetTag() != Health.Tag.Ally) {
+                hit.collider.gameObject.GetComponent<Health>().TakeDamage(1);
+            }
+
         }
 
         StartCoroutine(Laser(hit));
@@ -110,7 +113,7 @@ public class Shooting : MonoBehaviour
         }
 
         if (target.activeInHierarchy) {
-            target.transform.localScale = new Vector3(maxDeviation * 2, target.transform.localScale.y, maxDeviation * 2);
+            target.transform.localScale = new Vector3(Mathf.Max( 0.25f, maxDeviation * 2), target.transform.localScale.y, Mathf.Max(0.25f, maxDeviation * 2));
         }
     }
 
