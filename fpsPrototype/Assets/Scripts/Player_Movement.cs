@@ -8,6 +8,7 @@ public class Player_Movement : MonoBehaviour
 	public bool userPreference_EnableLandingShake = true;
 	
 	// Object References
+	public GameObject groundPoundParticles;
 	private GameObject camOffset;
 	private GameObject firstPersonCam;
 	private Rigidbody playerRB;
@@ -199,9 +200,24 @@ public class Player_Movement : MonoBehaviour
 			float camShake_Frequency = Mathf.Clamp(impactVelocity * 2.0f, 15.0f, 25.0f);
 			float camShake_Duration = Mathf.Clamp((impactVelocity * 0.02f), 0.0f, 0.7f);
 			
+			// Camera Shake
 			StartCoroutine(CameraShake(camShake_Amplitude, camShake_Frequency, camShake_Duration, camShake_Duration * 0.2f, camShake_Duration * 0.5f));
 			
+			// Blast Force
 			BlastForce(gpBlast_Power, playerRB.position, gpBlast_Radius, gpBlast_UpwardForce); // Apply a blast around the landing
+			
+			// Particle System
+			float gpParticle_Duration = camShake_Duration * 3.0f;
+			GameObject gpParticles_GameObject = Instantiate(groundPoundParticles, playerRB.position, Quaternion.identity) as GameObject;
+			ParticleSystem.MainModule gpParticles_MainModule = gpParticles_GameObject.GetComponent<ParticleSystem>().main;
+			
+			gpParticles_MainModule.startSpeed = Mathf.Clamp(impactVelocity, 5.0f, 50.0f);
+			gpParticles_MainModule.startLifetime = gpParticle_Duration;
+			gpParticles_MainModule.duration = gpParticle_Duration;
+			gpParticles_GameObject.GetComponent<ParticleSystem>().Play();
+			StartCoroutine(ParticleTimer(gpParticle_Duration, gpParticles_GameObject));
+			
+			// Reset downward velocity.
 			impactVelocity = 0.0f;
 		}
 	}
@@ -216,6 +232,13 @@ public class Player_Movement : MonoBehaviour
 			// If the object has a rigidbody component and it is not the player, add the blast force!
 			if (rb != null && rb != playerRB) rb.AddExplosionForce(blast_Power, blast_Epicenter, blast_Radius, blast_UpwardForce, ForceMode.Impulse);
 		}
+	}
+	
+	public IEnumerator ParticleTimer (float seconds, GameObject particleObjectToDestroy)
+	{
+		yield return new WaitForSeconds(seconds);
+		
+		Destroy(particleObjectToDestroy);
 	}
 	
 	public IEnumerator CameraShake(float shake_amplitude, float shake_frequency, float shake_Duration, float fade_Duration_In, float fade_Duration_Out)
