@@ -33,12 +33,17 @@ public class Player_Movement : MonoBehaviour
 	[SerializeField] private const float rjBlast_Power = 550.0f;
 	[SerializeField] private const float rjBlast_UpPower = 0.5f;
 	
+	public float downwardVelocity = 0.0f;
+	
+	
+	
 	[SerializeField] private float movement_SpeedMultiplier = 50.0f;
 	private float movement_SpeedReduction_Multiplier = 1.0f;
 	[SerializeField] private const float movement_SpeedReduction_Air = 0.5f;
 	[SerializeField] private const float movement_SpeedReduction_Water = 0.75f;
 	
 	[SerializeField] private const float movement_MaxSpeed = 20.0f;
+	
 	
 	// Mouse Input
 	[SerializeField] private float mouseSensitivity_X = 6.0f;
@@ -124,7 +129,9 @@ public class Player_Movement : MonoBehaviour
 		if (Physics.SphereCast(transform.position + Vector3.up, 0.95f, Vector3.down, out RaycastHit hit, groundCheckDistance))
 		{
 			isGrounded = true;
-			if (rjBlast_NumSinceGrounded > 0) StartCoroutine(UpDownCameraShake(5.0f, 25.0f, 0.5f, 0.1f, 0.25f));
+			//if (rjBlast_NumSinceGrounded > 0) StartCoroutine(UpDownCameraShake(5.0f, 25.0f, 0.5f, 0.1f, 0.25f));
+			if (downwardVelocity > 5.5f) StartCoroutine(UpDownCameraShake(downwardVelocity, 25.0f, 0.5f, 0.1f, 0.25f));
+			downwardVelocity = 0.0f;
 			rjBlast_NumSinceGrounded = 0;
 		}
 		else
@@ -207,7 +214,18 @@ public class Player_Movement : MonoBehaviour
 	void FixedUpdate()
 	{
 		LookLeftRight();
+		MoveLateral();
 		
+		if (!isGrounded) // If the player is not grounded check if he is going up.
+		{
+			// If the player isn't moving vertically or the player is going up, then set the downwardVelocity to zero.
+			if (rigidbody.velocity.y > 0.0f || Mathf.Approximately(rigidbody.velocity.y, 0.0f)) downwardVelocity = 0.0f;
+			else if (rigidbody.velocity.y < 0.0f) downwardVelocity = Mathf.Abs(rigidbody.velocity.y); // If the player is falling, update the downward velocity to match.
+		} 
+	}
+	
+	void MoveLateral()
+	{
 		//if (rigidbody.velocity.magnitude <= movement_MaxSpeed)
 		
 		// Check if adding the requested input movement vector to the current player velocity will result in the player moving too fast.
