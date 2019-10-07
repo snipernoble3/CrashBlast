@@ -198,7 +198,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 720276681735447755}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -558,6 +558,8 @@ MonoBehaviour:
   userPreference_EnableLandingShake: 1
   movement_vectorRequestedMegnitude: 0
   jumpForceMultiplier: 400
+  downwardVelocity: 0
+  groundPound_Multiplier: 750
   movement_SpeedMultiplier: 50
   mouseSensitivity_X: 6
   mouseSensitivity_Y: 3

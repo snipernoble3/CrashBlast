@@ -10,7 +10,7 @@ public class Player_Movement : MonoBehaviour
 	// Object References
 	private GameObject camOffset;
 	private GameObject firstPersonCam;
-	private Rigidbody rigidbody;
+	private Rigidbody playerRB;
 	
 	private float rotation_vertical = 0.0f;
 	private float rotation_horizontal = 0.0f;
@@ -34,8 +34,7 @@ public class Player_Movement : MonoBehaviour
 	[SerializeField] private const float rjBlast_UpPower = 0.5f;
 	
 	public float downwardVelocity = 0.0f;
-	
-	
+	public float groundPound_Multiplier = 750.0f;
 	
 	[SerializeField] private float movement_SpeedMultiplier = 50.0f;
 	private float movement_SpeedReduction_Multiplier = 1.0f;
@@ -43,7 +42,6 @@ public class Player_Movement : MonoBehaviour
 	[SerializeField] private const float movement_SpeedReduction_Water = 0.75f;
 	
 	[SerializeField] private const float movement_MaxSpeed = 20.0f;
-	
 	
 	// Mouse Input
 	[SerializeField] private float mouseSensitivity_X = 6.0f;
@@ -65,7 +63,7 @@ public class Player_Movement : MonoBehaviour
 		// Set up references
 		firstPersonCam = transform.Find("Camera Position Offset/Main Camera").gameObject;
 		camOffset = transform.Find("Camera Position Offset").gameObject;
-        rigidbody = GetComponent<Rigidbody>();
+        playerRB = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -78,6 +76,7 @@ public class Player_Movement : MonoBehaviour
 		CheckIfGrounded();
 		
 		if (Input.GetButtonDown("Fire2")) RocketJump();
+		if (!isGrounded && Input.GetButtonDown("Crouch"))GroundPound();
 		
 		// Get input for Movement:
 		// Get input from project input manager and build a Vector3 to store the two inputs
@@ -93,7 +92,7 @@ public class Player_Movement : MonoBehaviour
 	
 	void Jump()
 	{
-		rigidbody.AddRelativeForce(Vector3.up * jumpForceMultiplier, ForceMode.Impulse);
+		playerRB.AddRelativeForce(Vector3.up * jumpForceMultiplier, ForceMode.Impulse);
 	}
 	
 	void RocketJump()
@@ -115,7 +114,7 @@ public class Player_Movement : MonoBehaviour
 				if (rb != null) // If the object has a rigidbody component
 				{
 					// If this is the player, check if the player is grounded, if so, don't add the rocket jump force to the player.
-					if (rb == rigidbody && isGrounded) continue;
+					if (rb == playerRB && isGrounded) continue;
 					rb.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpPower, ForceMode.Impulse);
 				}
 			}
@@ -129,8 +128,24 @@ public class Player_Movement : MonoBehaviour
 		if (Physics.SphereCast(transform.position + Vector3.up, 0.95f, Vector3.down, out RaycastHit hit, groundCheckDistance))
 		{
 			isGrounded = true;
-			//if (rjBlast_NumSinceGrounded > 0) StartCoroutine(UpDownCameraShake(5.0f, 25.0f, 0.5f, 0.1f, 0.25f));
-			if (downwardVelocity > 5.5f) StartCoroutine(UpDownCameraShake(downwardVelocity, 25.0f, 0.5f, 0.1f, 0.25f));
+			if (downwardVelocity > 5.5f)
+			{
+				StartCoroutine(UpDownCameraShake(downwardVelocity, 25.0f, 0.5f, 0.1f, 0.25f));
+				
+				// Apply a blast around the landing
+				Collider[] colliders = Physics.OverlapSphere(playerRB.position, rjBlast_Radius);
+				foreach (Collider objectToBlast in colliders)
+				{
+					Rigidbody rb = objectToBlast.GetComponent<Rigidbody>();
+					if (rb != null) // If the object has a rigidbody component
+					{
+						// If this is the player, check if the player is grounded, if so, don't add the rocket jump force to the player.
+						if (rb != playerRB) 
+						rb.AddExplosionForce(rjBlast_Power, playerRB.position, rjBlast_Radius, rjBlast_UpPower, ForceMode.Impulse);
+					}
+				}
+			}
+			
 			downwardVelocity = 0.0f;
 			rjBlast_NumSinceGrounded = 0;
 		}
@@ -140,7 +155,7 @@ public class Player_Movement : MonoBehaviour
 		}
 	}
 	
-	void GetMouseInput()
+	private void GetMouseInput()
 	{
 		if (matchXYSensitivity) mouseSensitivity_Y = mouseSensitivity_X;
 		
@@ -152,7 +167,7 @@ public class Player_Movement : MonoBehaviour
 		if (invertVerticalInput) rotation_vertical *= -1;
 	}
 	
-	void LookUpDown()
+	private void LookUpDown()
 	{
 		lookUpDownAngle_Current += rotation_vertical;
 		lookUpDownAngle_Current = Mathf.Clamp(lookUpDownAngle_Current, lookUpDownAngle_Min, lookUpDownAngle_Max);
@@ -219,33 +234,40 @@ public class Player_Movement : MonoBehaviour
 		if (!isGrounded) // If the player is not grounded check if he is going up.
 		{
 			// If the player isn't moving vertically or the player is going up, then set the downwardVelocity to zero.
-			if (rigidbody.velocity.y > 0.0f || Mathf.Approximately(rigidbody.velocity.y, 0.0f)) downwardVelocity = 0.0f;
-			else if (rigidbody.velocity.y < 0.0f) downwardVelocity = Mathf.Abs(rigidbody.velocity.y); // If the player is falling, update the downward velocity to match.
+			if (playerRB.velocity.y > 0.0f || Mathf.Approximately(playerRB.velocity.y, 0.0f)) downwardVelocity = 0.0f;
+			else if (playerRB.velocity.y < 0.0f) downwardVelocity = Mathf.Abs(playerRB.velocity.y); // If the player is falling, update the downward velocity to match.
 		} 
 	}
 	
-	void MoveLateral()
+	private void GroundPound()
 	{
-		//if (rigidbody.velocity.magnitude <= movement_MaxSpeed)
+		// If the player is currently accelerating upward, instantly canncel upward velocity, then apply downward force.
+		if (playerRB.velocity.y > 0.0) playerRB.velocity = new Vector3 (playerRB.velocity.x, 0.0f, playerRB.velocity.z);
+		playerRB.AddRelativeForce(Vector3.down * groundPound_Multiplier, ForceMode.Acceleration);	
+	}	
+	
+	private void MoveLateral()
+	{
+		//if (playerRB.velocity.magnitude <= movement_MaxSpeed)
 		
 		// Check if adding the requested input movement vector to the current player velocity will result in the player moving too fast.
 		// If the resulting velocity is fater than the max move speed, then don't add any new force.
 		
-		//movement_vectorRequestedMegnitude = rigidbody.velocity.magnitude + movement_vector.magnitude;
+		//movement_vectorRequestedMegnitude = playerRB.velocity.magnitude + movement_vector.magnitude;
 		
-		//if (rigidbody.velocity.magnitude + movement_vector.magnitude < movement_MaxSpeed)
+		//if (playerRB.velocity.magnitude + movement_vector.magnitude < movement_MaxSpeed)
 		//{		
 			if (isGrounded) movement_SpeedReduction_Multiplier = 1.0f;
 			else movement_SpeedReduction_Multiplier = movement_SpeedReduction_Air;
 			
-			rigidbody.AddRelativeForce(movement_vector * movement_SpeedReduction_Multiplier, ForceMode.Impulse);
-			//rigidbody.AddRelativeForce (rigidbody.velocity +  movement_vector * movement_SpeedReduction_Multiplier, ForceMode.VelocityChange);
+			playerRB.AddRelativeForce(movement_vector * movement_SpeedReduction_Multiplier, ForceMode.Impulse);
+			//playerRB.AddRelativeForce (playerRB.velocity +  movement_vector * movement_SpeedReduction_Multiplier, ForceMode.VelocityChange);
 		//}
 	}
 	
-	void LookLeftRight()
+	private void LookLeftRight()
 	{
 		Quaternion deltaRotation = Quaternion.Euler(new Vector3(0.0f, rotation_horizontal, 0.0f));
-		rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
+		playerRB.MoveRotation(playerRB.rotation * deltaRotation);
 	}
 }
