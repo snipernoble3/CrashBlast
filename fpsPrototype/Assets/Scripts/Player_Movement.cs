@@ -135,19 +135,6 @@ public class Player_Movement : MonoBehaviour
 	
 	public bool IsGrounded()
 	{
-		/*
-		
-		if (Physics.SphereCast(playerRB.position + (Vector3.up * 0.49f), 0.49f, Vector3.down, out RaycastHit hit, 0.1f, LayerMask.NameToLayer("Player")))
-		{
-			Debug.Log("I'm on the ground");
-			rjBlast_NumSinceGrounded = 0;
-			return true;
-		}
-		Debug.Log("I'm in the sky");
-		return false;
-		
-		*/
-		
 		RaycastHit[] hits = Physics.SphereCastAll(playerRB.position + (Vector3.up * 0.49f), 0.49f, Vector3.down, 0.1f);
 		foreach (RaycastHit groundCheckObject in hits)
 		{

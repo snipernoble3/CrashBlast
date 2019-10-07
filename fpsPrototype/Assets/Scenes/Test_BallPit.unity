@@ -4578,6 +4578,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3820172613042789075, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8317686159804332312, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4637,11 +4642,6 @@ PrefabInstance:
         type: 3}
       propertyPath: enableLandingShake
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: groundPound_Multiplier
-      value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 720276681735447753, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
