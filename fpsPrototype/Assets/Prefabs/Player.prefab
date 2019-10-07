@@ -558,8 +558,9 @@ MonoBehaviour:
   userPreference_EnableLandingShake: 1
   movement_vectorRequestedMegnitude: 0
   jumpForceMultiplier: 400
-  downwardVelocity: 0
-  groundPound_Multiplier: 750
+  EditorONLY_downwardVelocity: 0
+  EditorONLY_isGrounded: 0
+  groundPound_Multiplier: 25
   movement_SpeedMultiplier: 50
   mouseSensitivity_X: 6
   mouseSensitivity_Y: 3

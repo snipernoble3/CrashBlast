@@ -18,8 +18,10 @@ public class Player_Movement : MonoBehaviour
 	// Jumping Variables
 	[SerializeField] private float jumpForceMultiplier =  400.0f;
 	private const float groundCheckDistance = 0.1f;
-	private bool isGrounded = true;
-	private bool wasGroundedLastFrame = true;
+	
+	private float impactVelocity = 0.0f;
+	public float minGroundPoundVelocity = 5.5f;
+	public float groundPound_Multiplier = 25.0f;
 	
 	// Rocket Jumping Variables
 	private int rjBlast_NumSinceGrounded = 0;
@@ -30,9 +32,6 @@ public class Player_Movement : MonoBehaviour
 	private Vector3 rjBlast_Epicenter;
 	[SerializeField] private const float rjBlast_Radius = 5.0f;
 	[SerializeField] private const float rjBlast_UpwardForce = 0.5f;
-	
-	public float downwardVelocity = 0.0f;
-	public float groundPound_Multiplier = 25.0f;
 	
 	[SerializeField] private float movement_SpeedMultiplier = 50.0f;
 	[SerializeField] private const float movement_MaxSpeed = 20.0f;
@@ -65,15 +64,13 @@ public class Player_Movement : MonoBehaviour
     }
 
     void Update()
-    {
+    {		
 		GetMouseInput();
 		LookUpDown();
 		
-		if (isGrounded && Input.GetButtonDown("Jump")) Jump();
-		CheckIfGrounded();
-		
 		if (Input.GetButtonDown("Fire2")) RocketJump();
-		if (!isGrounded && Input.GetButton("Crouch"))GroundPound();
+		if (Input.GetButtonDown("Jump") && IsGrounded()) Jump();
+		if (Input.GetButton("Crouch") &&  !IsGrounded()) AccelerateDown();
 		
 		// Get input for Movement:
 		// Get input from project input manager and build a Vector3 to store the two inputs
@@ -91,13 +88,7 @@ public class Player_Movement : MonoBehaviour
 	{
 		LookLeftRight();
 		MoveLateral();
-		
-		if (!isGrounded) // If the player is not grounded check if he is going up.
-		{
-			// If the player isn't moving vertically or the player is going up, then set the downwardVelocity to zero.
-			if (playerRB.velocity.y > 0.0f || Mathf.Approximately(playerRB.velocity.y, 0.0f)) downwardVelocity = 0.0f;
-			else if (playerRB.velocity.y < 0.0f) downwardVelocity = Mathf.Abs(playerRB.velocity.y); // If the player is falling, update the downward velocity to match.
-		} 
+		GroundPoundCheck();
 	}
 	
 	private void GetMouseInput()
@@ -137,7 +128,7 @@ public class Player_Movement : MonoBehaviour
 		
 		//if (playerRB.velocity.magnitude + movement_vector.magnitude < movement_MaxSpeed)
 		//{		
-			if (isGrounded) movement_SpeedReduction_Multiplier = 1.0f;
+			if (IsGrounded()) movement_SpeedReduction_Multiplier = 1.0f;
 			else movement_SpeedReduction_Multiplier = movement_SpeedReduction_Air;
 			
 			playerRB.AddRelativeForce(movement_vector * movement_SpeedReduction_Multiplier, ForceMode.Impulse);
@@ -145,21 +136,21 @@ public class Player_Movement : MonoBehaviour
 		//}
 	}
 	
-	void CheckIfGrounded()
+	public bool IsGrounded()
 	{
 		if (Physics.SphereCast(playerRB.position + (Vector3.up * 0.5f), 0.49f, Vector3.down, out RaycastHit hit, groundCheckDistance))
 		{
-			isGrounded = true;
-			if (downwardVelocity > 5.5f)
-			{
-				StartCoroutine(UpDownCameraShake(downwardVelocity, 25.0f, 0.5f, 0.1f, 0.25f));
-				BlastForce(rjBlast_Power, playerRB.position, rjBlast_Radius, rjBlast_UpwardForce); // Apply a blast around the landing
-			}
-			
-			downwardVelocity = 0.0f;
 			rjBlast_NumSinceGrounded = 0;
+			return true;
 		}
-		else isGrounded = false;
+		else return false;
+	}
+	
+	public float GetDownwardVelocity()
+	{
+		if (IsGrounded()) return 0.0f; // If the player is grounded , then there is no downward velocity.
+		if (playerRB.velocity.y > 0.0f || Mathf.Approximately(playerRB.velocity.y, 0.0f)) return 0.0f; // If the player isn't moving vertically or the player is going up, then there is no downward velocity.
+		else return Mathf.Abs(playerRB.velocity.y); // If the player is falling, update the downward velocity to match.
 	}
 	
 	void Jump()
@@ -180,7 +171,7 @@ public class Player_Movement : MonoBehaviour
 			
 			BlastForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpwardForce);
 			
-			if (!isGrounded)
+			if (!IsGrounded())
 			{
 				playerRB.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, 0.0f, ForceMode.Impulse);
 				rjBlast_NumSinceGrounded += 1;
@@ -188,11 +179,26 @@ public class Player_Movement : MonoBehaviour
 		}
 	}
 	
-	private void GroundPound()
+	private void AccelerateDown()
 	{
 		// If the player is currently accelerating upward, instantly canncel upward velocity, then apply downward force.
 		if (playerRB.velocity.y > 0.0) playerRB.velocity = new Vector3 (playerRB.velocity.x, 0.0f, playerRB.velocity.z);
-		playerRB.AddRelativeForce(Vector3.down * groundPound_Multiplier, ForceMode.Acceleration);	
+		playerRB.AddRelativeForce(Vector3.down * groundPound_Multiplier, ForceMode.Acceleration);
+	}
+	
+	private void GroundPoundCheck()
+	{
+		if(GetDownwardVelocity() != 0.0f) impactVelocity = GetDownwardVelocity(); // Set the "previous velocity" at this physics step so it can be compared during the next physics step.
+		if (impactVelocity != 0.0f && GetDownwardVelocity() == 0.0f && impactVelocity >= minGroundPoundVelocity)
+		{
+			float gpBlast_Power = 80.0f * impactVelocity;
+			float gpBlast_Radius = 5.0f;
+			float gpBlast_UpwardForce = 0.5f;
+			
+			StartCoroutine(UpDownCameraShake(impactVelocity * 0.1f, 25.0f, 0.5f, 0.1f, 0.25f));
+			BlastForce(gpBlast_Power, playerRB.position, gpBlast_Radius, gpBlast_UpwardForce); // Apply a blast around the landing
+			impactVelocity = 0.0f;
+		}
 	}
 	
 	private void BlastForce(float blast_Power, Vector3 blast_Epicenter, float blast_Radius, float blast_UpwardForce)
