@@ -31,7 +31,7 @@ public class Player_Movement : MonoBehaviour
 	[SerializeField] private const float rjBlast_Range = 3.0f;
 	[SerializeField] private const float rjBlast_Radius = 5.0f;
 	[SerializeField] private const float rjBlast_Power = 550.0f;
-	[SerializeField] private const float rjBlast_UpPower = 0.5f;
+	[SerializeField] private const float rjBlast_UpwardForce = 0.5f;
 	
 	public float downwardVelocity = 0.0f;
 	public float groundPound_Multiplier = 750.0f;
@@ -95,7 +95,7 @@ public class Player_Movement : MonoBehaviour
 		playerRB.AddRelativeForce(Vector3.up * jumpForceMultiplier, ForceMode.Impulse);
 	}
 	
-	void RocketJump()
+	private void RocketJump()
 	{
 		if (rjBlast_NumSinceGrounded < rjBlast_NumLimit)
 		{
@@ -106,20 +106,25 @@ public class Player_Movement : MonoBehaviour
 			}
 			else rjBlast_Epicenter = firstPersonCam.transform.position + (firstPersonCam.transform.forward * rjBlast_Range);
 			
+			BlastForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpwardForce);
 			
-			Collider[] colliders = Physics.OverlapSphere(rjBlast_Epicenter, rjBlast_Radius);
-			foreach (Collider objectToBlast in colliders)
+			if (!isGrounded)
 			{
-				Rigidbody rb = objectToBlast.GetComponent<Rigidbody>();
-				if (rb != null) // If the object has a rigidbody component
-				{
-					// If this is the player, check if the player is grounded, if so, don't add the rocket jump force to the player.
-					if (rb == playerRB && isGrounded) continue;
-					rb.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpPower, ForceMode.Impulse);
-				}
+				playerRB.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, 0.0f, ForceMode.Impulse);
+				rjBlast_NumSinceGrounded += 1;
 			}
-			
-			if (!isGrounded) rjBlast_NumSinceGrounded += 1;
+		}
+	}
+	
+	private void BlastForce(float blast_Power, Vector3 blast_Epicenter, float blast_Radius, float blast_UpwardForce)
+	{
+		// Check all objects within the blast radius.
+		Collider[] colliders = Physics.OverlapSphere(blast_Epicenter, blast_Radius);
+		foreach (Collider objectToBlast in colliders)
+		{
+			Rigidbody rb = objectToBlast.GetComponent<Rigidbody>();
+			// If the object has a rigidbody component and it is not the player, add the blast force!
+			if (rb != null && rb != playerRB) rb.AddExplosionForce(blast_Power, blast_Epicenter, blast_Radius, blast_UpwardForce, ForceMode.Impulse);
 		}
 	}
 	
@@ -131,28 +136,13 @@ public class Player_Movement : MonoBehaviour
 			if (downwardVelocity > 5.5f)
 			{
 				StartCoroutine(UpDownCameraShake(downwardVelocity, 25.0f, 0.5f, 0.1f, 0.25f));
-				
-				// Apply a blast around the landing
-				Collider[] colliders = Physics.OverlapSphere(playerRB.position, rjBlast_Radius);
-				foreach (Collider objectToBlast in colliders)
-				{
-					Rigidbody rb = objectToBlast.GetComponent<Rigidbody>();
-					if (rb != null) // If the object has a rigidbody component
-					{
-						// If this is the player, check if the player is grounded, if so, don't add the rocket jump force to the player.
-						if (rb != playerRB) 
-						rb.AddExplosionForce(rjBlast_Power, playerRB.position, rjBlast_Radius, rjBlast_UpPower, ForceMode.Impulse);
-					}
-				}
+				BlastForce(rjBlast_Power, playerRB.position, rjBlast_Radius, rjBlast_UpwardForce); // Apply a blast around the landing
 			}
 			
 			downwardVelocity = 0.0f;
 			rjBlast_NumSinceGrounded = 0;
 		}
-		else
-		{
-			isGrounded = false;
-		}
+		else isGrounded = false;
 	}
 	
 	private void GetMouseInput()
