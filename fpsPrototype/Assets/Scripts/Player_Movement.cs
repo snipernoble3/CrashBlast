@@ -195,7 +195,7 @@ public class Player_Movement : MonoBehaviour
 			float gpBlast_Radius = 5.0f;
 			float gpBlast_UpwardForce = 0.5f;
 			
-			StartCoroutine(UpDownCameraShake(impactVelocity * 0.1f, 25.0f, 0.5f, 0.1f, 0.25f));
+			StartCoroutine(CameraShake(impactVelocity * 0.1f, 25.0f, 0.5f, 0.1f, 0.25f));
 			BlastForce(gpBlast_Power, playerRB.position, gpBlast_Radius, gpBlast_UpwardForce); // Apply a blast around the landing
 			impactVelocity = 0.0f;
 		}
@@ -213,7 +213,7 @@ public class Player_Movement : MonoBehaviour
 		}
 	}
 	
-	public IEnumerator UpDownCameraShake(float shake_amplitude, float shake_frequency, float shake_Duration, float fade_Duration_In, float fade_Duration_Out)
+	public IEnumerator CameraShake(float shake_amplitude, float shake_frequency, float shake_Duration, float fade_Duration_In, float fade_Duration_Out)
 	{
 		if (userPreference_EnableLandingShake) // If the player has chosen to disable camera shake, then do nothing.
 		{
@@ -251,6 +251,7 @@ public class Player_Movement : MonoBehaviour
 					
 					// Shake the camera
 					camOffset.transform.localRotation = Quaternion.AngleAxis(shake_UpDownAngle, Vector3.right);	
+					camOffset.transform.localRotation = Quaternion.AngleAxis(shake_UpDownAngle * 0.5f, Vector3.forward);	
 					
 					shake_timeElapsed += Time.deltaTime;
 
@@ -258,7 +259,7 @@ public class Player_Movement : MonoBehaviour
 				}
 				
 				// Ensure that the camera is back to zero when the shake is done.
-				camOffset.transform.localRotation = Quaternion.AngleAxis(0.0f, Vector3.right);
+				camOffset.transform.localRotation = Quaternion.identity;
 			}
 			else Debug.Log("Fade duration ("+ (fade_Duration_In + fade_Duration_Out) +" seconds) can not be longer than the shake duration (" + shake_Duration + " seconds). The camera shake was not performed.");
 		}
