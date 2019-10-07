@@ -17,7 +17,6 @@ public class Player_Movement : MonoBehaviour
 	
 	// Jumping Variables
 	[SerializeField] private float jumpForceMultiplier =  400.0f;
-	private const float groundCheckDistance = 0.1f;
 	
 	private float impactVelocity = 0.0f;
 	public float minGroundPoundVelocity = 5.5f;
@@ -65,33 +64,33 @@ public class Player_Movement : MonoBehaviour
 
     void Update()
     {		
-		GetMouseInput();
+		GetInput_LateralMovement();
+		GetInput_Mouse();
 		LookUpDown();
 		
 		if (Input.GetButtonDown("Fire2")) RocketJump();
 		if (Input.GetButtonDown("Jump") && IsGrounded()) Jump();
 		if (Input.GetButton("Crouch") &&  !IsGrounded()) AccelerateDown();
-		
-		// Get input for Movement:
-		// Get input from project input manager and build a Vector3 to store the two inputs
-		movement_vector = new Vector3 (Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-		// Limit the magnitude of the vector so that horizontal and vertical movement doesn't stack to excede the indended maximum move speed
-		movement_vector = Vector3.ClampMagnitude(movement_vector, 1.0f);
-		// Multiply with delta time to ensure consistency between computers and framerates.
-		//movement_vector *= Time.deltaTime;
-		//movement_vector *= Time.fixedDeltaTime; // Movement is physics based, so fixedDeltaTime is used instead of regular deltaTime
-		// Multiply the movement vector with the speed multiplider
-		movement_vector *= movement_SpeedMultiplier;
     }
 	
 	void FixedUpdate()
 	{
-		LookLeftRight();
 		MoveLateral();
+		LookLeftRight();
 		GroundPoundCheck();
 	}
 	
-	private void GetMouseInput()
+	private void GetInput_LateralMovement()
+	{
+		// Get input for Movement from project input manager and build a Vector3 to store the two inputs
+		movement_vector = new Vector3 (Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+		// Limit the magnitude of the vector so that horizontal and vertical movement doesn't stack to excede the indended maximum move speed
+		movement_vector = Vector3.ClampMagnitude(movement_vector, 1.0f);
+		// Multiply the movement vector with the speed multiplider
+		movement_vector *= movement_SpeedMultiplier;
+	}
+	
+	private void GetInput_Mouse()
 	{
 		if (matchXYSensitivity) mouseSensitivity_Y = mouseSensitivity_X;
 		
@@ -127,23 +126,41 @@ public class Player_Movement : MonoBehaviour
 		//movement_vectorRequestedMegnitude = playerRB.velocity.magnitude + movement_vector.magnitude;
 		
 		//if (playerRB.velocity.magnitude + movement_vector.magnitude < movement_MaxSpeed)
-		//{		
-			if (IsGrounded()) movement_SpeedReduction_Multiplier = 1.0f;
-			else movement_SpeedReduction_Multiplier = movement_SpeedReduction_Air;
-			
+		if (true)
+		{		
 			playerRB.AddRelativeForce(movement_vector * movement_SpeedReduction_Multiplier, ForceMode.Impulse);
 			//playerRB.AddRelativeForce (playerRB.velocity +  movement_vector * movement_SpeedReduction_Multiplier, ForceMode.VelocityChange);
-		//}
+		}
 	}
 	
 	public bool IsGrounded()
 	{
-		if (Physics.SphereCast(playerRB.position + (Vector3.up * 0.5f), 0.49f, Vector3.down, out RaycastHit hit, groundCheckDistance))
+		/*
+		
+		if (Physics.SphereCast(playerRB.position + (Vector3.up * 0.49f), 0.49f, Vector3.down, out RaycastHit hit, 0.1f, LayerMask.NameToLayer("Player")))
 		{
+			Debug.Log("I'm on the ground");
 			rjBlast_NumSinceGrounded = 0;
 			return true;
 		}
-		else return false;
+		Debug.Log("I'm in the sky");
+		return false;
+		
+		*/
+		
+		RaycastHit[] hits = Physics.SphereCastAll(playerRB.position + (Vector3.up * 0.49f), 0.49f, Vector3.down, 0.1f);
+		foreach (RaycastHit groundCheckObject in hits)
+		{
+			if (groundCheckObject.rigidbody == playerRB) continue;
+			if (groundCheckObject.collider != null)
+			{
+				movement_SpeedReduction_Multiplier = 1.0f;
+				rjBlast_NumSinceGrounded = 0;
+				return true;
+			}
+		}
+		movement_SpeedReduction_Multiplier = movement_SpeedReduction_Air;
+		return false;
 	}
 	
 	public float GetDownwardVelocity()
@@ -162,11 +179,7 @@ public class Player_Movement : MonoBehaviour
 	{
 		if (rjBlast_NumSinceGrounded < rjBlast_NumLimit)
 		{
-			RaycastHit hit;
-			if(Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out hit, rjBlast_Range))
-			{
-				rjBlast_Epicenter = hit.point;
-			}
+			if(Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out RaycastHit hit, rjBlast_Range, LayerMask.NameToLayer("Player"))) rjBlast_Epicenter = hit.point;
 			else rjBlast_Epicenter = firstPersonCam.transform.position + (firstPersonCam.transform.forward * rjBlast_Range);
 			
 			BlastForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpwardForce);

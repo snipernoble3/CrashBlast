@@ -488,6 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8317686159804332312}
   - component: {fileID: 6565884064336772407}
+  - component: {fileID: 8972201421833165979}
   - component: {fileID: 7472760309642854078}
   - component: {fileID: 3820172613042789074}
   m_Layer: 0
@@ -524,9 +525,22 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1.95
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.02, z: 0}
+--- !u!135 &8972201421833165979
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820172613042789075}
+  m_Material: {fileID: 13400000, guid: 90ebed31a432d6941a8f967028c646eb, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.49
+  m_Center: {x: 0, y: 0.49, z: 0}
 --- !u!54 &7472760309642854078
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -558,8 +572,7 @@ MonoBehaviour:
   userPreference_EnableLandingShake: 1
   movement_vectorRequestedMegnitude: 0
   jumpForceMultiplier: 400
-  EditorONLY_downwardVelocity: 0
-  EditorONLY_isGrounded: 0
+  minGroundPoundVelocity: 5.5
   groundPound_Multiplier: 25
   movement_SpeedMultiplier: 50
   mouseSensitivity_X: 6
