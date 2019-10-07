@@ -20,17 +20,18 @@ public class Player_Movement : MonoBehaviour
 	
 	// Jumping Variables
 	[SerializeField] private float jumpForceMultiplier =  400.0f;
-	private const float groundCheckDistance = 0.15f;
+	private const float groundCheckDistance = 0.1f;
 	private bool isGrounded = true;
 	private bool wasGroundedLastFrame = true;
 	
 	// Rocket Jumping Variables
 	private int rjBlast_NumSinceGrounded = 0;
 	[SerializeField] private const int rjBlast_NumLimit = 2;
-	private Vector3 rjBlast_Epicenter;
+	
 	[SerializeField] private const float rjBlast_Range = 3.0f;
-	[SerializeField] private const float rjBlast_Radius = 5.0f;
 	[SerializeField] private const float rjBlast_Power = 550.0f;
+	private Vector3 rjBlast_Epicenter;
+	[SerializeField] private const float rjBlast_Radius = 5.0f;
 	[SerializeField] private const float rjBlast_UpwardForce = 0.5f;
 	
 	public float downwardVelocity = 0.0f;
@@ -130,7 +131,7 @@ public class Player_Movement : MonoBehaviour
 	
 	void CheckIfGrounded()
 	{
-		if (Physics.SphereCast(transform.position + Vector3.up, 0.95f, Vector3.down, out RaycastHit hit, groundCheckDistance))
+		if (Physics.SphereCast(playerRB.position + (Vector3.up * 0.5f), 0.49f, Vector3.down, out RaycastHit hit, groundCheckDistance))
 		{
 			isGrounded = true;
 			if (downwardVelocity > 5.5f)
