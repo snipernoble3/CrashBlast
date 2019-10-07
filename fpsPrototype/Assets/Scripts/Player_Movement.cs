@@ -191,11 +191,16 @@ public class Player_Movement : MonoBehaviour
 		if(GetDownwardVelocity() != 0.0f) impactVelocity = GetDownwardVelocity(); // Set the "previous velocity" at this physics step so it can be compared during the next physics step.
 		if (impactVelocity != 0.0f && GetDownwardVelocity() == 0.0f && impactVelocity >= minGroundPoundVelocity)
 		{
-			float gpBlast_Power = 80.0f * impactVelocity;
-			float gpBlast_Radius = 5.0f;
+			float gpBlast_Power = 65.0f * impactVelocity;
+			float gpBlast_Radius = impactVelocity * 0.3f; // 5.0f;
 			float gpBlast_UpwardForce = 0.5f;
 			
-			StartCoroutine(CameraShake(impactVelocity * 0.1f, 25.0f, 0.5f, 0.1f, 0.25f));
+			float camShake_Amplitude = Mathf.Clamp(Mathf.Pow(impactVelocity * 0.04f, 3.0f), 0.5f, 20.0f);
+			float camShake_Frequency = Mathf.Clamp(impactVelocity * 2.0f, 15.0f, 25.0f);
+			float camShake_Duration = Mathf.Clamp((impactVelocity * 0.02f), 0.0f, 0.7f);
+			
+			StartCoroutine(CameraShake(camShake_Amplitude, camShake_Frequency, camShake_Duration, camShake_Duration * 0.2f, camShake_Duration * 0.5f));
+			
 			BlastForce(gpBlast_Power, playerRB.position, gpBlast_Radius, gpBlast_UpwardForce); // Apply a blast around the landing
 			impactVelocity = 0.0f;
 		}
@@ -229,11 +234,13 @@ public class Player_Movement : MonoBehaviour
 				bool fade_isFadingOut = false;
 				
 				float shake_timeElapsed = 0.0f;
-				float shake_UpDownAngle = 0.0f;
+				float shake_Angle_Pitch = 0.0f;
+				float shake_Angle_Roll = 0.0f;
 				
 				while (shake_timeElapsed < shake_Duration)
 				{
-					shake_UpDownAngle = Mathf.Sin(Time.time * shake_frequency) * shake_amplitude * fade_Multiplier;
+					shake_Angle_Pitch = Mathf.Sin(Time.time * shake_frequency) * shake_amplitude * fade_Multiplier;
+					shake_Angle_Roll = Mathf.Cos(Time.time * shake_frequency) * shake_amplitude * fade_Multiplier * 0.5f;
 					
 					// Increase or decrease the fade multiplier
 					if (fade_isFadingIn || fade_isFadingOut)
@@ -249,9 +256,8 @@ public class Player_Movement : MonoBehaviour
 						fade_isFadingOut = true;
 					}
 					
-					// Shake the camera
-					camOffset.transform.localRotation = Quaternion.AngleAxis(shake_UpDownAngle, Vector3.right);	
-					camOffset.transform.localRotation = Quaternion.AngleAxis(shake_UpDownAngle * 0.5f, Vector3.forward);	
+					// Apply the shake to the camera
+					camOffset.transform.localEulerAngles = new Vector3(shake_Angle_Pitch, 0.0f, shake_Angle_Roll);	
 					
 					shake_timeElapsed += Time.deltaTime;
 
