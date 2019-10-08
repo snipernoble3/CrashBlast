@@ -123,7 +123,7 @@ public class Shooting : MonoBehaviour
 
         GetComponent<LineRenderer>().enabled = true;
         GetComponent<LineRenderer>().SetPositions(linePositions);
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.01f);
         GetComponent<LineRenderer>().enabled = false;
     }
 

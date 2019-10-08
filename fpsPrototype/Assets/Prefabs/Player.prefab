@@ -551,16 +551,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3199913974320617411}
     m_Modifications:
-    - target: {fileID: 2415667529888018427, guid: b83a6ae3c5e428146aae50f98711a621,
-        type: 3}
-      propertyPath: m_Name
-      value: Gun_Rifle
-      objectReference: {fileID: 0}
-    - target: {fileID: 2415667529888018427, guid: b83a6ae3c5e428146aae50f98711a621,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 1719659315213458920, guid: b83a6ae3c5e428146aae50f98711a621,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -616,6 +606,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2415667529888018427, guid: b83a6ae3c5e428146aae50f98711a621,
+        type: 3}
+      propertyPath: m_Name
+      value: Gun_Rifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415667529888018427, guid: b83a6ae3c5e428146aae50f98711a621,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4159913034602093351, guid: b83a6ae3c5e428146aae50f98711a621,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -636,6 +636,11 @@ PrefabInstance:
       propertyPath: endOfGun
       value: 
       objectReference: {fileID: 7436703698384501305}
+    - target: {fileID: 1149464538454472561, guid: b83a6ae3c5e428146aae50f98711a621,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ec739259ec61f5d4ba3ed6d34fd802a6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b83a6ae3c5e428146aae50f98711a621, type: 3}
 --- !u!4 &2415801587291085901 stripped
