@@ -12,6 +12,7 @@ public class Player_Movement : MonoBehaviour
 	private GameObject camOffset;
 	private GameObject firstPersonCam;
 	private Rigidbody playerRB;
+	public Animator firstPersonArms_Animator;
 		
 	private Vector3 movement_vector;
 	public float movement_vectorRequestedMegnitude;
@@ -68,6 +69,10 @@ public class Player_Movement : MonoBehaviour
 		GetInput_LateralMovement();
 		GetInput_Mouse();
 		LookUpDown();
+		
+		if (Input.GetButton("Fire1")) firstPersonArms_Animator.SetBool("fire", true);
+		else firstPersonArms_Animator.SetBool("fire", false);
+		
 		
 		if (Input.GetButtonDown("Fire2")) RocketJump();
 		if (Input.GetButtonDown("Jump") && IsGrounded()) Jump();
@@ -171,6 +176,7 @@ public class Player_Movement : MonoBehaviour
 			else rjBlast_Epicenter = firstPersonCam.transform.position + (firstPersonCam.transform.forward * rjBlast_Range);
 			
 			BlastForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpwardForce);
+			firstPersonArms_Animator.Play("FirstPersonArms_Blast", 1, 0.25f);
 			
 			if (!IsGrounded())
 			{

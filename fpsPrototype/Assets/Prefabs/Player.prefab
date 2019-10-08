@@ -1114,6 +1114,7 @@ MonoBehaviour:
   userPreference_EnableLandingShake: 1
   groundPoundParticles: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
     type: 3}
+  firstPersonArms_Animator: {fileID: 4392674234314282691}
   movement_vectorRequestedMegnitude: 0
   jumpForceMultiplier: 400
   minGroundPoundVelocity: 5.5
