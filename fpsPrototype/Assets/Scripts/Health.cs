@@ -30,6 +30,12 @@ public class Health : MonoBehaviour {
         }
     }
 
+    public void Kill () {
+        currHealth = 0;
+        alive = false;
+        OnDeath();
+    }
+
     private void OnDeath () {
         this.gameObject.SetActive(false);
     }
