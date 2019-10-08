@@ -20,7 +20,7 @@ public class Player_Movement : MonoBehaviour
 	[SerializeField] private float jumpForceMultiplier =  400.0f;
 	
 	private float impactVelocity = 0.0f;
-	public float minGroundPoundVelocity = 5.5f;
+	public float minGroundPoundVelocity = 8.0f;
 	public float groundPound_Multiplier = 25.0f;
 	
 	// Rocket Jumping Variables
