@@ -7,6 +7,6 @@ public class RestartLevel : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J)) SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex );
+        if (Input.GetButtonDown("Restart")) SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex );
     }
 }
