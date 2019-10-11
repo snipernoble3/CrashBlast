@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player_Movement : MonoBehaviour
 {
@@ -15,14 +16,13 @@ public class Player_Movement : MonoBehaviour
 	private GameObject firstPersonCam;
 	private Rigidbody playerRB;
 	public Animator firstPersonArms_Animator;
+	public TextMeshProUGUI hud_Velocity;
 		
 	private Vector3 movement_vector;
 	public float movement_vectorRequestedMegnitude;
 	
 	// Jumping Variables
 	[SerializeField] private float jumpForceMultiplier =  400.0f;
-	
-	
 	
 	private const float rjBlast_Range = 3.0f;
 	private const float rjBlast_Power = 550.0f;
@@ -61,7 +61,7 @@ public class Player_Movement : MonoBehaviour
     
     void Awake()
     {
-		// Hide the cursor
+		// Hide the mouse cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 		
@@ -74,6 +74,7 @@ public class Player_Movement : MonoBehaviour
     void Update()
     {		
 		cameraAngle = firstPersonCam.transform.eulerAngles.x;
+		hud_Velocity.text = "Velocity: " + playerRB.velocity.magnitude.ToString("F2");
 		
 		GetInput_LateralMovement();
 		GetInput_Mouse();
