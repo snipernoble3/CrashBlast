@@ -68,6 +68,9 @@ public class Player_Movement : MonoBehaviour
 		
 		Vector3 resultMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z);
 		if (hud_Velocity != null) hud_Velocity.text = "Lateral Velocity: " + resultMoveVector.magnitude.ToString("F2");		
+		if (hud_Velocity != null) hud_Velocity.text = "Vertical Velocity: " + playerRB.velocity.y.ToString("F2");	
+
+		TerminalVelocity();
 	}
 	
 	private void GetInput_LateralMovement()
@@ -148,14 +151,6 @@ public class Player_Movement : MonoBehaviour
 	{
 		float frictionMultiplier = 15.0f;
 		Vector3 frictionForceToAdd = new Vector3(-playerRB.velocity.x, 0.0f, -playerRB.velocity.z); // Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
-		//Vector3 frictionForceToAdd = -(playerRB.velocity + Physics.gravity); // Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
-		//frictionForceToAdd -= Physics.gravity * Time.fixedDeltaTime;
-		
-		// Calculate what the lateral velocity will be if we add the requested force BEFORE adding the force in order to see if it should be applied at all.
-		//Vector3 testMoveVector = currentMoveVector + requestedMoveVector / playerRB.mass; // * Time.fixedDeltaTime; // This would be added if we were using the Force ForceMode, but it's an Impulse 
-		
-		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
-		//if (testMoveVector.magnitude > moveSpeedMax) forceToAdd = requestedMoveVector.normalized * Mathf.Clamp(moveSpeedMax - currentMoveVector.magnitude, 0.0f, moveSpeedMax);
 		
 		frictionForceToAdd *= frictionMultiplier;
 		
@@ -215,5 +210,22 @@ public class Player_Movement : MonoBehaviour
 	public void Jump()
 	{
 		playerRB.AddRelativeForce(Vector3.up * jumpForceMultiplier, ForceMode.Impulse);
+	}
+	
+	private void TerminalVelocity()
+	{
+		float fallCancelForce;
+		float currentDownwardSpeed = 0.0f;
+		float maxDownwardSpeed = 75.0f;
+		
+		if (playerRB.velocity.y < 0.0f) currentDownwardSpeed = -playerRB.velocity.y;
+		else currentDownwardSpeed = 0.0f;
+		
+		if (currentDownwardSpeed > maxDownwardSpeed)
+		{
+			fallCancelForce = (currentDownwardSpeed - maxDownwardSpeed) * playerRB.mass;
+			
+			playerRB.AddForce(new Vector3(0.0f, fallCancelForce, 0.0f), ForceMode.Impulse);
+		}
 	}
 }
