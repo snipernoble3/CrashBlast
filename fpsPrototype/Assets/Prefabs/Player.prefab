@@ -1079,7 +1079,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3820172613042789075}
-  m_Material: {fileID: 13400000, guid: 90ebed31a432d6941a8f967028c646eb, type: 2}
+  m_Material: {fileID: 13400000, guid: 8d2aeff56e01dbe4685ecf8c7a5a6cb4, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1115,7 +1115,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstPersonArms_Animator: {fileID: 4392674234314282691}
   hud_Velocity: {fileID: 0}
-  moveSpeedMultiplier: 500
   jumpForceMultiplier: 400
   mouseSensitivity_X: 6
   mouseSensitivity_Y: 3
@@ -1134,20 +1133,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba22ae11eb8953448a803586a16b5101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userPreference_EnableLandingShake: 1
-  userPreference_autoAddJumpForceToGroundedRocketJump: 1
+  enableCameraShake_gpLanding: 1
+  autoJumpBeforeGroundedRocketJump: 1
   groundPoundParticles: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
     type: 3}
   firstPersonArms_Animator: {fileID: 4392674234314282691}
   rjBlast_NumSinceGrounded: 0
   minGroundPoundVelocity: 8
   groundPound_Multiplier: 25
-  moveSpeedMultiplier: 500
-  mouseSensitivity_X: 6
-  mouseSensitivity_Y: 3
-  matchXYSensitivity: 0
-  useRawMouseInput: 1
-  invertVerticalInput: 0
 --- !u!114 &8121039475321901628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2417,6 +2410,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4273632371279547043, guid: a06c3090ac5afc84e9109dfdf322da99,
+        type: 3}
+      propertyPath: firstPersonArms_Animator
+      value: 
+      objectReference: {fileID: 4392674234314282691}
     - target: {fileID: 4273632371279547043, guid: a06c3090ac5afc84e9109dfdf322da99,
         type: 3}
       propertyPath: firingPosition

@@ -16,7 +16,7 @@ public class Shooting : MonoBehaviour
     private float timeToReduce = 0f;
 
     private bool reloading;
-
+	public Animator firstPersonArms_Animator;
     public GameObject firingPosition;
     public GameObject target;
     public GameObject endOfGun;
@@ -50,7 +50,8 @@ public class Shooting : MonoBehaviour
         }
 
         if (Input.GetKey(KeyCode.R) && !reloading && currAmmo != maxAmmo) {
-            StartCoroutine(Reload());
+            firstPersonArms_Animator.Play("FirstPersonArms_Reload", 0, 0.0f); // Play the reload animation.
+			StartCoroutine(Reload());
         }
         
 

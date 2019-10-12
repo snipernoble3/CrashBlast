@@ -13,12 +13,11 @@ public class Player_Movement : MonoBehaviour
 	public TextMeshProUGUI hud_Velocity;
 	
 	// Movement Variables
-	private bool isGrounded = true;
+	private bool isGrounded = false; // Initialize as false, since player may spawn in mid-air
 	
 	private float moveSpeedReduction = 1.0f; // Set to 1.0f so there is no reduction while grounded.
 	private const float moveSpeedReduction_Air = 0.5f;
 	private const float moveSpeedReduction_Water = 0.75f;
-	
 	[SerializeField] private float jumpForceMultiplier =  400.0f;
 	
 	// Mouse Input
