@@ -23,7 +23,7 @@ public class Player_BlastMechanics : MonoBehaviour
 	
 	// Rocket Jumping Variables
 	public int rjBlast_NumSinceGrounded = 0;
-	[SerializeField] private const int rjBlast_NumLimit = 2;
+	[SerializeField] private const int rjBlast_NumLimit = 100; // set this back to 2 after testing
 	
 	private const float rjBlast_Range = 3.0f;
 	private const float rjBlast_Power = 550.0f;

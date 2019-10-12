@@ -90,18 +90,33 @@ public class Player_Movement : MonoBehaviour
 		// Multiply the movement vector with the speed multiplider
 		Vector3 requestedMoveVector = inputMovementVector * moveSpeedMultiplier * moveSpeedReduction;
 		
-		
 		float moveSpeedMax = 12.0f; // The player is only alowed to go past this lateral movment speed via outside forces like rocket jumping.
+		moveSpeedMax *= inputMovementVector.magnitude; // Needed so that analogue input doesn't ramp up over time
+		
+		
 		Vector3 forceToAdd = requestedMoveVector;
 		Vector3 currentMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z); // Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
+		currentMoveVector = transform.InverseTransformDirection(currentMoveVector); // Convert from world space to Local Space since we are adding the force in local space.
 		
 		// Calculate what the lateral velocity will be if we add the requested force BEFORE adding the force in order to see if it should be applied at all.
 		Vector3 testMoveVector = currentMoveVector + requestedMoveVector / playerRB.mass; // * Time.fixedDeltaTime; // This would be added if we were using the Force ForceMode, but it's an Impulse 
 		
 		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
-		if (testMoveVector.magnitude > moveSpeedMax) forceToAdd = requestedMoveVector.normalized * Mathf.Clamp(moveSpeedMax - currentMoveVector.magnitude, 0.0f, moveSpeedMax);
+		if (testMoveVector.magnitude > moveSpeedMax)
+		{
+			forceToAdd = requestedMoveVector.normalized * Mathf.Clamp(moveSpeedMax - currentMoveVector.magnitude, 0.0f, moveSpeedMax);
+		}
+		
+		// Check if the requested movement is in the same direction
+		
+		
+		
+		//if (currentMoveVector.normalized != requestedMoveVector.normalized)
+		//forceToAdd -= currentMoveVector;
 	
-		playerRB.AddRelativeForce(forceToAdd, ForceMode.Impulse); // Apply the calculated force
+		//playerRB.AddForce(-currentMoveVector, ForceMode.Impulse); // Apply the calculated force
+	
+		playerRB.AddRelativeForce(forceToAdd, ForceMode.Impulse); // Apply the calculated force	
 	}		
 		/* Important code snippets from quake style movement script
 		*************************************
@@ -135,10 +150,10 @@ public class Player_Movement : MonoBehaviour
 	
 	private void SimulateFriction()
 	{
-		Debug.Log("Slowing Down");
-		
 		float frictionMultiplier = 15.0f;
 		Vector3 frictionForceToAdd = new Vector3(-playerRB.velocity.x, 0.0f, -playerRB.velocity.z); // Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
+		//Vector3 frictionForceToAdd = -(playerRB.velocity + Physics.gravity); // Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
+		//frictionForceToAdd -= Physics.gravity * Time.fixedDeltaTime;
 		
 		// Calculate what the lateral velocity will be if we add the requested force BEFORE adding the force in order to see if it should be applied at all.
 		//Vector3 testMoveVector = currentMoveVector + requestedMoveVector / playerRB.mass; // * Time.fixedDeltaTime; // This would be added if we were using the Force ForceMode, but it's an Impulse 
@@ -149,7 +164,6 @@ public class Player_Movement : MonoBehaviour
 		frictionForceToAdd *= frictionMultiplier;
 		
 		playerRB.AddForce(frictionForceToAdd, ForceMode.Impulse);
-		//playerRB.AddForce(frictionForceToAdd, ForceMode.Force);
 	}
 		
 	private void GetInput_Mouse()
@@ -188,6 +202,9 @@ public class Player_Movement : MonoBehaviour
 			{
 				moveSpeedReduction = 1.0f;
 				blastMechanics.rjBlast_NumSinceGrounded = 0;
+				
+				// Cancel out the vertical movement
+				playerRB.AddForce(new Vector3(0.0f, -playerRB.velocity.y, 0.0f), ForceMode.Impulse);
 				return true;
 			}
 		}
