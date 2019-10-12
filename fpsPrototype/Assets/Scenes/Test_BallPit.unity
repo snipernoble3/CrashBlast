@@ -2778,6 +2778,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 530448404}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &533804725 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4392674234314282691, guid: f1f02688bb546cc46bc69d7d28d1c555,
+    type: 3}
+  m_PrefabInstance: {fileID: 4392674233212273464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &600169891
 GameObject:
   m_ObjectHideFlags: 0
@@ -11089,6 +11095,17 @@ PrefabInstance:
       propertyPath: hud_Velocity
       value: 
       objectReference: {fileID: 1260911379}
+    - target: {fileID: 6531711672340719521, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: groundPoundParticles
+      value: 
+      objectReference: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
+        type: 3}
+    - target: {fileID: 6531711672340719521, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: firstPersonArms_Animator
+      value: 
+      objectReference: {fileID: 533804725}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
 --- !u!1001 &7834512189983992170

@@ -1033,6 +1033,7 @@ GameObject:
   - component: {fileID: 8972201421833165979}
   - component: {fileID: 7472760309642854078}
   - component: {fileID: 3820172613042789074}
+  - component: {fileID: 6531711672340719521}
   - component: {fileID: 8121039475321901628}
   m_Layer: 10
   m_Name: Player
@@ -1117,12 +1118,39 @@ MonoBehaviour:
   groundPoundParticles: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
     type: 3}
   firstPersonArms_Animator: {fileID: 4392674234314282691}
-  movement_vectorRequestedMegnitude: 0
+  hud_Velocity: {fileID: 0}
   jumpForceMultiplier: 400
   cameraAngle: 0
   minGroundPoundVelocity: 5.5
   groundPound_Multiplier: 25
-  movement_SpeedMultiplier: 50
+  moveSpeedMultiplier: 500
+  mouseSensitivity_X: 6
+  mouseSensitivity_Y: 3
+  matchXYSensitivity: 0
+  useRawMouseInput: 1
+  invertVerticalInput: 0
+--- !u!114 &6531711672340719521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820172613042789075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba22ae11eb8953448a803586a16b5101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userPreference_EnableLandingShake: 1
+  userPreference_autoAddJumpForceToGroundedRocketJump: 1
+  groundPoundParticles: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
+    type: 3}
+  firstPersonArms_Animator: {fileID: 4392674234314282691}
+  hud_Velocity: {fileID: 0}
+  rjBlast_NumSinceGrounded: 0
+  minGroundPoundVelocity: 8
+  groundPound_Multiplier: 25
+  moveSpeedMultiplier: 500
   mouseSensitivity_X: 6
   mouseSensitivity_Y: 3
   matchXYSensitivity: 0
