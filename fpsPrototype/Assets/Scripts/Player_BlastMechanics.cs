@@ -35,26 +35,6 @@ public class Player_BlastMechanics : MonoBehaviour
 	private float impactVelocity = 0.0f;
 	public float minGroundPoundVelocity = 8.0f;
 	public float groundPound_Multiplier = 25.0f;
-	
-	[SerializeField] private float moveSpeedMultiplier = 500.0f;
-	private float moveSpeedReduction = 1.0f;
-	[SerializeField] private const float moveSpeedReduction_Air = 0.5f;
-	[SerializeField] private const float moveSpeedReduction_Water = 0.75f;
-	
-	// Mouse Input
-	[SerializeField] private float mouseSensitivity_X = 6.0f;
-	[SerializeField] private float mouseSensitivity_Y = 3.0f;
-	[SerializeField] private bool matchXYSensitivity = false;
-	[SerializeField] private bool useRawMouseInput = true;
-	[SerializeField] private bool invertVerticalInput = false;
-	[SerializeField] private const float lookUpDownAngle_Max = 90.0f;
-	[SerializeField] private const float lookUpDownAngle_Min = -90.0f;
-	private float lookUpDownAngle_Current = 0.0f;
-	private float rotation_vertical = 0.0f;
-	private float rotation_horizontal = 0.0f;
-	
-	// Lateral Movement
-	private Vector3 inputMovementVector;
     
     void Awake()
     {		
@@ -74,23 +54,6 @@ public class Player_BlastMechanics : MonoBehaviour
 	void FixedUpdate()
 	{	
 		GroundPoundCheck();
-	}
-	
-	public bool IsGrounded()
-	{
-		RaycastHit[] hits = Physics.SphereCastAll(playerRB.position + (Vector3.up * 0.49f), 0.49f, Vector3.down, 0.1f);
-		foreach (RaycastHit groundCheckObject in hits)
-		{
-			if (groundCheckObject.rigidbody == playerRB) continue;
-			if (groundCheckObject.collider != null)
-			{
-				moveSpeedReduction = 1.0f;
-				rjBlast_NumSinceGrounded = 0;
-				return true;
-			}
-		}
-		moveSpeedReduction = moveSpeedReduction_Air;
-		return false;
 	}
 	
 	public float GetDownwardVelocity()

@@ -1113,17 +1113,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c29164178c6e2409d413548932329f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userPreference_EnableLandingShake: 1
-  userPreference_autoAddJumpForceToGroundedRocketJump: 1
-  groundPoundParticles: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
-    type: 3}
   firstPersonArms_Animator: {fileID: 4392674234314282691}
   hud_Velocity: {fileID: 0}
-  jumpForceMultiplier: 400
-  cameraAngle: 0
-  minGroundPoundVelocity: 5.5
-  groundPound_Multiplier: 25
   moveSpeedMultiplier: 500
+  jumpForceMultiplier: 400
   mouseSensitivity_X: 6
   mouseSensitivity_Y: 3
   matchXYSensitivity: 0
@@ -1146,7 +1139,6 @@ MonoBehaviour:
   groundPoundParticles: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
     type: 3}
   firstPersonArms_Animator: {fileID: 4392674234314282691}
-  hud_Velocity: {fileID: 0}
   rjBlast_NumSinceGrounded: 0
   minGroundPoundVelocity: 8
   groundPound_Multiplier: 25
