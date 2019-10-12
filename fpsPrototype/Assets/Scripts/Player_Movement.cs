@@ -4,17 +4,17 @@ using UnityEngine;
 using TMPro;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Player_BlastMechanics))]
 public class Player_Movement : MonoBehaviour
 {
 	// Object References
-	private Player_BlastMechanics blastMechanics; // Reference to script that controls rocket jumping, ground pounding, and blasting
 	private GameObject firstPersonCam;
 	private Rigidbody playerRB;
 	public Animator firstPersonArms_Animator;
 	public TextMeshProUGUI hud_Velocity;
 	
 	// Movement Variables
+	private bool isGrounded = true;
+	
 	private float moveSpeedReduction = 1.0f; // Set to 1.0f so there is no reduction while grounded.
 	private const float moveSpeedReduction_Air = 0.5f;
 	private const float moveSpeedReduction_Water = 0.75f;
@@ -43,7 +43,6 @@ public class Player_Movement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 		
 		// Set up references
-		blastMechanics = GetComponent<Player_BlastMechanics>();
 		firstPersonCam = transform.Find("Camera Position Offset/Main Camera").gameObject;
         playerRB = GetComponent<Rigidbody>();
     }
@@ -57,18 +56,16 @@ public class Player_Movement : MonoBehaviour
 		if (Input.GetButton("Fire1")) firstPersonArms_Animator.SetBool("fire", true);
 		else firstPersonArms_Animator.SetBool("fire", false);
 		
-		if (Input.GetButtonDown("Jump") && IsGrounded()) Jump();
+		if (Input.GetButtonDown("Jump") && isGrounded) Jump();
     }
 	
 	void FixedUpdate()
 	{
-		LookLeftRight();
-		LateralMovement();
-		//if (Mathf.Approximately(inputMovementVector.magnitude, 0.0f)
-		//	&& !Mathf.Approximately(playerRB.velocity.magnitude, 0.0f)
-		//	&& IsGrounded()) SimulateFriction();
+		CheckIfGrounded(); // update the isGrounded bool for use elsewhere
+		LookLeftRight(); // rotate the player's rigidbody
+		LateralMovement(); // move the player
 		
-		if (inputMovementVector == Vector3.zero && playerRB.velocity != Vector3.zero && IsGrounded()) SimulateFriction();
+		if (inputMovementVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
 		
 		Vector3 resultMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z);
 		hud_Velocity.text = "Lateral Velocity: " + resultMoveVector.magnitude.ToString("F2");		
@@ -192,8 +189,12 @@ public class Player_Movement : MonoBehaviour
 		playerRB.MoveRotation(playerRB.rotation * deltaRotation);
 	}
 	
-	public bool IsGrounded()
+	// May eventually change this to set a bool so that the sphere cast doesn't have to be called every time the grounded state is referenced.
+	public void CheckIfGrounded()
 	{
+		moveSpeedReduction = moveSpeedReduction_Air; // Start out as if we are in the air, then prove otherwise.
+		isGrounded = false; // Start out false, then prove otherwise.
+		
 		RaycastHit[] hits = Physics.SphereCastAll(playerRB.position + (Vector3.up * 0.49f), 0.49f, Vector3.down, 0.1f);
 		foreach (RaycastHit groundCheckObject in hits)
 		{
@@ -201,15 +202,15 @@ public class Player_Movement : MonoBehaviour
 			if (groundCheckObject.collider != null)
 			{
 				moveSpeedReduction = 1.0f;
-				blastMechanics.rjBlast_NumSinceGrounded = 0;
-				
-				// Cancel out the vertical movement
-				playerRB.AddForce(new Vector3(0.0f, -playerRB.velocity.y, 0.0f), ForceMode.Impulse);
-				return true;
+				isGrounded = true;
 			}
 		}
-		moveSpeedReduction = moveSpeedReduction_Air;
-		return false;
+	}
+	
+	// For external scripts to get the isGrounded bool
+	public bool GetIsGrounded()
+	{
+		return isGrounded;
 	}
 	
 	public void Jump()

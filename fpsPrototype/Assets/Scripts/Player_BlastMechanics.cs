@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// This script handles Rocket Jumping, Ground Pounding, and Object Blasting.
 [RequireComponent(typeof(Player_Movement))]
 public class Player_BlastMechanics : MonoBehaviour
 {
-	// This script handles Rocket Jumping, Ground Pounding, and Blasting Objects
-	
 	// User Preferences
-	public bool userPreference_EnableLandingShake = true;
-	public bool userPreference_autoAddJumpForceToGroundedRocketJump = true;
+	public bool enableCameraShake_gpLanding = true;
+	public bool autoJumpBeforeGroundedRocketJump = true;
 	
 	// Object References
 	private Player_Movement playerMovement;
@@ -48,17 +47,18 @@ public class Player_BlastMechanics : MonoBehaviour
     void Update()
     {		
 		if (Input.GetButtonDown("Fire2")) RocketJumpCheck();
-		if (Input.GetButton("Crouch") &&  !playerMovement.IsGrounded()) AccelerateDown();
+		if (Input.GetButton("Crouch") &&  !playerMovement.GetIsGrounded()) AccelerateDown();
     }
 	
 	void FixedUpdate()
 	{	
 		GroundPoundCheck();
+		if (playerMovement.GetIsGrounded()) rjBlast_NumSinceGrounded = 0;
 	}
 	
 	public float GetDownwardVelocity()
 	{
-		if (playerMovement.IsGrounded()) return 0.0f; // If the player is grounded , then there is no downward velocity.
+		if (playerMovement.GetIsGrounded()) return 0.0f; // If the player is grounded , then there is no downward velocity.
 		if (playerRB.velocity.y > 0.0f || Mathf.Approximately(playerRB.velocity.y, 0.0f)) return 0.0f; // If the player isn't moving vertically or the player is going up, then there is no downward velocity.
 		else return Mathf.Abs(playerRB.velocity.y); // If the player is falling, update the downward velocity to match.
 	}
@@ -79,12 +79,12 @@ public class Player_BlastMechanics : MonoBehaviour
 			bool blastOffAngleOK = false;
 			if (firstPersonCam.transform.localEulerAngles.x <= 90.0f && firstPersonCam.transform.localEulerAngles.x >= 45.0f) blastOffAngleOK = true;
 			
-			if (playerMovement.IsGrounded())
+			if (playerMovement.GetIsGrounded())
 			{
 				if (blastOffAngleOK)
 				{
 					// Force the player into the air (as if he jumped) before applying the rocket jump to get a compounding force.
-					if (userPreference_autoAddJumpForceToGroundedRocketJump) StartCoroutine(JumpThenRocketJump());
+					if (autoJumpBeforeGroundedRocketJump) StartCoroutine(JumpThenRocketJump());
 					else RocketJump(); // Rocket jump wihtout jumping first.
 				}
 			}
@@ -174,7 +174,7 @@ public class Player_BlastMechanics : MonoBehaviour
 	
 	public IEnumerator CameraShake(float shake_amplitude, float shake_frequency, float shake_Duration, float fade_Duration_In, float fade_Duration_Out)
 	{
-		if (userPreference_EnableLandingShake) // If the player has chosen to disable camera shake, then do nothing.
+		if (enableCameraShake_gpLanding) // If the player has chosen to disable camera shake, then do nothing.
 		{
 			if (fade_Duration_In + fade_Duration_Out < shake_Duration) // If there won't be enough time to complete the fade in and the fade out, then don't shake at all.
 			{
