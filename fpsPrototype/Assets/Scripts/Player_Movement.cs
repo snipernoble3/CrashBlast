@@ -67,7 +67,7 @@ public class Player_Movement : MonoBehaviour
 		if (inputMovementVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
 		
 		Vector3 resultMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z);
-		hud_Velocity.text = "Lateral Velocity: " + resultMoveVector.magnitude.ToString("F2");		
+		if (hud_Velocity != null) hud_Velocity.text = "Lateral Velocity: " + resultMoveVector.magnitude.ToString("F2");		
 	}
 	
 	private void GetInput_LateralMovement()
