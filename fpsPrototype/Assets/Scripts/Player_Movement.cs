@@ -18,8 +18,7 @@ public class Player_Movement : MonoBehaviour
 	public Animator firstPersonArms_Animator;
 	public TextMeshProUGUI hud_Velocity;
 		
-	private Vector3 movement_vector;
-	public float movement_vectorRequestedMegnitude;
+	
 	
 	// Jumping Variables
 	[SerializeField] private float jumpForceMultiplier =  400.0f;
@@ -41,10 +40,10 @@ public class Player_Movement : MonoBehaviour
 	private int rjBlast_NumSinceGrounded = 0;
 	[SerializeField] private const int rjBlast_NumLimit = 2;
 	
-	[SerializeField] private float movement_SpeedMultiplier = 50.0f;
-	private float movement_SpeedReduction_Multiplier = 1.0f;
-	[SerializeField] private const float movement_SpeedReduction_Air = 0.5f;
-	[SerializeField] private const float movement_SpeedReduction_Water = 0.75f;
+	[SerializeField] private float moveSpeedMultiplier = 500.0f;
+	private float moveSpeedReduction = 1.0f;
+	[SerializeField] private const float moveSpeedReduction_Air = 0.5f;
+	[SerializeField] private const float moveSpeedReduction_Water = 0.75f;
 	
 	// Mouse Input
 	[SerializeField] private float mouseSensitivity_X = 6.0f;
@@ -57,6 +56,9 @@ public class Player_Movement : MonoBehaviour
 	private float lookUpDownAngle_Current = 0.0f;
 	private float rotation_vertical = 0.0f;
 	private float rotation_horizontal = 0.0f;
+	
+	// Lateral Movement
+	private Vector3 inputMovementVector;
     
     void Awake()
     {
@@ -73,7 +75,6 @@ public class Player_Movement : MonoBehaviour
     void Update()
     {		
 		cameraAngle = firstPersonCam.transform.eulerAngles.x;
-		hud_Velocity.text = "Velocity: " + playerRB.velocity.magnitude.ToString("F2");
 		
 		GetInput_LateralMovement();
 		GetInput_Mouse();
@@ -90,7 +91,10 @@ public class Player_Movement : MonoBehaviour
 	
 	void FixedUpdate()
 	{
-		MoveLateral(movement_vector);
+		LateralMovement(inputMovementVector);
+		Vector3 resultMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z);
+		hud_Velocity.text = "Lateral Velocity: " + resultMoveVector.magnitude.ToString("F2");
+		
 		LookLeftRight();
 		GroundPoundCheck();
 	}
@@ -98,11 +102,11 @@ public class Player_Movement : MonoBehaviour
 	private void GetInput_LateralMovement()
 	{
 		// Get input for Movement from project input manager and build a Vector3 to store the two inputs
-		movement_vector = new Vector3 (Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+		inputMovementVector = new Vector3 (Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
 		// Limit the magnitude of the vector so that horizontal and vertical input doesn't stack to excede the indended maximum move speed
-		movement_vector = Vector3.ClampMagnitude(movement_vector, 1.0f);
+		inputMovementVector = Vector3.ClampMagnitude(inputMovementVector, 1.0f);
 		// Multiply the movement vector with the speed multiplider
-		movement_vector *= movement_SpeedMultiplier;
+		inputMovementVector *= moveSpeedMultiplier * moveSpeedReduction;
 	}
 	
 	private void GetInput_Mouse()
@@ -131,44 +135,23 @@ public class Player_Movement : MonoBehaviour
 		playerRB.MoveRotation(playerRB.rotation * deltaRotation);
 	}
 	
-	// This style of movement is performed via the physics system.
-	private void MoveLateral(Vector3 lateralVelocity_Request)
+	// Add lateral movement via the physics system (doesn't affect vertical velocity).
+	private void LateralMovement(Vector3 requestedMoveVector)
 	{
-		float lateralVelocity_MaxSpeed = 9.0f;
+		float moveSpeedMax = 12.0f; // The player is only alowed to go past this lateral movment speed via outside forces like rocket jumping.
+		Vector3 forceToAdd = requestedMoveVector;
+		Vector3 currentMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z); // Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
 		
-		// Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
-		Vector3 lateralVelocity_Current = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z);
+		// Calculate what the lateral velocity will be if we add the requested force BEFORE adding the force in order to see if it should be applied at all.
+		Vector3 testMoveVector = currentMoveVector + requestedMoveVector / playerRB.mass; // * Time.fixedDeltaTime;
 		
-		// What will the velocity be if we add the requested force?
-		//Vector3 lateralVelocity_Test = lateralVelocity_Current + lateralVelocity_Request / playerRB.mass * Time.fixedDeltaTime;
-		Vector3 lateralVelocity_Test = lateralVelocity_Current + lateralVelocity_Request / playerRB.mass;
-		
-		Vector3 lateralVelocity_ForceToAdd = Vector3.zero;
-		
-		/*
-		if (lateralVelocity_Current.magnitude >= lateralVelocity_MaxSpeed)
-		{
-			lateralVelocity_ForceToAdd = Vector3.zero;
-		}
-		*/
-		
-		// Calculate the desired movement velocity BEFORE adding the force in order to see if it should be applied at all.
-		if (lateralVelocity_Test.magnitude <= lateralVelocity_MaxSpeed)
-		{		
-			// Calculate how much force we have to add to maintain top speed without going past it.
-			Vector3 lateralVelocity_ForceToAdd_Direction = lateralVelocity_Request.normalized;
-			float lateralVelocity_ForceToAdd_Magnitude = Mathf.Clamp(lateralVelocity_MaxSpeed - lateralVelocity_Current.magnitude, 0.0f, lateralVelocity_MaxSpeed);
-			lateralVelocity_ForceToAdd = lateralVelocity_ForceToAdd_Direction * lateralVelocity_ForceToAdd_Magnitude; 
-		}
+		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
+		if (testMoveVector.magnitude > moveSpeedMax) forceToAdd = requestedMoveVector.normalized * Mathf.Clamp(moveSpeedMax - currentMoveVector.magnitude, 0.0f, moveSpeedMax);
 	
-		// Apply the calculated force
-		playerRB.AddRelativeForce(lateralVelocity_ForceToAdd * movement_SpeedReduction_Multiplier, ForceMode.Impulse);
-
+		playerRB.AddRelativeForce(forceToAdd, ForceMode.Impulse); // Apply the calculated force
 		
-		// Important code snippets from quake style movement script
-		//*************************************
-		/*
-		
+		/* Important code snippets from quake style movement script
+		*************************************
 
         // Calculate top velocity
         Vector3 udp = playerVelocity;
@@ -194,24 +177,7 @@ public class Player_Movement : MonoBehaviour
 			playerVelocity.z += accelspeed * wishdir.z;
 		}
 		
-		*/
-		//*************************************
-		
-		
-		//if (playerRB.velocity.magnitude <= movement_MaxSpeed)
-		
-		// Check if adding the requested input movement vector to the current player velocity will result in the player moving too fast.
-		// If the resulting velocity is fater than the max move speed, then don't add any new force.
-		
-		//movement_vectorRequestedMegnitude = playerRB.velocity.magnitude + movement_vector.magnitude;
-		
-		//if (playerRB.velocity.magnitude + movement_vector.magnitude < movement_MaxSpeed)
-		/*
-		if (true)
-		{		
-			playerRB.AddRelativeForce(movement_vector * movement_SpeedReduction_Multiplier, ForceMode.Impulse);
-			//playerRB.AddRelativeForce (playerRB.velocity +  movement_vector * movement_SpeedReduction_Multiplier, ForceMode.VelocityChange);
-		}
+		*************************************
 		*/
 	}
 	
@@ -223,12 +189,12 @@ public class Player_Movement : MonoBehaviour
 			if (groundCheckObject.rigidbody == playerRB) continue;
 			if (groundCheckObject.collider != null)
 			{
-				movement_SpeedReduction_Multiplier = 1.0f;
+				moveSpeedReduction = 1.0f;
 				rjBlast_NumSinceGrounded = 0;
 				return true;
 			}
 		}
-		movement_SpeedReduction_Multiplier = movement_SpeedReduction_Air;
+		moveSpeedReduction = moveSpeedReduction_Air;
 		return false;
 	}
 	
