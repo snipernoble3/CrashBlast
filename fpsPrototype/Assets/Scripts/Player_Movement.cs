@@ -14,11 +14,10 @@ public class Player_Movement : MonoBehaviour
 	
 	// Movement Variables
 	private bool isGrounded = false; // Initialize as false, since player may spawn in mid-air
-	
+	[SerializeField] private float jumpForceMultiplier =  400.0f;
 	private float moveSpeedReduction = 1.0f; // Set to 1.0f so there is no reduction while grounded.
 	private const float moveSpeedReduction_Air = 0.5f;
 	private const float moveSpeedReduction_Water = 0.75f;
-	[SerializeField] private float jumpForceMultiplier =  400.0f;
 	
 	// Mouse Input
 	[SerializeField] private float mouseSensitivity_X = 6.0f;
@@ -28,12 +27,14 @@ public class Player_Movement : MonoBehaviour
 	[SerializeField] private bool invertVerticalInput = false;
 	[SerializeField] private const float lookUpDownAngle_Max = 90.0f;
 	[SerializeField] private const float lookUpDownAngle_Min = -90.0f;
-	private float lookUpDownAngle_Current = 0.0f;
+	private float lookUpDownAngle = 0.0f;
+	private float lookLeftRightAngle = 0.0f;
 	private float rotation_vertical = 0.0f;
 	private float rotation_horizontal = 0.0f;
 	
 	// Lateral Movement
 	private Vector3 inputMovementVector;
+	private Vector3 gravity; // Use this instead of Physics.gravity in case we want to replace gravity with attraction to a gravity sorce (like a tiny planet).
     
     void Awake()
     {
@@ -44,10 +45,14 @@ public class Player_Movement : MonoBehaviour
 		// Set up references
 		firstPersonCam = transform.Find("Camera Position Offset/Main Camera").gameObject;
         playerRB = GetComponent<Rigidbody>();
+		playerRB.constraints = RigidbodyConstraints.FreezeRotation;
+		gravity = Physics.gravity;
     }
 
     void Update()
     {		
+		// if (!playerRB.useGravity && )
+		
 		GetInput_Mouse();
 		GetInput_LateralMovement();
 		LookUpDown();
@@ -64,13 +69,13 @@ public class Player_Movement : MonoBehaviour
 		LookLeftRight(); // rotate the player's rigidbody
 		LateralMovement(); // move the player
 		
-		if (inputMovementVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
+		//if (inputMovementVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
 		
 		Vector3 resultMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z);
 		if (hud_Velocity != null) hud_Velocity.text = "Lateral Velocity: " + resultMoveVector.magnitude.ToString("F2");		
 		//if (hud_Velocity != null) hud_Velocity.text = "Vertical Velocity: " + playerRB.velocity.y.ToString("F2");	
 
-		TerminalVelocity();
+		//TerminalVelocity();
 	}
 	
 	private void GetInput_LateralMovement()
@@ -147,16 +152,24 @@ public class Player_Movement : MonoBehaviour
 	
 	private void LookUpDown()
 	{
-		lookUpDownAngle_Current += rotation_vertical;
-		lookUpDownAngle_Current = Mathf.Clamp(lookUpDownAngle_Current, lookUpDownAngle_Min, lookUpDownAngle_Max);
-			
-		firstPersonCam.transform.localRotation = Quaternion.AngleAxis(lookUpDownAngle_Current, Vector3.right);
+		lookUpDownAngle += rotation_vertical;
+		lookUpDownAngle = Mathf.Clamp(lookUpDownAngle, lookUpDownAngle_Min, lookUpDownAngle_Max);
+		firstPersonCam.transform.localRotation = Quaternion.AngleAxis(lookUpDownAngle, Vector3.right);
 	}
 	
 	private void LookLeftRight()
 	{
-		Quaternion deltaRotation = Quaternion.Euler(new Vector3(0.0f, rotation_horizontal, 0.0f));
-		playerRB.MoveRotation(playerRB.rotation * deltaRotation);
+		//Quaternion deltaRotation = Quaternion.Euler(new Vector3(0.0f, rotation_horizontal, 0.0f));
+		//playerRB.MoveRotation(playerRB.rotation * deltaRotation);
+		//transform.localRotation = Quaternion.AngleAxis(deltaRotation, Vector3.up);
+		//transform.Rotate(transform.up, rotation_horizontal, Space.Self);
+		
+		lookLeftRightAngle += rotation_horizontal;
+		if (lookLeftRightAngle < 0.0f) lookLeftRightAngle += 360.0f;
+		if (lookLeftRightAngle > 360.0f) lookLeftRightAngle -= 360.0f;
+		
+		//transform.Rotate(new Vector3(0.0f, lookLeftRightAngle, 0.0f), Space.Self);
+		transform.Rotate(new Vector3(0.0f, rotation_horizontal, 0.0f), Space.Self);
 	}
 	
 	// May eventually change this to set a bool so that the sphere cast doesn't have to be called every time the grounded state is referenced.
@@ -165,7 +178,7 @@ public class Player_Movement : MonoBehaviour
 		moveSpeedReduction = moveSpeedReduction_Air; // Start out as if we are in the air, then prove otherwise.
 		isGrounded = false; // Start out false, then prove otherwise.
 		
-		RaycastHit[] hits = Physics.SphereCastAll(playerRB.position + (Vector3.up * 0.49f), 0.49f, Vector3.down, 0.1f);
+		RaycastHit[] hits = Physics.SphereCastAll(playerRB.position + (transform.up * 0.49f), 0.49f, -transform.up, 0.1f);
 		foreach (RaycastHit groundCheckObject in hits)
 		{
 			if (groundCheckObject.rigidbody == playerRB) continue;
@@ -181,6 +194,11 @@ public class Player_Movement : MonoBehaviour
 	public bool GetIsGrounded()
 	{
 		return isGrounded;
+	}
+	
+	public Vector3 GetGravity()
+	{
+		return gravity;
 	}
 	
 	public void Jump()
@@ -199,7 +217,7 @@ public class Player_Movement : MonoBehaviour
 		
 		if (currentDownwardSpeed > maxDownwardSpeed)
 		{
-			fallCancelForce = new Vector3(0.0f, ((currentDownwardSpeed - maxDownwardSpeed) * playerRB.mass) - Physics.gravity.y, 0.0f);
+			fallCancelForce = new Vector3(0.0f, ((currentDownwardSpeed - maxDownwardSpeed) * playerRB.mass) - gravity.y, 0.0f);
 			
 			playerRB.AddForce(fallCancelForce, ForceMode.Impulse);
 		}
