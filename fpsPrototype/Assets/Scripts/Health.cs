@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour {
 
-    public enum Tag { Player, Ally, Enemy, Neutral };
-    [SerializeField] Tag alignment;
+    public enum AlignmentTag { Player, Ally, Enemy, Neutral };
+    [SerializeField] AlignmentTag alignment;
 
     [SerializeField] int maxHealth = 3;
     private int currHealth;
@@ -51,7 +51,7 @@ public class Health : MonoBehaviour {
 
     public bool IsAlive () { return alive; }
 
-    public Tag GetTag () { return alignment; }
+    public AlignmentTag GetTag () { return alignment; }
     
 
 }

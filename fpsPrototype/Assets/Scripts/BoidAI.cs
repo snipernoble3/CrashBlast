@@ -7,7 +7,7 @@ public class BoidAI : MonoBehaviour {
     /**
      * scores
      * player score: targeting range / distance from player
-     * avoidance score: min distance / distance to nearest unit
+     * separation score: min distance / distance to nearest unit
      * cohesion score: distance to center / min distance
      * alignment score: angle between avg direction and current direction
      * object avoidance: raycasts in front of boid, steer in direction of least collision, only apply other rules that dont steer into obj if obj is within min distance
@@ -33,16 +33,19 @@ public class BoidAI : MonoBehaviour {
     
     private Rigidbody rb;
     public float speed = 1f;
+    public float neighborRadius = 10f;
+    public float minSeparationDistance = 2f;
+    public float alignmentWeight = 1f;
+    public float cohesionWeight = 1f;
+    public float separationWeight = 1f;
+    //public float obstacleWeight = 1f;
+    //public float targetWeight = 1f;
 
-    float alignmentWeight;
-    float cohesionWeight;
-    float separationWeight;
-    float obstacleWeight;
-    float targetWeight;
-
+    Collider[] neighbors;
+    float totalNeighbors;
     Vector3 center;
     Vector3 avgDirection;
-
+    Vector3 closestUnit;
 
 
     void Awake () {
@@ -53,34 +56,55 @@ public class BoidAI : MonoBehaviour {
     }
 
     void Update () {
-        //get neighbors
-        //check for object collision
-        //check for player
-        alignmentWeight = 1f;
-        cohesionWeight = 1f;
-        separationWeight = 1f;
+
+        CheckForNeighbors();
 
     }
 
     void FixedUpdate () {
         //apply force
-        transform.position += SteerTowards(transform.forward);
-
+        //transform.position += GetDirection();
+        transform.LookAt(GetDirection());
+        transform.position += transform.forward * speed;
     }
 
     Vector3 GetDirection () {
-        Vector3 dir = Vector3.zero;
-        //var alignment = SteerTowards() * alignmentWeight;
-        //var cohesion = SteerTowards() * cohesionWeight;
-        //var separation = SteerTowards() * separationWeight;
+        Vector3 dir = transform.position;
+        var alignment = SteerTowards(avgDirection) * Vector3.Dot(dir, avgDirection) * alignmentWeight;
+        var cohesion = SteerTowards(center - transform.position) * ((Vector3.Magnitude(transform.position - center)) / minSeparationDistance) * cohesionWeight;
+        var separation = SteerTowards(closestUnit) * -1 * (minSeparationDistance / Vector3.Magnitude(closestUnit)) * separationWeight;
         //var obstacle = SteerTowards() * obstacleWeight;
-
+        dir += alignment;
+        dir += cohesion;
+        dir += separation;
         return dir;
     }
 
     Vector3 SteerTowards (Vector3 vector) {
-        Vector3 v = vector.normalized * speed;
+        Vector3 v = vector.normalized;
         return v;
+    }
+
+    void CheckForNeighbors () {
+        totalNeighbors = 0;
+        avgDirection = transform.forward;
+        closestUnit = transform.position + transform.forward * 10;
+        
+
+        neighbors = Physics.OverlapSphere(transform.position, neighborRadius);
+        foreach(Collider n in neighbors) {
+            if (n.gameObject.GetComponent<BoidAI>()) {
+                totalNeighbors++;
+                center += n.gameObject.transform.position;
+                avgDirection += transform.forward;
+                if (Vector3.Magnitude(transform.position - closestUnit) > Vector3.Magnitude(transform.position - n.gameObject.transform.position)) closestUnit = n.gameObject.transform.position;
+            }
+        }
+
+        center /= totalNeighbors;
+        avgDirection /= totalNeighbors;
+
+
     }
 
 }

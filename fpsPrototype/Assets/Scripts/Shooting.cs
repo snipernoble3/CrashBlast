@@ -90,7 +90,7 @@ public class Shooting : MonoBehaviour
             //Debug.Log("Hit something");
             //Debug.DrawRay(firingPosition.transform.position, forwardVector * range, Color.green, 2f);
 
-            if (hit.collider.gameObject.GetComponent<Health>() != null && hit.collider.gameObject.GetComponent<Health>().GetTag() != Health.Tag.Ally) {
+            if (hit.collider.gameObject.GetComponent<Health>() != null && hit.collider.gameObject.GetComponent<Health>().GetTag() != Health.AlignmentTag.Ally) {
                 hit.collider.gameObject.GetComponent<Health>().TakeDamage(1);
             }
 
