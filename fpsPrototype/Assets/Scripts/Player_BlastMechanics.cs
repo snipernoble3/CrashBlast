@@ -103,7 +103,8 @@ public class Player_BlastMechanics : MonoBehaviour
 	{
 		// If the player is currently accelerating upward, instantly canncel upward velocity, then apply downward force.
 		if (playerRB.velocity.y > 0.0) playerRB.velocity = new Vector3 (playerRB.velocity.x, 0.0f, playerRB.velocity.z);
-		playerRB.AddRelativeForce(Vector3.down * groundPound_Multiplier, ForceMode.Acceleration);
+		playerRB.AddRelativeForce(-transform.up * groundPound_Multiplier, ForceMode.Acceleration);
+		//playerMovement.TerminalVelocity();
 	}
 	
 	private void GroundPoundCheck()

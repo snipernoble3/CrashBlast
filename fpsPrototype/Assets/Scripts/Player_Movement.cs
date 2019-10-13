@@ -68,7 +68,7 @@ public class Player_Movement : MonoBehaviour
 		
 		Vector3 resultMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z);
 		if (hud_Velocity != null) hud_Velocity.text = "Lateral Velocity: " + resultMoveVector.magnitude.ToString("F2");		
-		if (hud_Velocity != null) hud_Velocity.text = "Vertical Velocity: " + playerRB.velocity.y.ToString("F2");	
+		//if (hud_Velocity != null) hud_Velocity.text = "Vertical Velocity: " + playerRB.velocity.y.ToString("F2");	
 
 		TerminalVelocity();
 	}
@@ -84,13 +84,15 @@ public class Player_Movement : MonoBehaviour
 	// Add lateral movement via the physics system (doesn't affect vertical velocity).
 	private void LateralMovement()
 	{
-		float moveSpeedMultiplier = 25.0f;
+		// Move the player
+		
+		float speedRampUpMultiplier = 50.0f;
 		
 		// Multiply the movement vector with the speed multiplider
-		Vector3 requestedMoveVector = inputMovementVector * moveSpeedMultiplier * moveSpeedReduction;
+		Vector3 requestedMoveVector = inputMovementVector * speedRampUpMultiplier;
 		
 		float moveSpeedMax = 12.0f; // The player is only alowed to go past this lateral movment speed via outside forces like rocket jumping.
-		moveSpeedMax *= inputMovementVector.magnitude; // Needed so that analogue input doesn't ramp up over time
+		moveSpeedMax *= inputMovementVector.magnitude * moveSpeedReduction; // Needed so that analogue input doesn't ramp up over time
 		
 		
 		Vector3 forceToAdd = requestedMoveVector;
@@ -105,47 +107,21 @@ public class Player_Movement : MonoBehaviour
 		{
 			forceToAdd = requestedMoveVector.normalized * Mathf.Clamp(moveSpeedMax - currentMoveVector.magnitude, 0.0f, moveSpeedMax);
 		}
+		// Apply the calculated force
+		playerRB.AddRelativeForce(forceToAdd, ForceMode.Impulse);
 		
-		// Check if the requested movement is in the same direction
-		
-		
-		
-		//if (currentMoveVector.normalized != requestedMoveVector.normalized)
-		//forceToAdd -= currentMoveVector;
+		// Change Direction	
+		if (Vector3.Angle(currentMoveVector, requestedMoveVector) != 0.0f) ChangeDirection(requestedMoveVector, currentMoveVector);
+	}
 	
-		//playerRB.AddForce(-currentMoveVector, ForceMode.Impulse); // Apply the calculated force
-	
-		playerRB.AddRelativeForce(forceToAdd, ForceMode.Impulse); // Apply the calculated force	
-	}		
-		/* Important code snippets from quake style movement script
-		*************************************
-
-        // Calculate top velocity
-        Vector3 udp = playerVelocity;
-        udp.y = 0.0f;
-        if(udp.magnitude > playerTopVelocity)
-        playerTopVelocity = udp.magnitude;
-		
-	    private void Accelerate(Vector3 wishdir, float wishspeed, float accel)
-		{
-			float addspeed;
-			float accelspeed;
-			float currentspeed;
-
-			currentspeed = Vector3.Dot(playerVelocity, wishdir);
-			addspeed = wishspeed - currentspeed;
-			if(addspeed <= 0)
-				return;
-			accelspeed = accel * Time.deltaTime * wishspeed;
-			if(accelspeed > addspeed)
-            accelspeed = addspeed;
-
-			playerVelocity.x += accelspeed * wishdir.x;
-			playerVelocity.z += accelspeed * wishdir.z;
-		}
-		
-		*************************************
-		*/
+	private void ChangeDirection(Vector3 requestedMoveVector, Vector3 currentMoveVector)
+	{
+		float redirectInfluence = 1.0f; // Change 100%
+		Vector3 directionChangeVector = requestedMoveVector.normalized * currentMoveVector.magnitude * redirectInfluence;
+		directionChangeVector -= currentMoveVector;
+		playerRB.AddRelativeForce(directionChangeVector, ForceMode.Impulse);
+		//playerRB.velocity = directionChangeVector;
+	}
 	
 	private void SimulateFriction()
 	{
@@ -209,12 +185,12 @@ public class Player_Movement : MonoBehaviour
 	
 	public void Jump()
 	{
-		playerRB.AddRelativeForce(Vector3.up * jumpForceMultiplier, ForceMode.Impulse);
+		playerRB.AddRelativeForce(transform.up * jumpForceMultiplier, ForceMode.Impulse);
 	}
 	
-	private void TerminalVelocity()
+	public void TerminalVelocity()
 	{
-		float fallCancelForce;
+		Vector3 fallCancelForce;
 		float currentDownwardSpeed = 0.0f;
 		float maxDownwardSpeed = 75.0f;
 		
@@ -223,9 +199,9 @@ public class Player_Movement : MonoBehaviour
 		
 		if (currentDownwardSpeed > maxDownwardSpeed)
 		{
-			fallCancelForce = (currentDownwardSpeed - maxDownwardSpeed) * playerRB.mass;
+			fallCancelForce = new Vector3(0.0f, ((currentDownwardSpeed - maxDownwardSpeed) * playerRB.mass) - Physics.gravity.y, 0.0f);
 			
-			playerRB.AddForce(new Vector3(0.0f, fallCancelForce, 0.0f), ForceMode.Impulse);
+			playerRB.AddForce(fallCancelForce, ForceMode.Impulse);
 		}
 	}
 }
