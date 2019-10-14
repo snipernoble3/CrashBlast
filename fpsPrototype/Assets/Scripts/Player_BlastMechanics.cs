@@ -24,7 +24,8 @@ public class Player_BlastMechanics : MonoBehaviour
 	
 	// Rocket Jumping Variables
 	public int rjBlast_NumSinceGrounded = 0;
-	[SerializeField] private const int rjBlast_NumLimit = 2; // set this back to 2 after testing
+	[SerializeField] private int rjBlast_NumLimit = 1;
+	private bool rjBlast_DidHitSurface = false;
 	
 	private const float rjBlast_Range = 4.0f;
 	private const float rjBlast_Power = 550.0f;
@@ -61,51 +62,60 @@ public class Player_BlastMechanics : MonoBehaviour
 	// Called via player input, Checks if the conditions to be able to rocket jump are met,
 	// if so, calls the rocket jump method that performs the rocket jump.
 	private void RocketJumpCheck()
-	{	
-		if (rjBlast_NumSinceGrounded < rjBlast_NumLimit) // Don't bother with the rest of the check if the player has used up all of his rocket jumps.
+	{
+		RaycastHit rjBlast_Hit;
+			
+		//Determine if the the rocket jump blast hit an object or if it was a mid-air rocket jump, and therefore determine where its center point should be.
+		//if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out rjBlast_Hit, rjBlast_Range, LayerMask.NameToLayer("Player"))) rjBlast_Epicenter = rjBlast_Hit.point;
+		if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out rjBlast_Hit, rjBlast_Range))
 		{
-			RaycastHit rjBlast_Hit;
-			
-			// Determine where the rocket jump blast's center point should be.
-			//if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out rjBlast_Hit, rjBlast_Range, LayerMask.NameToLayer("Player"))) rjBlast_Epicenter = rjBlast_Hit.point;
-			if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out rjBlast_Hit, rjBlast_Range)) rjBlast_Epicenter = rjBlast_Hit.point;
-			else rjBlast_Epicenter = firstPersonCam.transform.position + (firstPersonCam.transform.forward * rjBlast_Range);
-		
-			firstPersonArms_Animator.Play("FirstPersonArms_Blast", 1, 0.25f); // Play the blast animation.
-			BlastForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpwardForce); // Add the blast force to affect other objects.
-			
-			// Test sphere
-			if (rj_trainingHitMarker)
-			{
-				GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-				sphere.transform.position = rjBlast_Epicenter;
-				Destroy(sphere.GetComponent<SphereCollider>());
-				Renderer sphereRend = sphere.GetComponent<Renderer>();
-				sphereRend.material = new Material(Shader.Find("Standard"));
-				if (rjBlast_Hit.collider == null) sphereRend.material.color = Color.red;
-				else sphereRend.material.color = Color.green;
-				Destroy(sphere, 5.0f);
-			}
-			
-			if (playerMovement.GetIsGrounded())
-			{
-				if (playerMovement.GetVerticalCameraAngle() <= -45.0f && playerMovement.GetVerticalCameraAngle() >= -90.0f)
-				{
-					// Force the player into the air (as if he jumped) before applying the rocket jump to get a compounding force.
-					if (autoJumpBeforeGroundedRocketJump) StartCoroutine(JumpThenRocketJump());
-					else RocketJump(); // Rocket jump wihtout jumping first.
-				}
-			}
-			else RocketJump();
-
-			if (!playerMovement.GetIsGrounded() && rjBlast_Hit.collider == null) rjBlast_NumSinceGrounded += 1;
+			//if (rjBlast_Hit.collider != null)		
+			rjBlast_DidHitSurface = true;
+			rjBlast_Epicenter = rjBlast_Hit.point;
 		}
+		else
+		{
+			rjBlast_DidHitSurface = false;
+			rjBlast_Epicenter = firstPersonCam.transform.position + (firstPersonCam.transform.forward * rjBlast_Range);
+		}
+		
+		firstPersonArms_Animator.Play("FirstPersonArms_Blast", 1, 0.25f); // Play the blast animation.
+		BlastForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpwardForce); // Add the blast force to affect other objects.
+			
+		if (playerMovement.GetIsGrounded())
+		{
+			if (playerMovement.GetVerticalCameraAngle() <= -45.0f && playerMovement.GetVerticalCameraAngle() >= -90.0f)
+			{
+				// Force the player into the air (as if he jumped) before applying the rocket jump to get a compounding force.
+				if (autoJumpBeforeGroundedRocketJump) StartCoroutine(JumpThenRocketJump());
+				else RocketJump(); // Rocket jump wihtout jumping first.
+			}
+		}
+		else RocketJump();
 	}
 
 	// Called via the Rocket Jump Check method, this actually performs the rocket jump.
 	private void RocketJump()
 	{
-		playerRB.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, 0.0f, ForceMode.Impulse);
+		// Test sphere
+		if (rj_trainingHitMarker)
+		{
+			GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			sphere.transform.position = rjBlast_Epicenter;
+			Destroy(sphere.GetComponent<SphereCollider>());
+			Renderer sphereRend = sphere.GetComponent<Renderer>();
+			sphereRend.material = new Material(Shader.Find("Standard"));
+			if (rjBlast_DidHitSurface) sphereRend.material.color = Color.green;
+			else if (rjBlast_NumSinceGrounded < rjBlast_NumLimit) sphereRend.material.color = Color.yellow;
+			else sphereRend.material.color = Color.red;
+			Destroy(sphere, 5.0f);
+		}
+		
+		if (rjBlast_NumSinceGrounded < rjBlast_NumLimit) 
+		{
+			playerRB.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, 0.0f, ForceMode.Impulse);
+			if (!playerMovement.GetIsGrounded() && !rjBlast_DidHitSurface) rjBlast_NumSinceGrounded += 1;
+		}
 	}
 	
 	private void AccelerateDown()
@@ -154,7 +164,7 @@ public class Player_BlastMechanics : MonoBehaviour
 			gpParticles_MainModule.startLifetime = gpParticle_Duration;
 			gpParticles_MainModule.duration = gpParticle_Duration;
 			gpParticles_GameObject.GetComponent<ParticleSystem>().Play();
-			StartCoroutine(ParticleTimer(gpParticle_Duration, gpParticles_GameObject));
+			Destroy(gpParticles_GameObject, gpParticle_Duration);
 			
 			// Reset downward velocity.
 			impactVelocity = 0.0f;
@@ -190,13 +200,6 @@ public class Player_BlastMechanics : MonoBehaviour
 		playerMovement.Jump(); // Comunicate with the Player_Movement script to force the player to jump.
 		yield return new WaitForSeconds(0.1f);
 		RocketJump();
-	}
-	
-	public IEnumerator ParticleTimer (float seconds, GameObject particleObjectToDestroy)
-	{
-		yield return new WaitForSeconds(seconds);
-		
-		Destroy(particleObjectToDestroy);
 	}
 	
 	public IEnumerator CameraShake(float shake_amplitude, float shake_frequency, float shake_Duration, float fade_Duration_In, float fade_Duration_Out)
