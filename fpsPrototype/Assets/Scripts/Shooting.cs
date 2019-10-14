@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Shooting : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Shooting : MonoBehaviour
     public GameObject firingPosition;
     public GameObject target;
     public GameObject endOfGun;
+    public TextMeshProUGUI ammoUI;
 
     private float range = 150f;
     private Vector3[] linePositions = new Vector3[2];
@@ -31,6 +33,8 @@ public class Shooting : MonoBehaviour
         if (target.activeInHierarchy) {
             target.transform.localScale = new Vector3(maxDeviation * 2, target.transform.localScale.y, maxDeviation * 2);
         }
+
+        UpdateAmmoCount();
 
     }
 
@@ -93,7 +97,7 @@ public class Shooting : MonoBehaviour
             //Debug.Log("Hit something");
             //Debug.DrawRay(firingPosition.transform.position, forwardVector * range, Color.green, 2f);
 
-            if (hit.collider.gameObject.GetComponent<Health>() != null && hit.collider.gameObject.GetComponent<Health>().GetTag() != Health.Tag.Ally) {
+            if (hit.collider.gameObject.GetComponent<Health>() != null && hit.collider.gameObject.GetComponent<Health>().GetTag() != Health.AlignmentTag.Ally) {
                 hit.collider.gameObject.GetComponent<Health>().TakeDamage(1);
             }
 
@@ -102,6 +106,7 @@ public class Shooting : MonoBehaviour
         StartCoroutine(Laser(hit));
 
         currAmmo--;
+        UpdateAmmoCount();
 
     }
 
@@ -137,7 +142,12 @@ public class Shooting : MonoBehaviour
         yield return new WaitForSeconds(1f); //reload time
         
         currAmmo = maxAmmo;
+        UpdateAmmoCount();
         reloading = false;
     }
     
+    void UpdateAmmoCount () {
+        ammoUI.text = "" + currAmmo;
+    }
+
 }
