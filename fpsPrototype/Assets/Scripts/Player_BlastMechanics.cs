@@ -19,6 +19,8 @@ public class Player_BlastMechanics : MonoBehaviour
 	private GameObject firstPersonCam;
 	private GameObject camOffset;
 	
+	
+	public LayerMask raycastMask;
 	private Rigidbody playerRB;
 	public Animator firstPersonArms_Animator;
 	
@@ -73,8 +75,7 @@ public class Player_BlastMechanics : MonoBehaviour
 		RaycastHit rjBlast_Hit;
 			
 		//Determine if the the rocket jump blast hit an object or if it was a mid-air rocket jump, and therefore determine where its center point should be.
-		//if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out rjBlast_Hit, rjBlast_Range, LayerMask.NameToLayer("Player"))) rjBlast_Epicenter = rjBlast_Hit.point;
-		if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out rjBlast_Hit, rjBlast_Range))
+		if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out rjBlast_Hit, rjBlast_Range, raycastMask))
 		{
 			//if (rjBlast_Hit.collider != null)		
 			rjBlast_DidHitSurface = true;

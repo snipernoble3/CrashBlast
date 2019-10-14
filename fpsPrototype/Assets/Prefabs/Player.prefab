@@ -1138,10 +1138,15 @@ MonoBehaviour:
   enableCameraShake_gpLanding: 1
   autoJumpBeforeGroundedRocketJump: 1
   blastDealsDamage: 0
+  rj_trainingHitMarker: 0
   groundPoundParticles: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
     type: 3}
+  raycastMask:
+    serializedVersion: 2
+    m_Bits: 823
   firstPersonArms_Animator: {fileID: 4392674234314282691}
   rjBlast_NumSinceGrounded: 0
+  rjBlast_MidAirLimit: 1
   minGroundPoundVelocity: 8
   groundPound_Multiplier: 25
 --- !u!114 &8121039475321901628
