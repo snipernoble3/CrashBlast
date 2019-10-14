@@ -69,12 +69,9 @@ public class Player_BlastMechanics : MonoBehaviour
 			firstPersonArms_Animator.Play("FirstPersonArms_Blast", 1, 0.25f); // Play the blast animation.
 			BlastForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpwardForce); // Add the blast force to affect other objects.
 			
-			bool blastOffAngleOK = false;
-			if (firstPersonCam.transform.localEulerAngles.x <= 90.0f && firstPersonCam.transform.localEulerAngles.x >= 45.0f) blastOffAngleOK = true;
-			
 			if (playerMovement.GetIsGrounded())
 			{
-				if (blastOffAngleOK)
+				if (playerMovement.GetVerticalCameraAngle() <= -45.0f && playerMovement.GetVerticalCameraAngle() >= -90.0f)
 				{
 					// Force the player into the air (as if he jumped) before applying the rocket jump to get a compounding force.
 					if (autoJumpBeforeGroundedRocketJump) StartCoroutine(JumpThenRocketJump());
