@@ -23,13 +23,13 @@ public class Player_BlastMechanics : MonoBehaviour
 	
 	// Rocket Jumping Variables
 	public int rjBlast_NumSinceGrounded = 0;
-	[SerializeField] private const int rjBlast_NumLimit = 100; // set this back to 2 after testing
+	[SerializeField] private const int rjBlast_NumLimit = 2; // set this back to 2 after testing
 	
 	private const float rjBlast_Range = 3.0f;
 	private const float rjBlast_Power = 550.0f;
 	private Vector3 rjBlast_Epicenter; // The origin of the rocket jump blast radius.
 	private const float rjBlast_Radius = 5.0f;
-	private const float rjBlast_UpwardForce = 0.0f;
+	private const float rjBlast_UpwardForce = 0.5f;
 	private const float minRocketJumpCameraAngle = 45.0f;
 	
 	private float impactVelocity = 0.0f;
@@ -86,7 +86,7 @@ public class Player_BlastMechanics : MonoBehaviour
 	// Called via the Rocket Jump Check method, this actually performs the rocket jump.
 	private void RocketJump()
 	{
-		playerRB.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpwardForce, ForceMode.Impulse);
+		playerRB.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, 0.0f, ForceMode.Impulse);
 		rjBlast_NumSinceGrounded += 1;
 	}
 	
