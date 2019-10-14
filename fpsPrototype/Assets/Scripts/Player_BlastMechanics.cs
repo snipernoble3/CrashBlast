@@ -121,6 +121,9 @@ public class Player_BlastMechanics : MonoBehaviour
 			Destroy(sphere, 5.0f);
 		}
 		
+		// For testing reset number of mid air jumps if you hit a surface even before touching the ground.
+		if (rjBlast_DidHitSurface) rjBlast_NumSinceGrounded = 0;
+		
 		if (rjBlast_NumSinceGrounded < rjBlast_MidAirLimit) 
 		{
 			// Cancel the downward velocity
@@ -130,9 +133,6 @@ public class Player_BlastMechanics : MonoBehaviour
 			playerRB.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, 0.0f, ForceMode.Impulse);
 			if (!playerMovement.GetIsGrounded() && !rjBlast_DidHitSurface) rjBlast_NumSinceGrounded += 1;
 		}
-		
-		// For testing reset number of mid air jumps if you hit a surface even before touching the ground.
-		if (rjBlast_DidHitSurface) rjBlast_NumSinceGrounded += 0;
 	}
 	
 	private void AccelerateDown()
