@@ -151,7 +151,14 @@ public class Player_BlastMechanics : MonoBehaviour
 			Rigidbody rb = objectToBlast.GetComponent<Rigidbody>();
 			// If the object has a rigidbody component and it is not the player, add the blast force!
 			if (rb != null && rb != playerRB) rb.AddExplosionForce(blast_Power, blast_Epicenter, blast_Radius, blast_UpwardForce, ForceMode.Impulse);
-		}
+
+            Health h = objectToBlast.GetComponent<Health>();
+            // If the object is not the player or an ally to the player, deal damage based on the distance from the blast
+            if (h != null && (h.GetTag() == Health.AlignmentTag.Enemy || h.GetTag() == Health.AlignmentTag.Neutral)) {
+                h.TakeDamage((int)(blast_Radius / (0.75 * Vector3.Magnitude(h.gameObject.transform.position - blast_Epicenter))));
+            }
+
+        }
 	}
 	
 	// This method includes a tiny delay to ensure that the counter for mid-air rocket jumps isn't thrown off
