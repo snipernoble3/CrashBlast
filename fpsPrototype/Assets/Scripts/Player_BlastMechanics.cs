@@ -24,8 +24,12 @@ public class Player_BlastMechanics : MonoBehaviour
 	
 	// Rocket Jumping Variables
 	public int rjBlast_NumSinceGrounded = 0;
-	[SerializeField] private int rjBlast_NumLimit = 1;
+	[SerializeField] private int rjBlast_MidAirLimit = 1;
 	private bool rjBlast_DidHitSurface = false;
+	
+	private float rjBlast_CoolDownTime = 0.25f; // seconds between rocket jumps
+	private float rjBlast_TimeSinceLastJump;
+	
 	
 	private const float rjBlast_Range = 4.0f;
 	private const float rjBlast_Power = 550.0f;
@@ -45,11 +49,14 @@ public class Player_BlastMechanics : MonoBehaviour
 		firstPersonCam = transform.Find("Camera Position Offset/Main Camera").gameObject;
 		camOffset = transform.Find("Camera Position Offset").gameObject;
         playerRB = GetComponent<Rigidbody>();
+		rjBlast_TimeSinceLastJump = rjBlast_CoolDownTime;
     }
 
     void Update()
     {		
-		if (Input.GetButtonDown("Fire2")) RocketJumpCheck();
+		if (Input.GetButtonDown("Fire2") && rjBlast_TimeSinceLastJump == rjBlast_CoolDownTime) RocketJumpCheck();
+		if (rjBlast_TimeSinceLastJump < rjBlast_CoolDownTime) rjBlast_TimeSinceLastJump = Mathf.Clamp(rjBlast_TimeSinceLastJump += 1.0f * Time.deltaTime, 0.0f, rjBlast_CoolDownTime);
+		
 		if (Input.GetButton("Crouch") && !playerMovement.GetIsGrounded()) AccelerateDown();
     }
 	
@@ -97,6 +104,8 @@ public class Player_BlastMechanics : MonoBehaviour
 	// Called via the Rocket Jump Check method, this actually performs the rocket jump.
 	private void RocketJump()
 	{
+		rjBlast_TimeSinceLastJump = 0.0f;
+		
 		// Test sphere
 		if (rj_trainingHitMarker)
 		{
@@ -106,16 +115,23 @@ public class Player_BlastMechanics : MonoBehaviour
 			Renderer sphereRend = sphere.GetComponent<Renderer>();
 			sphereRend.material = new Material(Shader.Find("Standard"));
 			if (rjBlast_DidHitSurface) sphereRend.material.color = Color.green;
-			else if (rjBlast_NumSinceGrounded < rjBlast_NumLimit) sphereRend.material.color = Color.yellow;
+			else if (rjBlast_NumSinceGrounded < rjBlast_MidAirLimit) sphereRend.material.color = Color.yellow;
 			else sphereRend.material.color = Color.red;
 			Destroy(sphere, 5.0f);
 		}
 		
-		if (rjBlast_NumSinceGrounded < rjBlast_NumLimit) 
+		if (rjBlast_NumSinceGrounded < rjBlast_MidAirLimit) 
 		{
+			// Cancel the downward velocity
+			playerRB.AddRelativeForce(new Vector3(0.0f, playerMovement.GetDownwardVelocity() * playerRB.mass, 0.0f), ForceMode.Impulse);
+			
+			// Add the rocket jump force
 			playerRB.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, 0.0f, ForceMode.Impulse);
 			if (!playerMovement.GetIsGrounded() && !rjBlast_DidHitSurface) rjBlast_NumSinceGrounded += 1;
 		}
+		
+		// For testing reset number of mid air jumps if you hit a surface even before touching the ground.
+		if (rjBlast_DidHitSurface) rjBlast_NumSinceGrounded += 0;
 	}
 	
 	private void AccelerateDown()
@@ -136,7 +152,7 @@ public class Player_BlastMechanics : MonoBehaviour
 		float downwardVelocity = playerMovement.GetDownwardVelocity();
 		
 		if(downwardVelocity != 0.0f) impactVelocity = downwardVelocity; // Set the "previous velocity" at this physics step so it can be compared during the next physics step.
-		if (impactVelocity != 0.0f && downwardVelocity == 0.0f && impactVelocity >= minGroundPoundVelocity)
+		if (impactVelocity != 0.0f && downwardVelocity == 0.0f && impactVelocity >= minGroundPoundVelocity && playerMovement.GetIsGrounded())
 		{
 			float gpBlast_Power = 65.0f * impactVelocity;
 			float gpBlast_Radius = impactVelocity * 0.3f; // 5.0f;
