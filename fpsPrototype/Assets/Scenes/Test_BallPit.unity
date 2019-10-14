@@ -11101,6 +11101,16 @@ PrefabInstance:
       propertyPath: moveSpeedMultiplier
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: matchXYSensitivity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: mouseSensitivity_X
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8191805556244224253, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: firstPersonArms_Animator

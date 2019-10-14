@@ -44,12 +44,15 @@ public class Shooting : MonoBehaviour
             timeToFire -= Time.fixedDeltaTime;
         }
 
-        if (Input.GetMouseButton(0) && timeToFire <= 0) {
+        if (Input.GetButton("Fire1") && timeToFire <= 0) {
             Fire();
+			firstPersonArms_Animator.SetBool("fire", true);
+			
             timeToFire = fireRate;
         }
+		else firstPersonArms_Animator.SetBool("fire", false);
 
-        if (Input.GetKey(KeyCode.R) && !reloading && currAmmo != maxAmmo) {
+        if (Input.GetButton("Reload") && !reloading && currAmmo != maxAmmo) {
             firstPersonArms_Animator.Play("FirstPersonArms_Reload", 0, 0.0f); // Play the reload animation.
 			StartCoroutine(Reload());
         }

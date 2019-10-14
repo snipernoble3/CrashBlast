@@ -23,13 +23,11 @@ public class Player_Movement : MonoBehaviour
 	// Mouse Input
 	[SerializeField] private float mouseSensitivity_X = 6.0f;
 	[SerializeField] private float mouseSensitivity_Y = 3.0f;
-	[SerializeField] private bool matchXYSensitivity = false;
+	[SerializeField] private bool matchXYSensitivity = true;
 	[SerializeField] private bool useRawMouseInput = true;
 	[SerializeField] private bool invertVerticalInput = false;
 	[SerializeField] private const float lookUpDownAngle_Max = 90.0f;
 	[SerializeField] private const float lookUpDownAngle_Min = -90.0f;
-	private float lookUpDownAngle = 0.0f;
-	private float lookLeftRightAngle = 0.0f;
 	private float rotation_vertical = 0.0f;
 	private float rotation_horizontal = 0.0f;
 	
@@ -56,20 +54,15 @@ public class Player_Movement : MonoBehaviour
 		
 		GetInput_Mouse();
 		GetInput_LateralMovement();
-		LookUpDown();
+		MouseLook();
 		
-		if (Input.GetButton("Fire1")) firstPersonArms_Animator.SetBool("fire", true);
-		else firstPersonArms_Animator.SetBool("fire", false);
-		
-		if (Input.GetButtonDown("Jump") && isGrounded) Jump();
+		if (isGrounded && Input.GetButtonDown("Jump")) Jump();
     }
 	
 	void FixedUpdate()
 	{		
 		gravity = GetGravity();
-		
 		CheckIfGrounded(); // update the isGrounded bool for use elsewhere
-		LookLeftRight(); // rotate the player's rigidbody
 		LateralMovement(); // move the player
 		
 		if (inputMovementVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
@@ -160,16 +153,15 @@ public class Player_Movement : MonoBehaviour
 		if (invertVerticalInput) rotation_vertical *= -1;
 	}
 	
-	private void LookUpDown()
+	private void MouseLook()
 	{
-		lookUpDownAngle += rotation_vertical;
-		lookUpDownAngle = Mathf.Clamp(lookUpDownAngle, lookUpDownAngle_Min, lookUpDownAngle_Max);
-		firstPersonCam.transform.localRotation = Quaternion.AngleAxis(lookUpDownAngle, Vector3.right);
-	}
-	
-	private void LookLeftRight()
-	{
-		transform.Rotate(new Vector3(0.0f, rotation_horizontal, 0.0f), Space.Self);
+		float deltaTimeCompensation = 100.0f;
+		
+		// Up Down
+		firstPersonCam.transform.Rotate(new Vector3(rotation_vertical * Time.deltaTime * deltaTimeCompensation, 0.0f, 0.0f), Space.Self);
+		
+		// Left Right
+		transform.Rotate(new Vector3(0.0f, rotation_horizontal * Time.deltaTime * deltaTimeCompensation, 0.0f), Space.Self);
 	}
 	
 	public void CheckIfGrounded()
@@ -196,8 +188,12 @@ public class Player_Movement : MonoBehaviour
 	
 	public Vector3 GetGravity()
 	{
-		if (gravitySource != null) return gravitySource.GetGravityVector(transform);
-		else return Physics.gravity;
+		if (gravitySource == null)
+		{
+			playerRB.useGravity = true;
+			return Physics.gravity;
+		}			
+		else return gravitySource.GetGravityVector(transform);
 	}
 	
 	public void Jump()
