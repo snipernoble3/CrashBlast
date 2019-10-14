@@ -7,6 +7,7 @@ using TMPro;
 public class Player_Movement : MonoBehaviour
 {
 	// Object References
+	public Gravity_Source gravitySource;
 	private GameObject firstPersonCam;
 	private Rigidbody playerRB;
 	public Animator firstPersonArms_Animator;
@@ -46,7 +47,7 @@ public class Player_Movement : MonoBehaviour
 		firstPersonCam = transform.Find("Camera Position Offset/Main Camera").gameObject;
         playerRB = GetComponent<Rigidbody>();
 		playerRB.constraints = RigidbodyConstraints.FreezeRotation;
-		gravity = Physics.gravity;
+		gravity = GetGravity();
     }
 
     void Update()
@@ -64,12 +65,14 @@ public class Player_Movement : MonoBehaviour
     }
 	
 	void FixedUpdate()
-	{
+	{		
+		gravity = GetGravity();
+		
 		CheckIfGrounded(); // update the isGrounded bool for use elsewhere
 		LookLeftRight(); // rotate the player's rigidbody
 		LateralMovement(); // move the player
 		
-		//if (inputMovementVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
+		if (inputMovementVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
 		
 		Vector3 resultMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z);
 		if (hud_Velocity != null) hud_Velocity.text = "Lateral Velocity: " + resultMoveVector.magnitude.ToString("F2");		
@@ -131,11 +134,18 @@ public class Player_Movement : MonoBehaviour
 	private void SimulateFriction()
 	{
 		float frictionMultiplier = 15.0f;
-		Vector3 frictionForceToAdd = new Vector3(-playerRB.velocity.x, 0.0f, -playerRB.velocity.z); // Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
+		//Vector3 frictionForceToAdd = new Vector3(-playerRB.velocity.x, 0.0f, -playerRB.velocity.z); // Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
+		Vector3 frictionForceToAdd = -playerRB.velocity; // Get the opposite of the player's world space velocity
+		frictionForceToAdd = transform.InverseTransformDirection(frictionForceToAdd); // Convert to local space
+		//frictionForceToAdd = new Vector3(frictionForceToAdd.x, 0.0f, frictionForceToAdd.z); // Don't manipulate the local vertical axis.
+		
+		//frictionForceToAdd -= gravity;
 		
 		frictionForceToAdd *= frictionMultiplier;
 		
-		playerRB.AddForce(frictionForceToAdd, ForceMode.Impulse);
+		//playerRB.AddForce(frictionForceToAdd, ForceMode.Impulse);
+		
+		playerRB.AddRelativeForce(frictionForceToAdd, ForceMode.Impulse);
 	}
 		
 	private void GetInput_Mouse()
@@ -159,20 +169,9 @@ public class Player_Movement : MonoBehaviour
 	
 	private void LookLeftRight()
 	{
-		//Quaternion deltaRotation = Quaternion.Euler(new Vector3(0.0f, rotation_horizontal, 0.0f));
-		//playerRB.MoveRotation(playerRB.rotation * deltaRotation);
-		//transform.localRotation = Quaternion.AngleAxis(deltaRotation, Vector3.up);
-		//transform.Rotate(transform.up, rotation_horizontal, Space.Self);
-		
-		lookLeftRightAngle += rotation_horizontal;
-		if (lookLeftRightAngle < 0.0f) lookLeftRightAngle += 360.0f;
-		if (lookLeftRightAngle > 360.0f) lookLeftRightAngle -= 360.0f;
-		
-		//transform.Rotate(new Vector3(0.0f, lookLeftRightAngle, 0.0f), Space.Self);
 		transform.Rotate(new Vector3(0.0f, rotation_horizontal, 0.0f), Space.Self);
 	}
 	
-	// May eventually change this to set a bool so that the sphere cast doesn't have to be called every time the grounded state is referenced.
 	public void CheckIfGrounded()
 	{
 		moveSpeedReduction = moveSpeedReduction_Air; // Start out as if we are in the air, then prove otherwise.
@@ -190,7 +189,6 @@ public class Player_Movement : MonoBehaviour
 		}
 	}
 	
-	// For external scripts to get the isGrounded bool
 	public bool GetIsGrounded()
 	{
 		return isGrounded;
@@ -198,12 +196,24 @@ public class Player_Movement : MonoBehaviour
 	
 	public Vector3 GetGravity()
 	{
-		return gravity;
+		if (gravitySource != null) return gravitySource.GetGravityVector(transform);
+		else return Physics.gravity;
 	}
 	
 	public void Jump()
 	{
-		playerRB.AddRelativeForce(transform.up * jumpForceMultiplier, ForceMode.Impulse);
+		playerRB.AddRelativeForce(Vector3.up * jumpForceMultiplier, ForceMode.Impulse);
+	}
+		
+	public float GetDownwardVelocity()
+	{
+		if (GetIsGrounded()) return 0.0f; // If the player is grounded, then there is no downward velocity.
+		
+		// Calculate how fast the player is moving along his local vertical axis.
+		Vector3 downwardVelocity = Vector3.Project(playerRB.velocity, GetGravity().normalized);
+		
+		if (downwardVelocity.y > 0.0f || Mathf.Approximately(downwardVelocity.y, 0.0f)) return 0.0f; // If the player isn't moving vertically or the player is going up, then there is no downward velocity.
+		else return Mathf.Abs(downwardVelocity.y); // If the player is falling, update the downward velocity to match.
 	}
 	
 	public void TerminalVelocity()

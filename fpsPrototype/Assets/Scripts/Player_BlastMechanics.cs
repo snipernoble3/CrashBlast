@@ -47,20 +47,13 @@ public class Player_BlastMechanics : MonoBehaviour
     void Update()
     {		
 		if (Input.GetButtonDown("Fire2")) RocketJumpCheck();
-		if (Input.GetButton("Crouch") &&  !playerMovement.GetIsGrounded()) AccelerateDown();
+		if (Input.GetButton("Crouch") && !playerMovement.GetIsGrounded()) AccelerateDown();
     }
 	
 	void FixedUpdate()
 	{	
 		GroundPoundCheck();
 		if (playerMovement.GetIsGrounded()) rjBlast_NumSinceGrounded = 0;
-	}
-	
-	public float GetDownwardVelocity()
-	{
-		if (playerMovement.GetIsGrounded()) return 0.0f; // If the player is grounded , then there is no downward velocity.
-		if (playerRB.velocity.y > 0.0f || Mathf.Approximately(playerRB.velocity.y, 0.0f)) return 0.0f; // If the player isn't moving vertically or the player is going up, then there is no downward velocity.
-		else return Mathf.Abs(playerRB.velocity.y); // If the player is falling, update the downward velocity to match.
 	}
 	
 	// Called via player input, Checks if the conditions to be able to rocket jump are met,
@@ -103,16 +96,21 @@ public class Player_BlastMechanics : MonoBehaviour
 	{
 		// If the player is currently accelerating upward, instantly canncel upward velocity, then apply downward force.
 		//if (playerRB.velocity.y > 0.0) playerRB.velocity = new Vector3 (playerRB.velocity.x, 0.0f, playerRB.velocity.z);
-		playerRB.AddRelativeForce(playerMovement.GetGravity().normalized * groundPound_Multiplier, ForceMode.Acceleration);
-		//playerMovement.TerminalVelocity();
+		//playerRB.AddForce(playerMovement.GetGravity().normalized * groundPound_Multiplier, ForceMode.Acceleration);
+		//playerRB.AddForce(playerMovement.GetGravity().normalized * groundPound_Multiplier, ForceMode.Impulse);
 		
-		Debug.Log("We're going down");
+		playerRB.AddRelativeForce(Vector3.down * groundPound_Multiplier, ForceMode.Impulse);
+		
+		//playerRB.AddForce(playerMovement.GetGravity() * groundPound_Multiplier / playerMovement.GetGravity().magnitude, ForceMode.Impulse);
+		//playerMovement.TerminalVelocity();
 	}
 	
 	private void GroundPoundCheck()
 	{
-		if(GetDownwardVelocity() != 0.0f) impactVelocity = GetDownwardVelocity(); // Set the "previous velocity" at this physics step so it can be compared during the next physics step.
-		if (impactVelocity != 0.0f && GetDownwardVelocity() == 0.0f && impactVelocity >= minGroundPoundVelocity)
+		float downwardVelocity = playerMovement.GetDownwardVelocity();
+		
+		if(downwardVelocity != 0.0f) impactVelocity = downwardVelocity; // Set the "previous velocity" at this physics step so it can be compared during the next physics step.
+		if (impactVelocity != 0.0f && downwardVelocity == 0.0f && impactVelocity >= minGroundPoundVelocity)
 		{
 			float gpBlast_Power = 65.0f * impactVelocity;
 			float gpBlast_Radius = impactVelocity * 0.3f; // 5.0f;
@@ -133,7 +131,7 @@ public class Player_BlastMechanics : MonoBehaviour
 			if (gpParticles_GameObject != null) Destroy(gpParticles_GameObject); // to prevent multiple particle systems from spawning when clipping the corner of rounded objects.
 	
 			float gpParticle_Duration = camShake_Duration * 3.0f;			
-			gpParticles_GameObject = Instantiate(groundPoundParticles, playerRB.position, Quaternion.identity) as GameObject;
+			gpParticles_GameObject = Instantiate(groundPoundParticles, playerRB.position, Quaternion.Euler(playerRB.transform.eulerAngles)) as GameObject;
 			ParticleSystem.MainModule gpParticles_MainModule = gpParticles_GameObject.GetComponent<ParticleSystem>().main;
 			
 			gpParticles_MainModule.startSpeed = Mathf.Clamp(impactVelocity, 5.0f, 50.0f);

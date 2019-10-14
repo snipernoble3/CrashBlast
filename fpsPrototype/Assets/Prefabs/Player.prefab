@@ -875,7 +875,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.2
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -1035,6 +1035,7 @@ GameObject:
   - component: {fileID: 3820172613042789074}
   - component: {fileID: 6531711672340719521}
   - component: {fileID: 8121039475321901628}
+  - component: {fileID: 746588269}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -1113,6 +1114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c29164178c6e2409d413548932329f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravitySource: {fileID: 0}
   firstPersonArms_Animator: {fileID: 4392674234314282691}
   hud_Velocity: {fileID: 0}
   jumpForceMultiplier: 400
@@ -1153,6 +1155,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b0bcaf7bd054c4faae459758157ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &746588269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820172613042789075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f35a851288503946bf1fdd5e929e386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravitySource: {fileID: 0}
 --- !u!1 &3878881393201546813
 GameObject:
   m_ObjectHideFlags: 0
