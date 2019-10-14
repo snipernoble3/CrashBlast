@@ -147,7 +147,7 @@ public class Shooting : MonoBehaviour
     }
     
     void UpdateAmmoCount () {
-        ammoUI.text = "" + currAmmo;
+        if (ammoUI != null) ammoUI.text = "" + currAmmo;
     }
 
 }
