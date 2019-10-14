@@ -14,9 +14,19 @@ public class Beetle2 : MonoBehaviour {
     public float visionRange = 20f;
     public float lookSpeed = 5f;
     public float moveSpeed = 1f;
+    public float chargeSpeed = 5f;
+    public int damageOnHit = 2;
 
-    private bool attackStarted;
-    public float chargeTime = 0.5f;
+    private Quaternion targetRotation;
+
+    private bool attacking;
+    private bool charging;
+    private bool dealtDamage;
+    private bool cooldown;
+    private Vector3 hitLocation;
+    private Vector3 lastLocation;
+    public float channelTime = 0.5f;
+    public float chargeTime = 1f;
     public float cooldownTime = 0.5f;
 
     private void Awake () {
@@ -28,16 +38,30 @@ public class Beetle2 : MonoBehaviour {
 
         distanceToTarget = Mathf.Abs(Vector3.Magnitude(target.position - transform.position));
 
-        if (distanceToTarget < visionRange) {
+        if (distanceToTarget < visionRange && currState != State.Attacking) {
             UpdateState(State.Moving);
-        } else {
+        } else if (currState != State.Attacking) {
             UpdateState(State.Idle);
         }
 
         switch (currState) {
+            case State.Attacking:
+                if (!charging && !cooldown) {
+                    targetRotation = Quaternion.LookRotation(hitLocation - transform.position);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lookSpeed * Time.deltaTime);
+                }
+                
+                break;
             case State.Moving:
-                var targetRotation = Quaternion.LookRotation(target.position - transform.position);
+                targetRotation = Quaternion.LookRotation(target.position - transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lookSpeed * Time.deltaTime);
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, transform.forward, out hit, attackRange)) {
+                    if (hit.transform.tag == "Player") {
+                        hitLocation = hit.transform.position;
+                        UpdateState(State.Attacking);
+                    }
+                }
                 break;
             case State.Idle:
                 break;
@@ -51,9 +75,14 @@ public class Beetle2 : MonoBehaviour {
     private void FixedUpdate () {
         switch (currState) {
             case State.Attacking:
-                if (!attackStarted) {
-                    StartCoroutine(Charge());
+                if (!attacking) {
+                    StartCoroutine(Attack());
                 }
+
+                if (charging) {
+                    transform.position += transform.forward * chargeSpeed * Time.fixedDeltaTime;
+                }
+
                 break;
             case State.Moving:
                 //a* pathfinding?
@@ -66,12 +95,39 @@ public class Beetle2 : MonoBehaviour {
         }
     }
 
-    IEnumerator Charge () {
+    private void OnCollisionEnter (Collision collision) {
+        if (charging && !dealtDamage) {
+
+            if (collision.gameObject == target.gameObject) {
+                collision.gameObject.GetComponent<Health>().TakeDamage(damageOnHit);
+                dealtDamage = true;
+
+            }
+
+        }
+        
+    }
+
+    IEnumerator Attack () {
+        attacking = true;
+        //Debug.Log("Begin Attack");
+        //Debug.Log("target: " + target.transform.position.ToString() + " hit: " + hitLocation.ToString());
+        //Vector3 attackLocation = hitLocation - transform.position;
+        
+
+        yield return new WaitForSeconds(channelTime);
+        
+        charging = true;
 
         yield return new WaitForSeconds(chargeTime);
 
-        yield return new WaitForSeconds(cooldownTime);
+        charging = false;
+        dealtDamage = false;
+        cooldown = true;
 
+        yield return new WaitForSeconds(cooldownTime);
+        cooldown = false;
+        attacking = false;
         UpdateState(State.Idle);
     }
 
