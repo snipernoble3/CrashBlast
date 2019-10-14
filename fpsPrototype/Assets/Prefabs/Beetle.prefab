@@ -79,7 +79,7 @@ MonoBehaviour:
   attackRange: 5
   visionRange: 50
   lookSpeed: 3
-  moveSpeed: 5
+  moveSpeed: 9
   chargeSpeed: 15
   damageOnHit: 2
   channelTime: 0.25

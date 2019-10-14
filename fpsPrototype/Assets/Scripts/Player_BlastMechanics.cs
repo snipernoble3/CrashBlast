@@ -10,6 +10,7 @@ public class Player_BlastMechanics : MonoBehaviour
 	public bool enableCameraShake_gpLanding = true;
 	public bool autoJumpBeforeGroundedRocketJump = true;
 	public bool blastDealsDamage = false;
+	public bool rj_trainingHitMarker = false;
 	
 	// Object References
 	private Player_Movement playerMovement;
@@ -25,7 +26,7 @@ public class Player_BlastMechanics : MonoBehaviour
 	public int rjBlast_NumSinceGrounded = 0;
 	[SerializeField] private const int rjBlast_NumLimit = 2; // set this back to 2 after testing
 	
-	private const float rjBlast_Range = 3.0f;
+	private const float rjBlast_Range = 4.0f;
 	private const float rjBlast_Power = 550.0f;
 	private Vector3 rjBlast_Epicenter; // The origin of the rocket jump blast radius.
 	private const float rjBlast_Radius = 5.0f;
@@ -63,12 +64,28 @@ public class Player_BlastMechanics : MonoBehaviour
 	{	
 		if (rjBlast_NumSinceGrounded < rjBlast_NumLimit) // Don't bother with the rest of the check if the player has used up all of his rocket jumps.
 		{
+			RaycastHit rjBlast_Hit;
+			
 			// Determine where the rocket jump blast's center point should be.
-			if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out RaycastHit hit, rjBlast_Range, LayerMask.NameToLayer("Player"))) rjBlast_Epicenter = hit.point;
+			//if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out rjBlast_Hit, rjBlast_Range, LayerMask.NameToLayer("Player"))) rjBlast_Epicenter = rjBlast_Hit.point;
+			if (Physics.Raycast(firstPersonCam.transform.position, firstPersonCam.transform.forward, out rjBlast_Hit, rjBlast_Range)) rjBlast_Epicenter = rjBlast_Hit.point;
 			else rjBlast_Epicenter = firstPersonCam.transform.position + (firstPersonCam.transform.forward * rjBlast_Range);
 		
 			firstPersonArms_Animator.Play("FirstPersonArms_Blast", 1, 0.25f); // Play the blast animation.
 			BlastForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpwardForce); // Add the blast force to affect other objects.
+			
+			// Test sphere
+			if (rj_trainingHitMarker)
+			{
+				GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+				sphere.transform.position = rjBlast_Epicenter;
+				Destroy(sphere.GetComponent<SphereCollider>());
+				Renderer sphereRend = sphere.GetComponent<Renderer>();
+				sphereRend.material = new Material(Shader.Find("Standard"));
+				if (rjBlast_Hit.collider == null) sphereRend.material.color = Color.red;
+				else sphereRend.material.color = Color.green;
+				Destroy(sphere, 5.0f);
+			}
 			
 			if (playerMovement.GetIsGrounded())
 			{
@@ -80,6 +97,8 @@ public class Player_BlastMechanics : MonoBehaviour
 				}
 			}
 			else RocketJump();
+
+			if (!playerMovement.GetIsGrounded() && rjBlast_Hit.collider == null) rjBlast_NumSinceGrounded += 1;
 		}
 	}
 
@@ -87,7 +106,6 @@ public class Player_BlastMechanics : MonoBehaviour
 	private void RocketJump()
 	{
 		playerRB.AddExplosionForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, 0.0f, ForceMode.Impulse);
-		rjBlast_NumSinceGrounded += 1;
 	}
 	
 	private void AccelerateDown()

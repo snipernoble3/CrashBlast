@@ -12220,6 +12220,11 @@ PrefabInstance:
       propertyPath: hud_Velocity
       value: 
       objectReference: {fileID: 1568693499}
+    - target: {fileID: 6531711672340719521, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: rj_trainingHitMarker
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 746588269, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
       propertyPath: gravitySource
       value: 
