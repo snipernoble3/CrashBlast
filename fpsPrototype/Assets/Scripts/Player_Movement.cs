@@ -158,61 +158,15 @@ public class Player_Movement : MonoBehaviour
 		float deltaTimeCompensation = 100.0f;
 		float verticalAngle_Min = -90.0f;
 		float verticalAngle_Max = 90.0f;
-		float dampen = 35.0f;
 		
 		// Up Down
 		verticalAngle += rotation_vertical * Time.deltaTime * deltaTimeCompensation;
 		verticalAngle = Mathf.Clamp(verticalAngle, verticalAngle_Min, verticalAngle_Max);
-		
-		//firstPersonCam.transform.localRotation = Quaternion.AngleAxis(verticalAngle, Vector3.left);
-		Quaternion v_target = Quaternion.Euler(-verticalAngle, transform.eulerAngles.y, transform.eulerAngles.z);
-		//firstPersonCam.transform.rotation = Quaternion.Slerp(firstPersonCam.transform.rotation, v_target,  Time.deltaTime * dampen);
-		//firstPersonCam.transform.rotation = Quaternion.lerp(firstPersonCam.transform.rotation, v_target,  Time.deltaTime * dampen);
-		//firstPersonCam.transform.localRotation = Quaternion.AngleAxis(verticalAngle, Vector3.left);
-		
-		firstPersonCam.transform.localRotation = Quaternion.Euler(new Vector3(-verticalAngle, 0.0f , 0.0f));
+		firstPersonCam.transform.localRotation = Quaternion.Euler(Vector3.left * verticalAngle);
 		
 		// Left Right
-		horizontalAngle += rotation_horizontal * Time.deltaTime * deltaTimeCompensation;
-		if (horizontalAngle > 360.0f) horizontalAngle -= 360.0f;
-		if (horizontalAngle < 0.0f) horizontalAngle += 360.0f;
-		
-		//transform.localRotation = Quaternion.AngleAxis(horizontalAngle, transform.up);
-		//Quaternion h_target = Quaternion.Euler(0.0f, horizontalAngle, 0.0f);
-		//transform.rotation = Quaternion.Slerp(transform.rotation, h_target,  Time.deltaTime * dampen);
-		
-		//float angle currentAngle = 0.0f;
-		//Vector3 currentAxis = Vector3.zero;
-		//transform.rotation.ToAngleAxis(out currentAngle, out currentAxis);
-		
-		//world space rotation transform.eulerAngles.x
-		
-		//Vector3 horizontalDirection = new Vector3(0.0f, horizontalAngle, 0.0f);
-		Vector3 horizontalDirection = new Vector3(0.0f, rotation_horizontal * Time.deltaTime * deltaTimeCompensation, 0.0f);
-		
-		//Quaternion FromToRotation(transform.rotation, Vector3 toDirection);
-		
-		//Quaternion target = Quaternion.rotation.ToAngleAxis();
-		
-		
-		
-		
-		//transform.localRotation = Quaternion.AngleAxis(horizontalAngle, transform.InverseTransformDirection(gravity));
-		
-		//transform.localRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
-		
-		//Quaternion rotationDirection = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
-		
-		//transform.localRotation = Quaternion.LookRotation(new Vector3(0.0f, horizontalAngle, 0.0f), Vector3.up);
-		//transform.localRotation = Quaternion.LookRotation(rotationDirection.eulerAngles, Vector3.up);
-		
-		//transform.rotation = Quaternion.FromToRotation(-transform.up, gravity.normalized);
-		
-		
-		//transform.localRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
-		
-		transform.rotation *= Quaternion.Euler(horizontalDirection);
-		
+		horizontalAngle = rotation_horizontal * Time.deltaTime * deltaTimeCompensation;
+		transform.rotation *= Quaternion.Euler(new Vector3(0.0f, horizontalAngle, 0.0f));
 	}
 	
 	public void CheckIfGrounded()

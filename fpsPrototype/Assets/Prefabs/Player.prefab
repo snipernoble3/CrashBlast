@@ -1131,9 +1131,9 @@ MonoBehaviour:
   firstPersonArms_Animator: {fileID: 4392674234314282691}
   hud_Velocity: {fileID: 0}
   jumpForceMultiplier: 400
-  mouseSensitivity_X: 6
+  mouseSensitivity_X: 3
   mouseSensitivity_Y: 3
-  matchXYSensitivity: 0
+  matchXYSensitivity: 1
   useRawMouseInput: 1
   invertVerticalInput: 0
 --- !u!114 &6531711672340719521
