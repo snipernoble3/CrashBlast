@@ -10998,16 +10998,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
-      propertyPath: matchXYSensitivity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: mouseSensitivity_X
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
       propertyPath: hud_VerticalVelocity
       value: 
       objectReference: {fileID: 139563138}

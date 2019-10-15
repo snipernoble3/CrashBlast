@@ -119,33 +119,54 @@ public class Player_Movement : MonoBehaviour
 		playerRB.AddRelativeForce(requestedMoveVector, ForceMode.Impulse);
 		
 		// Change Direction	
-		if (Vector3.Angle(currentMoveVector, requestedMoveVector) != 0.0f) ChangeDirection(requestedMoveVector, currentMoveVector);
+		//if (Vector3.Angle(currentMoveVector, requestedMoveVector) != 0.0f) ChangeDirection(requestedMoveVector, currentMoveVector);
 	}
 	
 	private void ChangeDirection(Vector3 requestedMoveVector, Vector3 currentMoveVector)
 	{
 		float redirectInfluence = 1.0f; // Change 100%
-		Vector3 directionChangeVector = requestedMoveVector.normalized * currentMoveVector.magnitude * redirectInfluence;
-		directionChangeVector -= currentMoveVector;
-		playerRB.AddRelativeForce(directionChangeVector, ForceMode.Impulse);
+		
+		//Vector3 directionChangeVector = requestedMoveVector.normalized * currentMoveVector.magnitude * redirectInfluence;
+		//directionChangeVector -= currentMoveVector;
 		//playerRB.velocity = directionChangeVector;
+		
+		Vector3 directionChangeVector = Vector3.Project(currentMoveVector, requestedMoveVector);
+		directionChangeVector -= currentMoveVector;
+		directionChangeVector *= playerRB.mass;
+		playerRB.AddRelativeForce(directionChangeVector, ForceMode.Impulse);
 	}
 	
 	private void SimulateFriction()
 	{
-		float rampDownMultiplier = 5.0f;
+		Vector3 frictionForceToAdd = transform.InverseTransformDirection(playerRB.velocity); // Start by getting the the player's velocity in local space.
+		
+		float rampDownMultiplier = 10.0f;
 		rampDownMultiplier *= Time.fixedDeltaTime; // Multiply by Time.fixedDeltaTime so that friction speed is not bound to inconsitencies in the physics time step.
 		
+		float verticalFrictionMultiplier = 1.0f; // We need some vertical counter force so the player doesn't slip off of edges.
+		//if (frictionForceToAdd.y >= -0.02f) verticalFrictionMultiplier = 0.0f; // Don't slow down the player's force if he is trying to jump.
+		if (frictionForceToAdd.y >= 0.0f) verticalFrictionMultiplier = 0.0f; // Don't slow down the player's force if he is trying to jump.
+		
+		/*
 		float verticalFrictionMultiplier = 0.0f; // Don't slow down the player's force if he is trying to jump.
 		if (GetDownwardVelocity() > 0.0f) verticalFrictionMultiplier = 1.0f;
+		*/
+
+		frictionForceToAdd *= -playerRB.mass; // Point the force in the opposite direction with enough strength to counter the mass.
+		frictionForceToAdd -= transform.InverseTransformDirection(gravity);  // Counter gravity (in local space) so that the player won't slip off of edges
 		
+		// Multiply the rampDownMultiplier with the x and z components so that speed will ramp down for lateral movment, but the vertical friction will be instantanious.
+		frictionForceToAdd = Vector3.Scale(frictionForceToAdd, new Vector3(rampDownMultiplier, verticalFrictionMultiplier, rampDownMultiplier));
+		
+		playerRB.AddRelativeForce(frictionForceToAdd, ForceMode.Impulse); // Apply the friction to the player in local space
+		
+		/*
 		Vector3 frictionForceToAdd = -playerRB.velocity; // Start by getting the opposite of the player's world space velocity
 		frictionForceToAdd *= playerRB.mass; // Apply the opposing force with enough strength to counter the mass
 		frictionForceToAdd -= gravity;  // Counter gravity so that the player won't slip off of edges
-		frictionForceToAdd = transform.InverseTransformDirection(frictionForceToAdd); // Convert the vector to local space
-		// Multiply the rampDownMultiplier with the x and z components so that speed will ramp down for lateral movment, but the vertical friction will be instantanious.
-		frictionForceToAdd = Vector3.Scale(frictionForceToAdd, new Vector3(rampDownMultiplier, verticalFrictionMultiplier, rampDownMultiplier));
-		playerRB.AddRelativeForce(frictionForceToAdd, ForceMode.Impulse); // Apply the friction to the player in local space
+		
+		playerRB.AddForce(frictionForceToAdd, ForceMode.Impulse); // Apply the friction to the player in world space
+		*/
 	}
 		
 	private void GetInput_Mouse()
@@ -229,8 +250,6 @@ public class Player_Movement : MonoBehaviour
 		// Calculate how fast the player is moving along his local vertical axis.
 		Vector3 downwardVelocity = transform.InverseTransformDirection(playerRB.velocity); // Convert the vector to local space
 		
-		// Vector3 downwardVelocity = Vector3.Project(playerRB.velocity, GetGravity().normalized); // OLD unnecisary projection method
-		
 		if (downwardVelocity.y > 0.0f || Mathf.Approximately(downwardVelocity.y, 0.0f)) return 0.0f; // If the player isn't moving vertically or the player is going up, then there is no downward velocity.
 		else return Mathf.Abs(downwardVelocity.y); // If the player is falling, update the downward velocity to match.
 	}
@@ -238,17 +257,18 @@ public class Player_Movement : MonoBehaviour
 	public void TerminalVelocity()
 	{
 		Vector3 fallCancelForce;
+		Vector3 relativeVelocity = transform.InverseTransformDirection(playerRB.velocity);
 		float currentDownwardSpeed = 0.0f;
 		float maxDownwardSpeed = 75.0f;
 		
-		if (playerRB.velocity.y < 0.0f) currentDownwardSpeed = -playerRB.velocity.y;
+		if (relativeVelocity.y < 0.0f) currentDownwardSpeed = -relativeVelocity.y;
 		else currentDownwardSpeed = 0.0f;
 		
 		if (currentDownwardSpeed > maxDownwardSpeed)
 		{
-			fallCancelForce = new Vector3(0.0f, ((currentDownwardSpeed - maxDownwardSpeed) * playerRB.mass) - gravity.y, 0.0f);
+			fallCancelForce = new Vector3(0.0f, ((currentDownwardSpeed - maxDownwardSpeed) * playerRB.mass), 0.0f) -gravity;
 			
-			playerRB.AddForce(fallCancelForce, ForceMode.Impulse);
+			playerRB.AddRelativeForce(fallCancelForce, ForceMode.Impulse);
 		}
 	}
 }
