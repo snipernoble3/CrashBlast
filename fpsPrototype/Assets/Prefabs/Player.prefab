@@ -607,7 +607,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.2
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -1086,7 +1086,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 2
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!114 &746588269
@@ -1116,8 +1116,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 0}
   firstPersonArms_Animator: {fileID: 4392674234314282691}
-  hud_Velocity: {fileID: 0}
-  jumpForceMultiplier: 400
+  hud_LateralVelocity: {fileID: 0}
+  hud_VerticalVelocity: {fileID: 0}
+  jumpForceMultiplier: 5
   mouseSensitivity_X: 3
   mouseSensitivity_Y: 3
   matchXYSensitivity: 1

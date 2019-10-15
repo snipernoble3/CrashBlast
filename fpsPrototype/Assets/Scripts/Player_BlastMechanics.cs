@@ -32,7 +32,6 @@ public class Player_BlastMechanics : MonoBehaviour
 	private float rjBlast_CoolDownTime = 0.25f; // seconds between rocket jumps
 	private float rjBlast_TimeSinceLastJump;
 	
-	
 	private const float rjBlast_Range = 4.0f;
 	private const float rjBlast_Power = 550.0f;
 	private Vector3 rjBlast_Epicenter; // The origin of the rocket jump blast radius.
@@ -56,9 +55,10 @@ public class Player_BlastMechanics : MonoBehaviour
 
     void Update()
     {		
-		if (Input.GetButtonDown("Fire2") && rjBlast_TimeSinceLastJump == rjBlast_CoolDownTime) RocketJumpCheck();
 		if (rjBlast_TimeSinceLastJump < rjBlast_CoolDownTime) rjBlast_TimeSinceLastJump = Mathf.Clamp(rjBlast_TimeSinceLastJump += 1.0f * Time.deltaTime, 0.0f, rjBlast_CoolDownTime);
 		
+		// Inputs
+		if (Input.GetButtonDown("Fire2") && rjBlast_TimeSinceLastJump == rjBlast_CoolDownTime) RocketJumpCheck();
 		if (Input.GetButton("Crouch") && !playerMovement.GetIsGrounded()) AccelerateDown();
     }
 	
