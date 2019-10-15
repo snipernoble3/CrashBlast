@@ -11,7 +11,8 @@ public class Player_Movement : MonoBehaviour
 	private GameObject firstPersonCam;
 	private Rigidbody playerRB;
 	public Animator firstPersonArms_Animator;
-	public TextMeshProUGUI hud_Velocity;
+	public TextMeshProUGUI hud_LateralVelocity;
+	public TextMeshProUGUI hud_VerticalVelocity;
 	
 	// Movement Variables
 	private bool isGrounded = false; // Initialize as false, since player may spawn in mid-air
@@ -50,28 +51,26 @@ public class Player_Movement : MonoBehaviour
 
     void Update()
     {		
-		// if (!playerRB.useGravity && )
-		
 		GetInput_Mouse();
-		GetInput_LateralMovement();
 		MouseLook();
-		
+		GetInput_LateralMovement();
 		if (isGrounded && Input.GetButtonDown("Jump")) Jump();
     }
 	
 	void FixedUpdate()
 	{		
 		gravity = GetGravity();
-		CheckIfGrounded(); // update the isGrounded bool for use elsewhere
-		LateralMovement(); // move the player
-		
+		CheckIfGrounded(); // Update the isGrounded bool for use elsewhere
+		LateralMovement(); // Move the player based on the lateral movement input.
+		// Slow the player down with "friction" if he is grounded and not trying to move.
 		if (inputMovementVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
 		
-		Vector3 resultMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z);
-		if (hud_Velocity != null) hud_Velocity.text = "Lateral Velocity: " + resultMoveVector.magnitude.ToString("F2");		
-		//if (hud_Velocity != null) hud_Velocity.text = "Vertical Velocity: " + playerRB.velocity.y.ToString("F2");	
+		Vector3 localVelocity = transform.InverseTransformDirection(playerRB.velocity);
+		Vector3 lateralSpeed = new Vector3(localVelocity.x, 0.0f, localVelocity.z);
+		if (hud_LateralVelocity != null) hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");		
+		if (hud_VerticalVelocity != null) hud_VerticalVelocity.text = "Vertical Velocity: " + localVelocity.y.ToString("F2");	
 
-		//TerminalVelocity();
+		TerminalVelocity();
 	}
 	
 	private void GetInput_LateralMovement()
@@ -85,31 +84,41 @@ public class Player_Movement : MonoBehaviour
 	// Add lateral movement via the physics system (doesn't affect vertical velocity).
 	private void LateralMovement()
 	{
-		// Move the player
+		float speedRampUpMultiplier = 60.0f;
+		speedRampUpMultiplier *= Time.fixedDeltaTime; // Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step.
 		
-		float speedRampUpMultiplier = 50.0f;
+		float targetMoveSpeed = 12.0f; // The player is only alowed to go past this lateral movment speed via outside forces like rocket jumping.
+		targetMoveSpeed *= inputMovementVector.magnitude * moveSpeedReduction; // Needed so that analogue input doesn't ramp up over time.
 		
-		// Multiply the movement vector with the speed multiplider
-		Vector3 requestedMoveVector = inputMovementVector * speedRampUpMultiplier;
+		// Start with the the user input (for direction of the vector),
+		// Multiply by the player's mass (so this script will work consistently regardless of the player's mass)
+		// And Multiply by the speedRampUpMultiplier to add speed at the desired rate.
+		Vector3 requestedMoveVector = inputMovementVector * playerRB.mass * speedRampUpMultiplier;
 		
-		float moveSpeedMax = 12.0f; // The player is only alowed to go past this lateral movment speed via outside forces like rocket jumping.
-		moveSpeedMax *= inputMovementVector.magnitude * moveSpeedReduction; // Needed so that analogue input doesn't ramp up over time
+			/* This was a completely over engineered way of doing it:
+			// Convert the player's velocity to align with the current direction of gravity.
+			Vector3 currentMoveVector = Vector3.Project(playerRB.velocity, GetGravity().normalized);
+			// We are only concerned with the horizontal part of the local space velocity vector so the vertical axis is zeroed out.
+			currentMoveVector = new Vector3(currentMoveVector.x, 0.0f, currentMoveVector.z);
+			// Convert the vector from world space to local space since the force will be added to the player in local space.
+			currentMoveVector = transform.InverseTransformDirection(currentMoveVector);
+			*/
 		
-		
-		Vector3 forceToAdd = requestedMoveVector;
-		Vector3 currentMoveVector = new Vector3(playerRB.velocity.x, 0.0f, playerRB.velocity.z); // Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
-		currentMoveVector = transform.InverseTransformDirection(currentMoveVector); // Convert from world space to Local Space since we are adding the force in local space.
-		
-		// Calculate what the lateral velocity will be if we add the requested force BEFORE adding the force in order to see if it should be applied at all.
-		Vector3 testMoveVector = currentMoveVector + requestedMoveVector / playerRB.mass; // * Time.fixedDeltaTime; // This would be added if we were using the Force ForceMode, but it's an Impulse 
+		// Convert the velocity vector from world space to local space (Because the force will be added to the player in local space).
+		Vector3 currentMoveVector =  transform.InverseTransformDirection(playerRB.velocity);
+		// We are only concerned with the lateral part of the local space velocity vector, so the vertical axis is zeroed out.
+		currentMoveVector = new Vector3(currentMoveVector.x, 0.0f, currentMoveVector.z);
+		// Calculate what the lateral velocity will be if we add the requested force.
+		// Do this BEFORE adding the force in order to see if it should be added at all.
+		Vector3 testMoveVector = currentMoveVector + requestedMoveVector / playerRB.mass;
 		
 		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
-		if (testMoveVector.magnitude > moveSpeedMax)
+		if (testMoveVector.magnitude > targetMoveSpeed)
 		{
-			forceToAdd = requestedMoveVector.normalized * Mathf.Clamp(moveSpeedMax - currentMoveVector.magnitude, 0.0f, moveSpeedMax);
+			requestedMoveVector = requestedMoveVector.normalized * Mathf.Clamp(targetMoveSpeed - currentMoveVector.magnitude, 0.0f, targetMoveSpeed);
 		}
-		// Apply the calculated force
-		playerRB.AddRelativeForce(forceToAdd, ForceMode.Impulse);
+		// Apply the calculated force to the player in local space
+		playerRB.AddRelativeForce(requestedMoveVector, ForceMode.Impulse);
 		
 		// Change Direction	
 		if (Vector3.Angle(currentMoveVector, requestedMoveVector) != 0.0f) ChangeDirection(requestedMoveVector, currentMoveVector);
@@ -126,19 +135,24 @@ public class Player_Movement : MonoBehaviour
 	
 	private void SimulateFriction()
 	{
-		float frictionMultiplier = 15.0f;
+		float frictionMultiplier = 5.0f;
+		
 		//Vector3 frictionForceToAdd = new Vector3(-playerRB.velocity.x, 0.0f, -playerRB.velocity.z); // Get the current velocity, We are only concerned with the horizontal movement vector so the vertical axis is zeroed out.
 		Vector3 frictionForceToAdd = -playerRB.velocity; // Get the opposite of the player's world space velocity
-		frictionForceToAdd = transform.InverseTransformDirection(frictionForceToAdd); // Convert to local space
+		//frictionForceToAdd = transform.InverseTransformDirection(frictionForceToAdd); // Convert to local space
 		//frictionForceToAdd = new Vector3(frictionForceToAdd.x, 0.0f, frictionForceToAdd.z); // Don't manipulate the local vertical axis.
 		
 		//frictionForceToAdd -= gravity;
 		
-		frictionForceToAdd *= frictionMultiplier;
+		//frictionForceToAdd *= frictionMultiplier;
 		
 		//playerRB.AddForce(frictionForceToAdd, ForceMode.Impulse);
 		
-		playerRB.AddRelativeForce(frictionForceToAdd, ForceMode.Impulse);
+		//playerRB.AddRelativeForce(frictionForceToAdd, ForceMode.Impulse);
+		
+		frictionForceToAdd *= playerRB.mass * frictionMultiplier * Time.fixedDeltaTime;
+		
+		playerRB.AddForce(frictionForceToAdd, ForceMode.Impulse);
 	}
 		
 	private void GetInput_Mouse()

@@ -11025,6 +11025,16 @@ PrefabInstance:
       propertyPath: moveSpeedMultiplier
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: hud_LateralVelocity
+      value: 
+      objectReference: {fileID: 1260911379}
+    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: hud_VerticalVelocity
+      value: 
+      objectReference: {fileID: 7308633462561431051}
     - target: {fileID: 8972201421833165979, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: m_Material
@@ -11162,6 +11172,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
+--- !u!114 &7308633462561431051 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7166692890187780468, guid: 978ccc9568ae967499c26e069b6eff52,
+    type: 3}
+  m_PrefabInstance: {fileID: 7308633462561431050}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7834512189983992170
 PrefabInstance:
   m_ObjectHideFlags: 0

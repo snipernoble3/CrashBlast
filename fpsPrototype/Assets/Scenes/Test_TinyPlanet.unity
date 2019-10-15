@@ -6767,6 +6767,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
+--- !u!114 &1180274249 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7166692890187780468, guid: 978ccc9568ae967499c26e069b6eff52,
+    type: 3}
+  m_PrefabInstance: {fileID: 1568693496}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1230005861
 GameObject:
   m_ObjectHideFlags: 0
@@ -12220,6 +12232,16 @@ PrefabInstance:
       propertyPath: hud_Velocity
       value: 
       objectReference: {fileID: 1568693499}
+    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: hud_LateralVelocity
+      value: 
+      objectReference: {fileID: 1568693499}
+    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: hud_VerticalVelocity
+      value: 
+      objectReference: {fileID: 1180274249}
     - target: {fileID: 6531711672340719521, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: rj_trainingHitMarker
