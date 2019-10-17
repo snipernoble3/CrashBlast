@@ -15,7 +15,7 @@ public class Shooting : MonoBehaviour
     private float timeToFire = 0f;
     private float shotCount;
     private float timeToReduce = 0f;
-
+    
     private bool reloading;
 	public Animator firstPersonArms_Animator;
     public GameObject firingPosition;
@@ -39,8 +39,8 @@ public class Shooting : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
+        
 
         //Debug.DrawRay(firingPosition.transform.position, firingPosition.transform.forward * range, Color.red, 2f);
 
@@ -49,10 +49,13 @@ public class Shooting : MonoBehaviour
         }
 
         if (Input.GetButton("Fire1") && timeToFire <= 0) {
-            Fire();
-			firstPersonArms_Animator.SetBool("fire", true);
-			
-            timeToFire = fireRate;
+            if (currAmmo != 0 && !reloading) {
+                Fire();
+                firstPersonArms_Animator.SetBool("fire", true);
+
+                timeToFire = fireRate;
+            }
+            
         }
 		else firstPersonArms_Animator.SetBool("fire", false);
 
@@ -69,21 +72,20 @@ public class Shooting : MonoBehaviour
             timeToReduce -= Time.fixedDeltaTime;
         }
 
-        if (!Input.GetMouseButton(0) && timeToReduce <= 0 && !reloading) {
+        if (reloading || ((currAmmo == 0 || !Input.GetMouseButton(0)) && timeToReduce <= 0)) {
             shotCount = Mathf.Clamp(shotCount - 0.75f, 0, maxAmmo);
-            timeToReduce = 0.1f;
+            int r = reloading ? 1 : 0;
+            timeToReduce = (0.01f * shotCount/2) - r;
             UpdateSpread();
         }
     }
 
 
     void Fire () {
-
-        if (currAmmo == 0) {
-            return;
-        }
+        
 
         shotCount++;
+        if (shotCount > 18) shotCount = 18;
 
         UpdateSpread();
 
@@ -120,7 +122,7 @@ public class Shooting : MonoBehaviour
         } else if (shotCount < 10) {
             maxDeviation = (.0016f * shotCount * shotCount * shotCount) - (.0299f * shotCount * shotCount) + (.2467f * shotCount) - .3092f;
         } else {
-            maxDeviation = Mathf.Clamp(1f + (.25f * (shotCount - 10)), 1f, 2f);
+            maxDeviation = Mathf.Clamp(1f + (.15f * (shotCount - 10)), 1f, 2f);
         }
 
         if (target.activeInHierarchy) {
