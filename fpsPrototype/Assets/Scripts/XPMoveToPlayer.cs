@@ -11,7 +11,7 @@ public class XPMoveToPlayer : MonoBehaviour {
     }
 
     private void Update () {
-        transform.position = Vector3.Lerp(transform.position, target.transform.position + Vector3.up, 0.05f);
+        transform.position = Vector3.Lerp(transform.position, target.transform.position + Vector3.up, 0.075f);
     }
 
 

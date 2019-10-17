@@ -15,12 +15,20 @@ public class PlayerResources : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI resourceAText;
     [SerializeField] private TextMeshProUGUI resourceBText;
 
+    private string baseXPText;
+    private string baseResourceAText;
+    private string baseResourceBText;
+
     private void Awake () {
         //set base text
+        baseXPText = xpText.text;
+        baseResourceAText = resourceAText.text;
+        baseResourceBText = resourceBText.text;
     }
 
     private void Update () {
-        //inventory.SetActive(Input.GetKey(KeyCode.Tab));
+        inventory.SetActive(Input.GetKey(KeyCode.Tab));
+        if (inventory.activeInHierarchy) UpdateUI();
     }
 
     private void OnTriggerEnter (Collider other) {
@@ -61,6 +69,9 @@ public class PlayerResources : MonoBehaviour {
 
     void UpdateUI () {
         //update text values
+        xpText.text = baseXPText + currXP;
+        resourceAText.text = baseResourceAText + currResourceA;
+        resourceBText.text = baseResourceBText + currResourceB;
     }
 
 }

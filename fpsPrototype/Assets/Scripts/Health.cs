@@ -49,6 +49,8 @@ public class Health : MonoBehaviour {
             alive = false;
             if (death != null) {
                 Instantiate(death, transform.position, transform.rotation);
+            }
+            if (XP != null) {
                 for (int i = 0; i < xpDrop; i++) {
                     Instantiate(XP, transform.position + UnityEngine.Random.insideUnitSphere, transform.rotation);
                 }
@@ -70,6 +72,8 @@ public class Health : MonoBehaviour {
         alive = false;
         if (death != null) {
             Instantiate(death, transform.position, transform.rotation);
+        }
+        if (XP != null) {
             for (int i = 0; i < xpDrop; i++) {
                 Instantiate(XP, transform.position + UnityEngine.Random.insideUnitSphere, transform.rotation);
             }
