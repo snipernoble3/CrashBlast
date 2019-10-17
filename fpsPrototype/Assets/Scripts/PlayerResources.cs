@@ -5,6 +5,8 @@ using TMPro;
 
 public class PlayerResources : MonoBehaviour {
 
+    public ParticleSystem depositLight;
+
     private int currXP;
     //private int currLvl;
     private int currResourceA; //currency?
@@ -32,12 +34,21 @@ public class PlayerResources : MonoBehaviour {
     }
 
     private void OnTriggerEnter (Collider other) {
-        if (other.gameObject.name == "Ship") { DepositResourceB(); }
+        if (other.gameObject.name == "Ship") {
+            DepositResourceB();
+            Instantiate(depositLight, other.gameObject.transform.position, other.gameObject.transform.rotation, other.gameObject.transform);
+        }
 
         if (other.gameObject.GetComponent<XPMoveToPlayer>()) {
             AddXP(1);
             other.gameObject.SetActive(false);
         }
+
+        if (other.gameObject.tag == "Resource B") {
+            AddResourceB(1);
+            other.gameObject.SetActive(false);
+        }
+
     }
 
     void AddXP (int amount) { currXP += amount; }
