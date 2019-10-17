@@ -107,7 +107,12 @@ public class Shooting : MonoBehaviour
 			}
         }
 
-        StartCoroutine(Laser(hit));
+        if (hit.point != null) {
+            StartCoroutine(Laser(hit.point));
+        } else {
+            StartCoroutine(Laser(forwardVector * range));
+        }
+        
 
         currAmmo--;
         UpdateAmmoCount();
@@ -130,9 +135,10 @@ public class Shooting : MonoBehaviour
         }
     }
 
-    IEnumerator Laser (RaycastHit hit) {
+    IEnumerator Laser (Vector3 hit) {
         linePositions[0] = endOfGun.transform.position;
-        linePositions[1] = hit.point;
+        linePositions[1] = hit;
+        
 
         GetComponent<LineRenderer>().enabled = true;
         GetComponent<LineRenderer>().SetPositions(linePositions);

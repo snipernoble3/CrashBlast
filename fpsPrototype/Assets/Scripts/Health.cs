@@ -78,7 +78,7 @@ public class Health : MonoBehaviour {
     }
 
     public void CritKill () {
-        Debug.Log("Crit Death");
+        //Debug.Log("Crit Death");
         Instantiate(critDeath, transform.position, transform.rotation);
         for (int i = 0; i < xpDrop * 2; i++) {
             Instantiate(XP, transform.position + UnityEngine.Random.insideUnitSphere, transform.rotation);
