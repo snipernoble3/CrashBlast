@@ -101,8 +101,11 @@ public class Player_Movement : MonoBehaviour
 			hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");		
 			hud_VerticalVelocity.text = "Vertical Velocity: " + localVelocity.y.ToString("F2");
 
-			radarLines[0].SetVector(new Vector3(inputMovementVector.x * moveSpeed_Input_Current, inputMovementVector.z * moveSpeed_Input_Current, -2.0f));
-			radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -1.0f));
+			//radarLines[0].SetVector(new Vector3(inputMovementVector.x * moveSpeed_Input_Current, inputMovementVector.z * moveSpeed_Input_Current, -2.0f));
+			//radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -1.0f));
+			
+			radarLines[0].SetVector(new Vector3(inputMovementVector.x * moveSpeed_Input_Current, inputMovementVector.z * moveSpeed_Input_Current, -0.5f));
+			radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -0.3f));
 		}
 
 		TerminalVelocity();
@@ -134,6 +137,7 @@ public class Player_Movement : MonoBehaviour
 		Vector3 currentMoveVector =  transform.InverseTransformDirection(playerRB.velocity);
 		// We are only concerned with the lateral part of the local space velocity vector, so the vertical axis is zeroed out.
 		currentMoveVector = new Vector3(currentMoveVector.x, 0.0f, currentMoveVector.z);
+
 		
 		// Calculate what the lateral velocity will be if we add the requested force BEFORE actually adding the force.
 		Vector3 testMoveVector = currentMoveVector + requestedMoveVector / playerRB.mass;
@@ -158,29 +162,23 @@ public class Player_Movement : MonoBehaviour
 			//directionChangeVector *= playerRB.mass;
 			playerRB.AddRelativeForce(directionChangeVector, ForceMode.Impulse);
 		}		
+
 		
 		/*
-		
 		////////Emulate Quake Code
 		// Implement this instead to get bhopping working.
 		
-		Vector3 accelDir = inputMovementVector.normalized;
-		Vector3 prevVelocity = currentMoveVector;
-		float accelerate = requestedMoveVector.magnitude;
-		float max_velocity = moveSpeed_Input_Max;
-		
-		float projVel = Vector3.Dot(prevVelocity, accelDir); // Vector projection of Current velocity onto accelDir.
-		float accelVel = accelerate * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
+		float projVel = Vector3.Dot(currentMoveVector, inputMovementVector.normalized); // Vector projection of Current velocity onto input Movement direction.
+		float accelVel = requestedMoveVector.magnitude * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
 
-		// If necessary, truncate the accelerated velocity so the vector projection does not exceed max_velocity
-		if(projVel + accelVel > max_velocity)
-        accelVel = max_velocity - projVel;
+		// If necessary, truncate the accelerated velocity so the vector projection does not exceed max velocity
+		if(projVel + accelVel > moveSpeed_Input_Max)
+        accelVel = moveSpeed_Input_Max - projVel;
 
-		prevVelocity + accelDir * accelVel;
+		Vector3 directionChangeVector = currentMoveVector + inputMovementVector.normalized * accelVel; // This is the new movement vector original code returned this
 		
 		
 		playerRB.AddRelativeForce(requestedMoveVector, ForceMode.Impulse);
-		
 		*/
 	}
 	
