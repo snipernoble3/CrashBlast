@@ -14,10 +14,11 @@ public class Beetle2 : MonoBehaviour {
     public float visionRange = 20f;
     public float lookSpeed = 5f;
     public float moveSpeed = 1f;
+    private float randomSpeedChange;
     public float chargeSpeed = 5f;
     public int damageOnHit = 2;
 
-    private Quaternion targetRotation;
+    private Quaternion targetLookDirection;
 
     private bool attacking;
     private bool charging;
@@ -32,6 +33,7 @@ public class Beetle2 : MonoBehaviour {
     private void Awake () {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         currState = State.Idle;
+        randomSpeedChange = Random.Range(0.5f, 1.5f);
     }
 
     private void Update () {
@@ -47,14 +49,18 @@ public class Beetle2 : MonoBehaviour {
         switch (currState) {
             case State.Attacking:
                 if (!charging && !cooldown) {
-                    targetRotation = Quaternion.LookRotation(hitLocation - transform.position);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lookSpeed * Time.deltaTime);
+                    targetLookDirection = Quaternion.LookRotation(hitLocation - transform.position, transform.position + Vector3.up);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, lookSpeed * Time.deltaTime);
+                } else {
+                    targetLookDirection = Quaternion.LookRotation(transform.forward, transform.position + Vector3.up);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, lookSpeed * Time.deltaTime);
                 }
                 
                 break;
             case State.Moving:
-                targetRotation = Quaternion.LookRotation(target.position - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lookSpeed * Time.deltaTime);
+                targetLookDirection = Quaternion.LookRotation(target.position - transform.position,  Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, Random.Range(1f, 4f) * Time.deltaTime);
+                
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.forward, out hit, attackRange)) {
                     if (hit.transform.tag == "Player") {
@@ -87,7 +93,7 @@ public class Beetle2 : MonoBehaviour {
             case State.Moving:
                 //a* pathfinding?
                 //transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.fixedDeltaTime);
-                transform.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
+                transform.position += transform.forward * moveSpeed * randomSpeedChange * Time.fixedDeltaTime;
                 break;
             case State.Idle:
                 
