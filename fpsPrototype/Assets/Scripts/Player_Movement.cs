@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-
 public class MoveSpeed
 {
 	public float input = 0.0f;
@@ -68,9 +67,15 @@ public class Player_Movement : MonoBehaviour
 	
 	private Vector3 gravity; // Use this instead of Physics.gravity in case we want to replace gravity with attraction to a gravity sorce (like a tiny planet).
 	
+	// Jump
 	[SerializeField] private float jumpForceMultiplier =  5.0f;
 	private const float jumpCoolDownTime = 0.2f;
 	private float timeSinceLastJump;
+	
+	private bool jumpQueue_isQueued = false;
+	private const float jumpQueue_gracePeriod = 1.0f; // How long will the jump stay queued.
+	private float jumpQueue_timeSinceQueued = 0.0f; // How long has it been since the jump was queued.
+	
 	private bool isGrounded = false; // Initialize as false, since player may spawn in mid-air
 	
 	// Mouse Input
@@ -117,7 +122,10 @@ public class Player_Movement : MonoBehaviour
 
     void Update()
     {		
+		// Count how long it's been since the player jumped.
 		if (timeSinceLastJump < jumpCoolDownTime) timeSinceLastJump = Mathf.Clamp(timeSinceLastJump += 1.0f * Time.deltaTime, 0.0f, jumpCoolDownTime);
+		// Count how long it's been since the player queued the next jump.
+		if (jumpQueue_timeSinceQueued < jumpQueue_gracePeriod) jumpQueue_timeSinceQueued = Mathf.Clamp(jumpQueue_timeSinceQueued += 1.0f * Time.deltaTime, 0.0f, jumpQueue_gracePeriod);
 		
 		// Inputs
 		GetInput_Mouse();
@@ -164,7 +172,8 @@ public class Player_Movement : MonoBehaviour
 	// Add lateral movement via the physics system (doesn't affect vertical velocity).
 	private void LateralMovement()
 	{
-		float rampUpMultiplier = 45.0f;
+		//float rampUpMultiplier = 45.0f;
+		float rampUpMultiplier = 15.0f;
 		rampUpMultiplier *= Time.fixedDeltaTime; // Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step.
 		
 		// The distinction between "Current" and "Max" is needed so that partial analogue input doesn't ramp up over time.
@@ -181,6 +190,8 @@ public class Player_Movement : MonoBehaviour
 		moveVector_Current = new Vector3(moveVector_Current.x, 0.0f, moveVector_Current.z);
 
 		
+		
+		//Emulate Quake's vector limiting code so as to enable Bunny Hopping.
 		float projVel = Vector3.Dot(moveVector_Current, moveVector_Request.normalized);
 		
 		if(projVel + rampUpMultiplier > moveSpeed.groundedMax) rampUpMultiplier = moveSpeed.groundedMax - projVel;
@@ -192,11 +203,34 @@ public class Player_Movement : MonoBehaviour
 		
 		moveSpeed.projectedVector = Vector3.ClampMagnitude(moveSpeed.projectedVector, moveSpeed.bHopMax);
 		
-		playerRB.velocity = new Vector3(transform.TransformDirection(moveSpeed.projectedVector).x, playerRB.velocity.y, transform.TransformDirection(moveSpeed.projectedVector).z);
+		//playerRB.velocity = new Vector3(transform.TransformDirection(moveSpeed.projectedVector).x, playerRB.velocity.y, transform.TransformDirection(moveSpeed.projectedVector).z);
+		
+		/*
+			Vector3 desiredVelocity = new Vector3(transform.TransformDirection(moveSpeed.projectedVector).x, playerRB.velocity.y, transform.TransformDirection(moveSpeed.projectedVector).z);
+			playerRB.AddForce((desiredVelocity - playerRB.velocity) * playerRB.mass, ForceMode.Impulse);
+		*/
+		
+		Vector3 desiredVelocity = new Vector3(moveSpeed.projectedVector.x, 0.0f, moveSpeed.projectedVector.z);
+		playerRB.AddRelativeForce((desiredVelocity - moveVector_Current) * playerRB.mass, ForceMode.Impulse);
 		
 		
 		
+		/*
+		////////Emulate Quake Code
+		// Implement this instead to get bhopping working.
 		
+		float projVel = Vector3.Dot(moveVector_Current, moveSpeed.inputVector.normalized); // Vector projection of Current velocity onto input Movement direction.
+		float accelVel = moveVector_Request.magnitude * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
+
+		// If necessary, truncate the accelerated velocity so the vector projection does not exceed max velocity
+		if(projVel + accelVel > moveSpeed.groundedMax)
+        accelVel = moveSpeed.groundedMax - projVel;
+
+		Vector3 directionChangeVector = moveVector_Current + moveSpeed.inputVector.normalized * accelVel; // This is the new movement vector original code returned this
+		
+		
+		playerRB.AddRelativeForce(moveVector_Request, ForceMode.Impulse);
+		*/
 		
 		
 		
@@ -250,26 +284,6 @@ public class Player_Movement : MonoBehaviour
 		// Apply the calculated force to the player in local space
 		playerRB.AddRelativeForce(moveVector_Request, ForceMode.Impulse);
 		
-		*/
-		
-
-
-		
-		/*
-		////////Emulate Quake Code
-		// Implement this instead to get bhopping working.
-		
-		float projVel = Vector3.Dot(moveVector_Current, moveSpeed.inputVector.normalized); // Vector projection of Current velocity onto input Movement direction.
-		float accelVel = moveVector_Request.magnitude * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
-
-		// If necessary, truncate the accelerated velocity so the vector projection does not exceed max velocity
-		if(projVel + accelVel > moveSpeed.groundedMax)
-        accelVel = moveSpeed.groundedMax - projVel;
-
-		Vector3 directionChangeVector = moveVector_Current + moveSpeed.inputVector.normalized * accelVel; // This is the new movement vector original code returned this
-		
-		
-		playerRB.AddRelativeForce(moveVector_Request, ForceMode.Impulse);
 		*/
 	}
 	

@@ -1151,7 +1151,7 @@ MonoBehaviour:
   enableCameraShake_gpLanding: 1
   autoJumpBeforeGroundedRocketJump: 1
   blastDealsDamage: 0
-  rj_trainingHitMarker: 1
+  rj_trainingHitMarker: 0
   groundPoundParticles: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
     type: 3}
   raycastMask:
@@ -1189,7 +1189,10 @@ MonoBehaviour:
   alignment: 0
   maxHealth: 3
   healthText: {fileID: 0}
+  death: {fileID: 0}
   critDeath: {fileID: 0}
+  xpDrop: 0
+  XP: {fileID: 0}
 --- !u!1 &3878881393201546813
 GameObject:
   m_ObjectHideFlags: 0
