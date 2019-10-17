@@ -27,6 +27,7 @@ public class Player_Movement : MonoBehaviour
 	private const float moveSpeedReduction_Air = 0.5f;
 	private const float moveSpeedReduction_Water = 0.75f;
 	private Vector3 moveVector_Input;
+	private Vector3 moveVector_Projected;
 	
 	private Vector3 gravity; // Use this instead of Physics.gravity in case we want to replace gravity with attraction to a gravity sorce (like a tiny planet).
 	
@@ -106,6 +107,7 @@ public class Player_Movement : MonoBehaviour
 			
 			radarLines[0].SetVector(new Vector3(moveVector_Input.x * moveSpeed_Input_Current, moveVector_Input.z * moveSpeed_Input_Current, -0.5f));
 			radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -0.3f));
+			radarLines[2].SetVector(new Vector3(moveVector_Projected.x, moveVector_Projected.z, -0.7f));			
 		}
 
 		TerminalVelocity();
@@ -138,8 +140,47 @@ public class Player_Movement : MonoBehaviour
 		// We are only concerned with the lateral part of the local space velocity vector, so the vertical axis is zeroed out.
 		moveVector_Current = new Vector3(moveVector_Current.x, 0.0f, moveVector_Current.z);
 
-			
-		Vector3 moveVector_Projected = Vector3.Project(moveVector_Request, moveVector_Current);
+		
+		float projVel = Vector3.Dot(moveVector_Current, moveVector_Request.normalized);
+		
+		if(projVel + rampUpMultiplier > moveSpeed_Input_Max) rampUpMultiplier = moveSpeed_Input_Max - projVel;
+		
+		moveVector_Projected = moveVector_Current + moveVector_Request.normalized * rampUpMultiplier;
+		
+		
+		//playerRB.AddRelativeForce(moveVector_Projected, ForceMode.Impulse);
+		
+		playerRB.velocity = new Vector3(transform.TransformDirection(moveVector_Projected).x, playerRB.velocity.y, transform.TransformDirection(moveVector_Projected).z);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//float MAX_Accell = 50.0f;
+		
+		//float currentSpeed = Vector3.Dot(moveVector_Current, moveVector_Request);
+		//float addSpeed = moveSpeed_Input_Current - currentSpeed;
+		//addSpeed = Mathf.Clamp(addSpeed, 0.0f, MAX_Accell * Time.deltaTime);
+		
+		//moveVector_Projected = moveVector_Current + moveVector_Request.normalized * addSpeed;
+		
+		//Vector3 moveVector_Projected = Vector3.Project(moveVector_Request, moveVector_Current);
+		
+		//moveVector_Projected = Vector3.Project(moveVector_Current, moveVector_Request);
+		
+		//moveVector_Projected.normalized + 
+		
+		//playerRB.AddRelativeForce(moveVector_Request, ForceMode.Impulse);
+		
+		//playerRB.velocity = transform.TransformDirection(new Vector3(moveVector_Projected.x, moveVector_Current.y, moveVector_Projected.z));
+		
+		//playerRB.AddRelativeForce(moveVector_Projected, ForceMode.Impulse);
 		
 		/*
 		// Check if the player is changing direction
@@ -158,7 +199,7 @@ public class Player_Movement : MonoBehaviour
 		}	
 		*/
 		
-		
+		/*
 		
 		// Calculate what the lateral velocity will be if we add the requested force BEFORE actually adding the force.
 		Vector3 moveVector_Test = moveVector_Current + moveVector_Request / playerRB.mass;
@@ -167,7 +208,9 @@ public class Player_Movement : MonoBehaviour
 		// Apply the calculated force to the player in local space
 		playerRB.AddRelativeForce(moveVector_Request, ForceMode.Impulse);
 		
-	
+		*/
+		
+
 
 		
 		/*
@@ -197,6 +240,8 @@ public class Player_Movement : MonoBehaviour
 		
 		float verticalFrictionMultiplier = 1.0f; // We need some vertical counter force so the player doesn't slip off of edges.
 		if (frictionForceToAdd.y >= -0.02f) verticalFrictionMultiplier = 0.0f; // Don't slow down the player's force if he is trying to jump.
+		
+		verticalFrictionMultiplier = 0.0f; // DELETE THIS!!!!
 
 		frictionForceToAdd *= -playerRB.mass; // Point the force in the opposite direction with enough strength to counter the mass.
 		frictionForceToAdd -= transform.InverseTransformDirection(gravity);  // Counter gravity (in local space) so that the player won't slip off of edges
