@@ -51,12 +51,11 @@ public class Shooting : MonoBehaviour
         if (Input.GetButton("Fire1") && timeToFire <= 0) {
             if (currAmmo != 0 && !reloading) {
                 Fire();
-                firstPersonArms_Animator.SetBool("fire", true);
-
                 timeToFire = fireRate;
             }
-            
         }
+		
+		if (Input.GetButton("Fire1") && currAmmo != 0) firstPersonArms_Animator.SetBool("fire", true);
 		else firstPersonArms_Animator.SetBool("fire", false);
 
         if (Input.GetButton("Reload") && !reloading && currAmmo != maxAmmo) {
