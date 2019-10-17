@@ -13,7 +13,7 @@ public class Player_Movement : MonoBehaviour
 	public Animator firstPersonArms_Animator;
 	
 	// HUD
-	public GameObject hud;
+	private GameObject hud;
 	private List<VectorVisualizer> radarLines = new List<VectorVisualizer>();
 	private TextMeshProUGUI hud_LateralVelocity;
 	private TextMeshProUGUI hud_VerticalVelocity;
@@ -53,10 +53,20 @@ public class Player_Movement : MonoBehaviour
         playerRB = GetComponent<Rigidbody>();
 		playerRB.constraints = RigidbodyConstraints.FreezeRotation;
 		gravity = GetGravity();
-		hud.transform.GetComponentsInChildren<VectorVisualizer>(false, radarLines);
-		hud_LateralVelocity = hud.transform.Find("Current Lateral Velocity").gameObject.GetComponent<TextMeshProUGUI>();
-		hud_VerticalVelocity = hud.transform.Find("Current Vertical Velocity").gameObject.GetComponent<TextMeshProUGUI>();
 		
+		// Make connections to HUD
+		hud = GameObject.Find("Canvas_HUD");
+		if (hud != null)
+		{
+			hud.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+			hud.GetComponent<Canvas>().worldCamera = firstPersonCam.transform.Find("First Person Camera").GetComponent<Camera>();
+			//hud.GetComponent<Canvas>().worldCamera = firstPersonCam.GetComponent<Camera>();
+			
+			hud.transform.GetComponentsInChildren<VectorVisualizer>(false, radarLines);	
+			hud_LateralVelocity = hud.transform.Find("Current Lateral Velocity").gameObject.GetComponent<TextMeshProUGUI>();
+			hud_VerticalVelocity = hud.transform.Find("Current Vertical Velocity").gameObject.GetComponent<TextMeshProUGUI>();
+		}
+
 		timeSinceLastJump = jumpCoolDownTime;
     }
 
@@ -81,6 +91,7 @@ public class Player_Movement : MonoBehaviour
 		
 		Vector3 localVelocity = transform.InverseTransformDirection(playerRB.velocity);
 		Vector3 lateralSpeed = new Vector3(localVelocity.x, 0.0f, localVelocity.z);
+		
 		if (hud_LateralVelocity != null) hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");		
 		if (hud_VerticalVelocity != null) hud_VerticalVelocity.text = "Vertical Velocity: " + localVelocity.y.ToString("F2");	
 
@@ -121,8 +132,11 @@ public class Player_Movement : MonoBehaviour
 		// Apply the calculated force to the player in local space
 		playerRB.AddRelativeForce(requestedMoveVector, ForceMode.Impulse);
 		
-		radarLines[0].SetVector(new Vector3(inputMovementVector.x * targetMoveSpeed, inputMovementVector.z * targetMoveSpeed, -2.0f));
-		radarLines[1].SetVector(new Vector3(currentMoveVector.x, currentMoveVector.z, -1.0f));
+		if (hud != null)
+		{
+			radarLines[0].SetVector(new Vector3(inputMovementVector.x * targetMoveSpeed, inputMovementVector.z * targetMoveSpeed, -2.0f));
+			radarLines[1].SetVector(new Vector3(currentMoveVector.x, currentMoveVector.z, -1.0f));
+		}
 		
 		//radarLine_Input.SetVector(requestedMoveVector);
 		
