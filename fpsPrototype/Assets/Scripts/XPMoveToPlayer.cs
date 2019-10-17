@@ -7,7 +7,7 @@ public class XPMoveToPlayer : MonoBehaviour {
     public GameObject target;
 
     private void Update () {
-        transform.position = Vector3.Lerp(transform.position, target.transform.position, 0.1f);
+        transform.position = Vector3.Lerp(transform.position, target.transform.position, 0.05f);
     }
 
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerResources : MonoBehaviour {
 
@@ -9,11 +10,26 @@ public class PlayerResources : MonoBehaviour {
     private int currResourceA; //currency?
     private int currResourceB; //rare gem? battery? turn in to ship for xp + currency
 
-    private bool canDeposit;
-    
+    [SerializeField] private GameObject inventory;
+    [SerializeField] private TextMeshProUGUI xpText;
+    [SerializeField] private TextMeshProUGUI resourceAText;
+    [SerializeField] private TextMeshProUGUI resourceBText;
+
+    private void Awake () {
+        //set base text
+    }
+
+    private void Update () {
+        //inventory.SetActive(Input.GetKey(KeyCode.Tab));
+    }
 
     private void OnTriggerEnter (Collider other) {
         if (other.gameObject.name == "Ship") { DepositResourceB(); }
+
+        if (other.gameObject.GetComponent<XPMoveToPlayer>()) {
+            AddXP(1);
+            other.gameObject.SetActive(false);
+        }
     }
 
     void AddXP (int amount) { currXP += amount; }
@@ -41,6 +57,10 @@ public class PlayerResources : MonoBehaviour {
         AddXP(temp * 25);
         AddResourceA(temp * 10);
         RemoveResourceB(temp);
+    }
+
+    void UpdateUI () {
+        //update text values
     }
 
 }
