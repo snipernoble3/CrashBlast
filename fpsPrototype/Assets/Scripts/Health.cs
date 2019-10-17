@@ -18,6 +18,8 @@ public class Health : MonoBehaviour {
 
     public ParticleSystem death;
     public ParticleSystem critDeath;
+    public int xpDrop;
+    public GameObject XP;
 
     private bool alive = true;
     
@@ -47,6 +49,9 @@ public class Health : MonoBehaviour {
             alive = false;
             if (death != null) {
                 Instantiate(death, transform.position, transform.rotation);
+                for (int i = 0; i < xpDrop; i++) {
+                    Instantiate(XP, transform.position + UnityEngine.Random.insideUnitSphere, transform.rotation);
+                }
             }
             OnDeath();
         }
@@ -65,6 +70,9 @@ public class Health : MonoBehaviour {
         alive = false;
         if (death != null) {
             Instantiate(death, transform.position, transform.rotation);
+            for (int i = 0; i < xpDrop; i++) {
+                Instantiate(XP, transform.position + UnityEngine.Random.insideUnitSphere, transform.rotation);
+            }
         }
         OnDeath();
     }
@@ -72,6 +80,9 @@ public class Health : MonoBehaviour {
     public void CritKill () {
         Debug.Log("Crit Death");
         Instantiate(critDeath, transform.position, transform.rotation);
+        for (int i = 0; i < xpDrop * 2; i++) {
+            Instantiate(XP, transform.position + UnityEngine.Random.insideUnitSphere, transform.rotation);
+        }
         currHealth = 0;
         alive = false;
         OnDeath();
@@ -87,7 +98,6 @@ public class Health : MonoBehaviour {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 break;
             default:
-                
                 this.gameObject.SetActive(false);
                 break;
         }

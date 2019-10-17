@@ -203,6 +203,10 @@ MonoBehaviour:
   alignment: 2
   maxHealth: 6
   healthText: {fileID: 0}
+  death: {fileID: 0}
+  critDeath: {fileID: 0}
+  xpDrop: 4
+  XP: {fileID: 1857474205569613871, guid: d430494ca21bb60498d4136a7bd2f8f9, type: 3}
 --- !u!114 &2331697997774483253
 MonoBehaviour:
   m_ObjectHideFlags: 0

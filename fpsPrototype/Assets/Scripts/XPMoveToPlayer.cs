@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class XPMoveToPlayer : MonoBehaviour {
 
-    public GameObject target;
+    private GameObject target;
+
+    private void Awake () {
+        target = GameObject.FindGameObjectWithTag("Player");
+    }
 
     private void Update () {
-        transform.position = Vector3.Lerp(transform.position, target.transform.position, 0.05f);
+        transform.position = Vector3.Lerp(transform.position, target.transform.position + Vector3.up, 0.05f);
     }
 
 
