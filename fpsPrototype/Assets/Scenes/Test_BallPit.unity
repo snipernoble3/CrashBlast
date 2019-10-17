@@ -1608,6 +1608,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 248332435}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!20 &297396678 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3199913974320617412, guid: f1f02688bb546cc46bc69d7d28d1c555,
+    type: 3}
+  m_PrefabInstance: {fileID: 4392674233212273464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &301277781
 GameObject:
   m_ObjectHideFlags: 0
@@ -6244,7 +6250,38 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7308633463188416211, guid: 978ccc9568ae967499c26e069b6eff52,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 297396678}
+    - target: {fileID: 1700764845, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 122.20001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700764845, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 216
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700764845, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 121.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700764845, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 216
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459645017, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 576609762, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1700764848, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
+    - {fileID: 1700764849, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
 --- !u!114 &1203856732 stripped
 MonoBehaviour:
@@ -11006,6 +11043,21 @@ PrefabInstance:
       propertyPath: hud_LateralVelocity
       value: 
       objectReference: {fileID: 1203856733}
+    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: radarLine
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: matchXYSensitivity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: mouseSensitivity_Y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8972201421833165979, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: m_Material

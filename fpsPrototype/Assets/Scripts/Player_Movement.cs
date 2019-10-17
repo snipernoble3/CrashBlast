@@ -11,22 +11,29 @@ public class Player_Movement : MonoBehaviour
 	private GameObject firstPersonCam;
 	private Rigidbody playerRB;
 	public Animator firstPersonArms_Animator;
-	public TextMeshProUGUI hud_LateralVelocity;
-	public TextMeshProUGUI hud_VerticalVelocity;
 	
-	// Movement Variables
-	private bool isGrounded = false; // Initialize as false, since player may spawn in mid-air
-	[SerializeField] private float jumpForceMultiplier =  5.0f;
+	// HUD
+	private GameObject hud;
+	private List<VectorVisualizer> radarLines = new List<VectorVisualizer>();
+	private TextMeshProUGUI hud_LateralVelocity;
+	private TextMeshProUGUI hud_VerticalVelocity;
+	
+	// Lateral Movement
 	private float moveSpeedReduction = 1.0f; // Set to 1.0f so there is no reduction while grounded.
 	private const float moveSpeedReduction_Air = 0.5f;
 	private const float moveSpeedReduction_Water = 0.75f;
+	private Vector3 inputMovementVector;
 	
+	private Vector3 gravity; // Use this instead of Physics.gravity in case we want to replace gravity with attraction to a gravity sorce (like a tiny planet).
+	
+	[SerializeField] private float jumpForceMultiplier =  5.0f;
 	private const float jumpCoolDownTime = 0.2f;
 	private float timeSinceLastJump;
+	private bool isGrounded = false; // Initialize as false, since player may spawn in mid-air
 	
 	// Mouse Input
-	[SerializeField] private float mouseSensitivity_X = 6.0f;
-	[SerializeField] private float mouseSensitivity_Y = 3.0f;
+	[SerializeField] private float mouseSensitivity_X = 3.0f;
+	[SerializeField] private float mouseSensitivity_Y = 1.0f;
 	[SerializeField] private bool matchXYSensitivity = true;
 	[SerializeField] private bool useRawMouseInput = true;
 	[SerializeField] private bool invertVerticalInput = false;
@@ -34,10 +41,6 @@ public class Player_Movement : MonoBehaviour
 	private float rotation_horizontal = 0.0f;
 	private float verticalAngle = 0.0f;
 	private float horizontalAngle = 0.0f;
-	
-	// Lateral Movement
-	private Vector3 inputMovementVector;
-	private Vector3 gravity; // Use this instead of Physics.gravity in case we want to replace gravity with attraction to a gravity sorce (like a tiny planet).
     
     void Awake()
     {
@@ -51,6 +54,19 @@ public class Player_Movement : MonoBehaviour
 		playerRB.constraints = RigidbodyConstraints.FreezeRotation;
 		gravity = GetGravity();
 		
+		// Make connections to HUD
+		hud = GameObject.Find("Canvas_HUD");
+		if (hud != null)
+		{
+			hud.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+			hud.GetComponent<Canvas>().worldCamera = firstPersonCam.transform.Find("First Person Camera").GetComponent<Camera>();
+			//hud.GetComponent<Canvas>().worldCamera = firstPersonCam.GetComponent<Camera>();
+			
+			hud.transform.GetComponentsInChildren<VectorVisualizer>(false, radarLines);	
+			hud_LateralVelocity = hud.transform.Find("Current Lateral Velocity").gameObject.GetComponent<TextMeshProUGUI>();
+			hud_VerticalVelocity = hud.transform.Find("Current Vertical Velocity").gameObject.GetComponent<TextMeshProUGUI>();
+		}
+
 		timeSinceLastJump = jumpCoolDownTime;
     }
 
@@ -75,6 +91,7 @@ public class Player_Movement : MonoBehaviour
 		
 		Vector3 localVelocity = transform.InverseTransformDirection(playerRB.velocity);
 		Vector3 lateralSpeed = new Vector3(localVelocity.x, 0.0f, localVelocity.z);
+		
 		if (hud_LateralVelocity != null) hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");		
 		if (hud_VerticalVelocity != null) hud_VerticalVelocity.text = "Vertical Velocity: " + localVelocity.y.ToString("F2");	
 
@@ -107,19 +124,47 @@ public class Player_Movement : MonoBehaviour
 		Vector3 currentMoveVector =  transform.InverseTransformDirection(playerRB.velocity);
 		// We are only concerned with the lateral part of the local space velocity vector, so the vertical axis is zeroed out.
 		currentMoveVector = new Vector3(currentMoveVector.x, 0.0f, currentMoveVector.z);
+		
 		// Calculate what the lateral velocity will be if we add the requested force BEFORE actually adding the force.
 		Vector3 testMoveVector = currentMoveVector + requestedMoveVector / playerRB.mass;
-		
 		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
-		if (testMoveVector.magnitude > targetMoveSpeed)
-		{
-			requestedMoveVector = requestedMoveVector.normalized * Mathf.Clamp(targetMoveSpeed - currentMoveVector.magnitude, 0.0f, targetMoveSpeed);
-		}
+		if (testMoveVector.magnitude > targetMoveSpeed) requestedMoveVector = requestedMoveVector.normalized * Mathf.Clamp(targetMoveSpeed - currentMoveVector.magnitude, 0.0f, targetMoveSpeed);
 		// Apply the calculated force to the player in local space
 		playerRB.AddRelativeForce(requestedMoveVector, ForceMode.Impulse);
 		
+		if (hud != null)
+		{
+			radarLines[0].SetVector(new Vector3(inputMovementVector.x * targetMoveSpeed, inputMovementVector.z * targetMoveSpeed, -2.0f));
+			radarLines[1].SetVector(new Vector3(currentMoveVector.x, currentMoveVector.z, -1.0f));
+		}
+		
+		//radarLine_Input.SetVector(requestedMoveVector);
+		
 		// Change Direction	
 		//if (Vector3.Angle(currentMoveVector, requestedMoveVector) != 0.0f) ChangeDirection(requestedMoveVector, currentMoveVector);
+		
+		/*
+		
+		////////Emulate Quake Code
+		
+		Vector3 accelDir = inputMovementVector.normalized;
+		Vector3 prevVelocity = currentMoveVector;
+		float accelerate = requestedMoveVector.magnitude;
+		float max_velocity = targetMoveSpeed;
+		
+		float projVel = Vector3.Dot(prevVelocity, accelDir); // Vector projection of Current velocity onto accelDir.
+		float accelVel = accelerate * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
+
+		// If necessary, truncate the accelerated velocity so the vector projection does not exceed max_velocity
+		if(projVel + accelVel > max_velocity)
+        accelVel = max_velocity - projVel;
+
+		prevVelocity + accelDir * accelVel;
+		
+		
+		playerRB.AddRelativeForce(requestedMoveVector, ForceMode.Impulse);
+		
+		*/
 	}
 	
 	private void ChangeDirection(Vector3 requestedMoveVector, Vector3 currentMoveVector)
@@ -144,29 +189,14 @@ public class Player_Movement : MonoBehaviour
 		rampDownMultiplier *= Time.fixedDeltaTime; // Multiply by Time.fixedDeltaTime so that friction speed is not bound to inconsitencies in the physics time step.
 		
 		float verticalFrictionMultiplier = 1.0f; // We need some vertical counter force so the player doesn't slip off of edges.
-		//if (frictionForceToAdd.y >= -0.02f) verticalFrictionMultiplier = 0.0f; // Don't slow down the player's force if he is trying to jump.
-		if (frictionForceToAdd.y >= 0.0f) verticalFrictionMultiplier = 0.0f; // Don't slow down the player's force if he is trying to jump.
-		
-		/*
-		float verticalFrictionMultiplier = 0.0f; // Don't slow down the player's force if he is trying to jump.
-		if (GetDownwardVelocity() > 0.0f) verticalFrictionMultiplier = 1.0f;
-		*/
+		if (frictionForceToAdd.y >= -0.02f) verticalFrictionMultiplier = 0.0f; // Don't slow down the player's force if he is trying to jump.
 
 		frictionForceToAdd *= -playerRB.mass; // Point the force in the opposite direction with enough strength to counter the mass.
 		frictionForceToAdd -= transform.InverseTransformDirection(gravity);  // Counter gravity (in local space) so that the player won't slip off of edges
-		
-		// Multiply the rampDownMultiplier with the x and z components so that speed will ramp down for lateral movment, but the vertical friction will be instantanious.
+		// Multiply the rampDownMultiplier with the x and z components so that speed will ramp down for lateral movment, but the vertical friction will be instantanious if enabled.
 		frictionForceToAdd = Vector3.Scale(frictionForceToAdd, new Vector3(rampDownMultiplier, verticalFrictionMultiplier, rampDownMultiplier));
 		
 		playerRB.AddRelativeForce(frictionForceToAdd, ForceMode.Impulse); // Apply the friction to the player in local space
-		
-		/*
-		Vector3 frictionForceToAdd = -playerRB.velocity; // Start by getting the opposite of the player's world space velocity
-		frictionForceToAdd *= playerRB.mass; // Apply the opposing force with enough strength to counter the mass
-		frictionForceToAdd -= gravity;  // Counter gravity so that the player won't slip off of edges
-		
-		playerRB.AddForce(frictionForceToAdd, ForceMode.Impulse); // Apply the friction to the player in world space
-		*/
 	}
 		
 	private void GetInput_Mouse()

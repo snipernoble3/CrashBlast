@@ -7394,6 +7394,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
+--- !u!20 &1397496574 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3199913974320617412, guid: f1f02688bb546cc46bc69d7d28d1c555,
+    type: 3}
+  m_PrefabInstance: {fileID: 4392674233212273464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1415324419
 GameObject:
   m_ObjectHideFlags: 0
@@ -8433,76 +8439,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7308633461641061657, guid: 978ccc9568ae967499c26e069b6eff52,
+    - target: {fileID: 7308633463188416211, guid: 978ccc9568ae967499c26e069b6eff52,
         type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633461641061657, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633461641061657, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633461641061657, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633461641061657, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633461330099329, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633461330099329, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633461330099329, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633461330099329, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633462663947455, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633462663947455, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633462663947455, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633462663947455, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308633462663947455, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1397496574}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
 --- !u!114 &1568693497 stripped
@@ -9494,6 +9435,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
+--- !u!114 &1700764849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1700764849, guid: 978ccc9568ae967499c26e069b6eff52,
+    type: 3}
+  m_PrefabInstance: {fileID: 1568693496}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5401844fdd7dd464fbc7806b2aa0a40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1708789972
 GameObject:
   m_ObjectHideFlags: 0
@@ -12229,11 +12182,6 @@ PrefabInstance:
       objectReference: {fileID: 1866275885}
     - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
-      propertyPath: hud_Velocity
-      value: 
-      objectReference: {fileID: 1568693499}
-    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
       propertyPath: hud_LateralVelocity
       value: 
       objectReference: {fileID: 1568693499}
@@ -12242,11 +12190,11 @@ PrefabInstance:
       propertyPath: hud_VerticalVelocity
       value: 
       objectReference: {fileID: 1180274249}
-    - target: {fileID: 6531711672340719521, guid: f1f02688bb546cc46bc69d7d28d1c555,
+    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
-      propertyPath: rj_trainingHitMarker
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: radarLine
+      value: 
+      objectReference: {fileID: 1700764849}
     - target: {fileID: 746588269, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
       propertyPath: gravitySource
       value: 
