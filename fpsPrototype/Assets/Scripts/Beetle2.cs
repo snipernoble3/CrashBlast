@@ -14,6 +14,7 @@ public class Beetle2 : MonoBehaviour {
     public float visionRange = 20f;
     public float lookSpeed = 5f;
     public float moveSpeed = 1f;
+    private float randomSpeedChange;
     public float chargeSpeed = 5f;
     public int damageOnHit = 2;
 
@@ -32,6 +33,7 @@ public class Beetle2 : MonoBehaviour {
     private void Awake () {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         currState = State.Idle;
+        randomSpeedChange = Random.Range(0.5f, 1.5f);
     }
 
     private void Update () {
@@ -48,6 +50,9 @@ public class Beetle2 : MonoBehaviour {
             case State.Attacking:
                 if (!charging && !cooldown) {
                     targetLookDirection = Quaternion.LookRotation(hitLocation - transform.position, transform.position + Vector3.up);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, lookSpeed * Time.deltaTime);
+                } else {
+                    targetLookDirection = Quaternion.LookRotation(transform.forward, transform.position + Vector3.up);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, lookSpeed * Time.deltaTime);
                 }
                 
@@ -88,7 +93,7 @@ public class Beetle2 : MonoBehaviour {
             case State.Moving:
                 //a* pathfinding?
                 //transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.fixedDeltaTime);
-                transform.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
+                transform.position += transform.forward * moveSpeed * randomSpeedChange * Time.fixedDeltaTime;
                 break;
             case State.Idle:
                 
