@@ -124,6 +124,8 @@ public class Player_Movement : MonoBehaviour
 	// Add lateral movement via the physics system (doesn't affect vertical velocity).
 	private void LateralMovement()
 	{
+		float bhopMax = moveSpeed_Input_Max * 3.0f;
+		
 		float rampUpMultiplier = 45.0f;
 		rampUpMultiplier *= Time.fixedDeltaTime; // Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step.
 		
@@ -149,6 +151,8 @@ public class Player_Movement : MonoBehaviour
 		
 		
 		//playerRB.AddRelativeForce(moveVector_Projected, ForceMode.Impulse);
+		
+		moveVector_Projected = Vector3.ClampMagnitude(moveVector_Projected, bhopMax);
 		
 		playerRB.velocity = new Vector3(transform.TransformDirection(moveVector_Projected).x, playerRB.velocity.y, transform.TransformDirection(moveVector_Projected).z);
 		
