@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class XPMoveToPlayer : MonoBehaviour {
+public class MoveToPlayer : MonoBehaviour {
 
     private GameObject target;
 

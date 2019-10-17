@@ -39,7 +39,7 @@ public class PlayerResources : MonoBehaviour {
             Instantiate(depositLight, other.gameObject.transform.position, other.gameObject.transform.rotation, other.gameObject.transform);
         }
 
-        if (other.gameObject.GetComponent<XPMoveToPlayer>()) {
+        if (other.gameObject.GetComponent<MoveToPlayer>()) {
             AddXP(1);
             other.gameObject.SetActive(false);
         }
