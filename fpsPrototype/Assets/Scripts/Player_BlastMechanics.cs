@@ -157,7 +157,7 @@ public class Player_BlastMechanics : MonoBehaviour
 		{
 			float gpBlast_Power = 65.0f * impactVelocity;
 			float gpBlast_Radius = impactVelocity * 0.3f; // 5.0f;
-			float gpBlast_UpwardForce = 0.5f;
+			float gpBlast_UpwardForce = 0.5f * impactVelocity;
 			
 			float camShake_Amplitude = Mathf.Clamp(Mathf.Pow(impactVelocity * 0.04f, 3.0f), 0.5f, 20.0f);
 			float camShake_Frequency = Mathf.Clamp(impactVelocity * 2.0f, 15.0f, 25.0f);
@@ -170,7 +170,6 @@ public class Player_BlastMechanics : MonoBehaviour
 			BlastForce(gpBlast_Power, playerRB.position, gpBlast_Radius, gpBlast_UpwardForce); // Apply a blast around the landing
 			
 			// Particle System
-			
 			if (gpParticles_GameObject != null) Destroy(gpParticles_GameObject); // to prevent multiple particle systems from spawning when clipping the corner of rounded objects.
 	
 			float gpParticle_Duration = camShake_Duration * 3.0f;			
