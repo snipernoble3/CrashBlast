@@ -16,6 +16,7 @@ public class Health : MonoBehaviour {
     public TextMeshProUGUI healthText;
     private string baseText;
 
+    public ParticleSystem death;
     public ParticleSystem critDeath;
 
     private bool alive = true;
@@ -44,6 +45,9 @@ public class Health : MonoBehaviour {
         UpdateUI();
         if (currHealth <= 0) {
             alive = false;
+            if (death != null) {
+                Instantiate(death, transform.position, transform.rotation);
+            }
             OnDeath();
         }
     }
@@ -59,6 +63,9 @@ public class Health : MonoBehaviour {
     public void Kill () {
         currHealth = 0;
         alive = false;
+        if (death != null) {
+            Instantiate(death, transform.position, transform.rotation);
+        }
         OnDeath();
     }
 
@@ -80,6 +87,7 @@ public class Health : MonoBehaviour {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 break;
             default:
+                
                 this.gameObject.SetActive(false);
                 break;
         }
