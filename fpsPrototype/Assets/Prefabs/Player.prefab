@@ -437,7 +437,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d3de7feb63130f340a82bea24239e7ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1130,7 +1130,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 0}
   firstPersonArms_Animator: {fileID: 4392674234314282691}
-  hud: {fileID: 0}
   jumpForceMultiplier: 5
   mouseSensitivity_X: 3
   mouseSensitivity_Y: 1
@@ -1190,6 +1189,7 @@ MonoBehaviour:
   alignment: 0
   maxHealth: 3
   healthText: {fileID: 0}
+  critDeath: {fileID: 0}
 --- !u!1 &3878881393201546813
 GameObject:
   m_ObjectHideFlags: 0
