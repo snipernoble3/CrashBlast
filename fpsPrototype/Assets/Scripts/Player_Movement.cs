@@ -19,6 +19,10 @@ public class Player_Movement : MonoBehaviour
 	private TextMeshProUGUI hud_VerticalVelocity;
 	
 	// Lateral Movement
+	
+	private const float moveSpeed_Input_Max = 12.0f; // The player is only alowed to go past this lateral movment speed via outside forces like rocket jumping, and bunny hopping.
+	private float moveSpeed_Input_Current = moveSpeed_Input_Max;
+	
 	private float moveSpeedReduction = 1.0f; // Set to 1.0f so there is no reduction while grounded.
 	private const float moveSpeedReduction_Air = 0.5f;
 	private const float moveSpeedReduction_Water = 0.75f;
@@ -92,8 +96,14 @@ public class Player_Movement : MonoBehaviour
 		Vector3 localVelocity = transform.InverseTransformDirection(playerRB.velocity);
 		Vector3 lateralSpeed = new Vector3(localVelocity.x, 0.0f, localVelocity.z);
 		
-		if (hud_LateralVelocity != null) hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");		
-		if (hud_VerticalVelocity != null) hud_VerticalVelocity.text = "Vertical Velocity: " + localVelocity.y.ToString("F2");	
+		if (hud != null) // Update HUD elements.
+		{
+			hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");		
+			hud_VerticalVelocity.text = "Vertical Velocity: " + localVelocity.y.ToString("F2");
+
+			radarLines[0].SetVector(new Vector3(inputMovementVector.x * moveSpeed_Input_Current, inputMovementVector.z * moveSpeed_Input_Current, -2.0f));
+			radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -1.0f));
+		}
 
 		TerminalVelocity();
 	}
@@ -112,8 +122,8 @@ public class Player_Movement : MonoBehaviour
 		float rampUpMultiplier = 45.0f;
 		rampUpMultiplier *= Time.fixedDeltaTime; // Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step.
 		
-		float targetMoveSpeed = 12.0f; // The player is only alowed to go past this lateral movment speed via outside forces like rocket jumping.
-		targetMoveSpeed *= inputMovementVector.magnitude * moveSpeedReduction; // Needed so that analogue input doesn't ramp up over time.
+		// The distinction between "Current" and "Max" is needed so that partial analogue input doesn't ramp up over time.
+		moveSpeed_Input_Current = moveSpeed_Input_Max * inputMovementVector.magnitude * moveSpeedReduction;
 		
 		// Start with the the user input (for direction of the vector),
 		// Multiply by the player's mass (so this script will work consistently regardless of the player's mass)
@@ -128,29 +138,36 @@ public class Player_Movement : MonoBehaviour
 		// Calculate what the lateral velocity will be if we add the requested force BEFORE actually adding the force.
 		Vector3 testMoveVector = currentMoveVector + requestedMoveVector / playerRB.mass;
 		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
-		if (testMoveVector.magnitude > targetMoveSpeed) requestedMoveVector = requestedMoveVector.normalized * Mathf.Clamp(targetMoveSpeed - currentMoveVector.magnitude, 0.0f, targetMoveSpeed);
+		if (testMoveVector.magnitude > moveSpeed_Input_Current) requestedMoveVector = requestedMoveVector.normalized * Mathf.Clamp(moveSpeed_Input_Current - currentMoveVector.magnitude, 0.0f, moveSpeed_Input_Current);
 		// Apply the calculated force to the player in local space
 		playerRB.AddRelativeForce(requestedMoveVector, ForceMode.Impulse);
-		
-		if (hud != null)
-		{
-			radarLines[0].SetVector(new Vector3(inputMovementVector.x * targetMoveSpeed, inputMovementVector.z * targetMoveSpeed, -2.0f));
-			radarLines[1].SetVector(new Vector3(currentMoveVector.x, currentMoveVector.z, -1.0f));
-		}
 		
 		//radarLine_Input.SetVector(requestedMoveVector);
 		
 		// Change Direction	
-		//if (Vector3.Angle(currentMoveVector, requestedMoveVector) != 0.0f) ChangeDirection(requestedMoveVector, currentMoveVector);
+		if (Vector3.Angle(currentMoveVector, requestedMoveVector) != 0.0f) 
+		{
+			float redirectInfluence = 1.0f; // Change 100%
+		
+			//Vector3 directionChangeVector = requestedMoveVector.normalized * currentMoveVector.magnitude * redirectInfluence;
+			//directionChangeVector -= currentMoveVector;
+			//playerRB.velocity = directionChangeVector;
+		
+			Vector3 directionChangeVector = Vector3.Project(requestedMoveVector, currentMoveVector);
+			//directionChangeVector -= currentMoveVector;
+			//directionChangeVector *= playerRB.mass;
+			playerRB.AddRelativeForce(directionChangeVector, ForceMode.Impulse);
+		}		
 		
 		/*
 		
 		////////Emulate Quake Code
+		// Implement this instead to get bhopping working.
 		
 		Vector3 accelDir = inputMovementVector.normalized;
 		Vector3 prevVelocity = currentMoveVector;
 		float accelerate = requestedMoveVector.magnitude;
-		float max_velocity = targetMoveSpeed;
+		float max_velocity = moveSpeed_Input_Max;
 		
 		float projVel = Vector3.Dot(prevVelocity, accelDir); // Vector projection of Current velocity onto accelDir.
 		float accelVel = accelerate * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
@@ -165,20 +182,6 @@ public class Player_Movement : MonoBehaviour
 		playerRB.AddRelativeForce(requestedMoveVector, ForceMode.Impulse);
 		
 		*/
-	}
-	
-	private void ChangeDirection(Vector3 requestedMoveVector, Vector3 currentMoveVector)
-	{
-		float redirectInfluence = 1.0f; // Change 100%
-		
-		//Vector3 directionChangeVector = requestedMoveVector.normalized * currentMoveVector.magnitude * redirectInfluence;
-		//directionChangeVector -= currentMoveVector;
-		//playerRB.velocity = directionChangeVector;
-		
-		Vector3 directionChangeVector = Vector3.Project(currentMoveVector, requestedMoveVector);
-		directionChangeVector -= currentMoveVector;
-		directionChangeVector *= playerRB.mass;
-		playerRB.AddRelativeForce(directionChangeVector, ForceMode.Impulse);
 	}
 	
 	private void SimulateFriction()
