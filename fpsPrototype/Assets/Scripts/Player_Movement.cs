@@ -3,6 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
+public class MoveSpeed
+{
+	public float input = 0.0f;
+	
+	// Speed caps for different situations
+	public readonly float groundedMax = 10.0f; // Cap the walking speed.
+	public readonly float bHopMax = 25.0f; // Cap the bunny hopping speed.
+	public readonly float lateralMax = 50.0f; // NEVER let the player move faster than this lateraly.	
+	public readonly float verticalMax = 75.0f; // NEVER let the player move faster than this verticaly.	
+	
+	public Vector3 inputVector;
+	public Vector3 projectedVector;
+	
+	public ReductionMultiplier reduction = new ReductionMultiplier();
+}
+
+public class ReductionMultiplier
+{
+	public float multiplier; // The current multiplier.
+	
+	private const float regular = 1.0f; // Set to 1.0f so there is no reduction while grounded.
+	private const float air = 0.5f;
+	private const float water = 0.75f;
+	
+	// Setter with specific predefined values, other multipliers can be used by assigning the value directly.
+	public void Set(string newMultiplier)
+	{
+        switch(newMultiplier) 
+        {
+			case "regular": 
+                multiplier = regular;
+                break; 
+            case "air": 
+                multiplier = air;
+                break; 
+            case "water": 
+                multiplier = water;
+                break; 
+            default:
+                Debug.Log("ReductionMultiplier.Set() method was called with an invalid argument, multiplier was not changed.");
+				break;
+        } 
+	}
+}
+
 [RequireComponent(typeof(Rigidbody))]
 public class Player_Movement : MonoBehaviour
 {
@@ -18,16 +64,7 @@ public class Player_Movement : MonoBehaviour
 	private TextMeshProUGUI hud_LateralVelocity;
 	private TextMeshProUGUI hud_VerticalVelocity;
 	
-	// Lateral Movement
-	
-	private const float moveSpeed_Input_Max = 12.0f; // The player is only alowed to go past this lateral movment speed via outside forces like rocket jumping, and bunny hopping.
-	private float moveSpeed_Input_Current = moveSpeed_Input_Max;
-	
-	private float moveSpeedReduction = 1.0f; // Set to 1.0f so there is no reduction while grounded.
-	private const float moveSpeedReduction_Air = 0.5f;
-	private const float moveSpeedReduction_Water = 0.75f;
-	private Vector3 moveVector_Input;
-	private Vector3 moveVector_Projected;
+	private MoveSpeed moveSpeed = new MoveSpeed();
 	
 	private Vector3 gravity; // Use this instead of Physics.gravity in case we want to replace gravity with attraction to a gravity sorce (like a tiny planet).
 	
@@ -58,6 +95,9 @@ public class Player_Movement : MonoBehaviour
         playerRB = GetComponent<Rigidbody>();
 		playerRB.constraints = RigidbodyConstraints.FreezeRotation;
 		gravity = GetGravity();
+		
+		// Set limits for Lateral Movement
+		moveSpeed.reduction.Set("regular");
 		
 		// Make connections to HUD
 		hud = GameObject.Find("Canvas_HUD");
@@ -92,7 +132,7 @@ public class Player_Movement : MonoBehaviour
 		CheckIfGrounded(); // Update the isGrounded bool for use elsewhere
 		LateralMovement(); // Move the player based on the lateral movement input.
 		// Slow the player down with "friction" if he is grounded and not trying to move.
-		if (moveVector_Input == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
+		if (moveSpeed.inputVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
 		
 		Vector3 localVelocity = transform.InverseTransformDirection(playerRB.velocity);
 		Vector3 lateralSpeed = new Vector3(localVelocity.x, 0.0f, localVelocity.z);
@@ -102,12 +142,12 @@ public class Player_Movement : MonoBehaviour
 			hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");		
 			hud_VerticalVelocity.text = "Vertical Velocity: " + localVelocity.y.ToString("F2");
 
-			//radarLines[0].SetVector(new Vector3(moveVector_Input.x * moveSpeed_Input_Current, moveVector_Input.z * moveSpeed_Input_Current, -2.0f));
+			//radarLines[0].SetVector(new Vector3(moveSpeed.inputVector.x * moveSpeed.input, moveSpeed.inputVector.z * moveSpeed.input, -2.0f));
 			//radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -1.0f));
 			
-			radarLines[0].SetVector(new Vector3(moveVector_Input.x * moveSpeed_Input_Current, moveVector_Input.z * moveSpeed_Input_Current, -0.5f));
+			radarLines[0].SetVector(new Vector3(moveSpeed.inputVector.x * moveSpeed.input, moveSpeed.inputVector.z * moveSpeed.input, -0.5f));
 			radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -0.3f));
-			radarLines[2].SetVector(new Vector3(moveVector_Projected.x, moveVector_Projected.z, -0.7f));			
+			radarLines[2].SetVector(new Vector3(moveSpeed.projectedVector.x, moveSpeed.projectedVector.z, -0.7f));			
 		}
 
 		TerminalVelocity();
@@ -116,26 +156,24 @@ public class Player_Movement : MonoBehaviour
 	private void GetInput_LateralMovement()
 	{
 		// Get input for Movement from project input manager and build a Vector3 to store the two inputs
-		moveVector_Input = new Vector3 (Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+		moveSpeed.inputVector = new Vector3 (Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
 		// Limit the magnitude of the vector so that horizontal and vertical input doesn't stack to excede the indended maximum move speed
-		moveVector_Input = Vector3.ClampMagnitude(moveVector_Input, 1.0f);
+		moveSpeed.inputVector = Vector3.ClampMagnitude(moveSpeed.inputVector, 1.0f);
 	}
 	
 	// Add lateral movement via the physics system (doesn't affect vertical velocity).
 	private void LateralMovement()
 	{
-		float bhopMax = moveSpeed_Input_Max * 3.0f;
-		
 		float rampUpMultiplier = 45.0f;
 		rampUpMultiplier *= Time.fixedDeltaTime; // Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step.
 		
 		// The distinction between "Current" and "Max" is needed so that partial analogue input doesn't ramp up over time.
-		moveSpeed_Input_Current = moveSpeed_Input_Max * moveVector_Input.magnitude * moveSpeedReduction;
+		moveSpeed.input = moveSpeed.groundedMax * moveSpeed.inputVector.magnitude * moveSpeed.reduction.multiplier;
 		
 		// Start with the the user input (for direction of the vector),
 		// Multiply by the player's mass (so this script will work consistently regardless of the player's mass)
 		// And Multiply by the rampUpMultiplier to add speed at the desired rate.
-		Vector3 moveVector_Request = moveVector_Input * playerRB.mass * rampUpMultiplier;
+		Vector3 moveVector_Request = moveSpeed.inputVector * playerRB.mass * rampUpMultiplier;
 		
 		// Convert the velocity vector from world space to local space (Because the force will be added to the player in local space).
 		Vector3 moveVector_Current =  transform.InverseTransformDirection(playerRB.velocity);
@@ -145,16 +183,16 @@ public class Player_Movement : MonoBehaviour
 		
 		float projVel = Vector3.Dot(moveVector_Current, moveVector_Request.normalized);
 		
-		if(projVel + rampUpMultiplier > moveSpeed_Input_Max) rampUpMultiplier = moveSpeed_Input_Max - projVel;
+		if(projVel + rampUpMultiplier > moveSpeed.groundedMax) rampUpMultiplier = moveSpeed.groundedMax - projVel;
 		
-		moveVector_Projected = moveVector_Current + moveVector_Request.normalized * rampUpMultiplier;
+		moveSpeed.projectedVector = moveVector_Current + moveVector_Request.normalized * rampUpMultiplier;
 		
 		
-		//playerRB.AddRelativeForce(moveVector_Projected, ForceMode.Impulse);
+		//playerRB.AddRelativeForce(moveSpeed.projectedVector, ForceMode.Impulse);
 		
-		moveVector_Projected = Vector3.ClampMagnitude(moveVector_Projected, bhopMax);
+		moveSpeed.projectedVector = Vector3.ClampMagnitude(moveSpeed.projectedVector, moveSpeed.bHopMax);
 		
-		playerRB.velocity = new Vector3(transform.TransformDirection(moveVector_Projected).x, playerRB.velocity.y, transform.TransformDirection(moveVector_Projected).z);
+		playerRB.velocity = new Vector3(transform.TransformDirection(moveSpeed.projectedVector).x, playerRB.velocity.y, transform.TransformDirection(moveSpeed.projectedVector).z);
 		
 		
 		
@@ -169,7 +207,7 @@ public class Player_Movement : MonoBehaviour
 		//float MAX_Accell = 50.0f;
 		
 		//float currentSpeed = Vector3.Dot(moveVector_Current, moveVector_Request);
-		//float addSpeed = moveSpeed_Input_Current - currentSpeed;
+		//float addSpeed = moveSpeed.input - currentSpeed;
 		//addSpeed = Mathf.Clamp(addSpeed, 0.0f, MAX_Accell * Time.deltaTime);
 		
 		//moveVector_Projected = moveVector_Current + moveVector_Request.normalized * addSpeed;
@@ -208,7 +246,7 @@ public class Player_Movement : MonoBehaviour
 		// Calculate what the lateral velocity will be if we add the requested force BEFORE actually adding the force.
 		Vector3 moveVector_Test = moveVector_Current + moveVector_Request / playerRB.mass;
 		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
-		if (moveVector_Test.magnitude > moveSpeed_Input_Current) moveVector_Request = moveVector_Request.normalized * Mathf.Clamp(moveSpeed_Input_Current - moveVector_Current.magnitude, 0.0f, moveSpeed_Input_Current);
+		if (moveVector_Test.magnitude > moveSpeed.input) moveVector_Request = moveVector_Request.normalized * Mathf.Clamp(moveSpeed.input - moveVector_Current.magnitude, 0.0f, moveSpeed.input);
 		// Apply the calculated force to the player in local space
 		playerRB.AddRelativeForce(moveVector_Request, ForceMode.Impulse);
 		
@@ -221,14 +259,14 @@ public class Player_Movement : MonoBehaviour
 		////////Emulate Quake Code
 		// Implement this instead to get bhopping working.
 		
-		float projVel = Vector3.Dot(moveVector_Current, moveVector_Input.normalized); // Vector projection of Current velocity onto input Movement direction.
+		float projVel = Vector3.Dot(moveVector_Current, moveSpeed.inputVector.normalized); // Vector projection of Current velocity onto input Movement direction.
 		float accelVel = moveVector_Request.magnitude * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
 
 		// If necessary, truncate the accelerated velocity so the vector projection does not exceed max velocity
-		if(projVel + accelVel > moveSpeed_Input_Max)
-        accelVel = moveSpeed_Input_Max - projVel;
+		if(projVel + accelVel > moveSpeed.groundedMax)
+        accelVel = moveSpeed.groundedMax - projVel;
 
-		Vector3 directionChangeVector = moveVector_Current + moveVector_Input.normalized * accelVel; // This is the new movement vector original code returned this
+		Vector3 directionChangeVector = moveVector_Current + moveSpeed.inputVector.normalized * accelVel; // This is the new movement vector original code returned this
 		
 		
 		playerRB.AddRelativeForce(moveVector_Request, ForceMode.Impulse);
@@ -285,7 +323,7 @@ public class Player_Movement : MonoBehaviour
 	
 	public void CheckIfGrounded()
 	{
-		moveSpeedReduction = moveSpeedReduction_Air; // Start out as if we are in the air, then prove otherwise.
+		moveSpeed.reduction.Set("air"); // Start out as if we are in the air, then prove otherwise.
 		isGrounded = false; // Start out false, then prove otherwise.
 		
 		RaycastHit[] hits = Physics.SphereCastAll(playerRB.position + (transform.up * 0.49f), 0.49f, -transform.up, 0.1f);
@@ -294,7 +332,7 @@ public class Player_Movement : MonoBehaviour
 			if (groundCheckObject.rigidbody == playerRB) continue;
 			if (groundCheckObject.collider != null)
 			{
-				moveSpeedReduction = 1.0f;
+				moveSpeed.reduction.Set("regular");
 				isGrounded = true;
 			}
 		}
@@ -345,14 +383,13 @@ public class Player_Movement : MonoBehaviour
 		Vector3 fallCancelForce;
 		Vector3 relativeVelocity = transform.InverseTransformDirection(playerRB.velocity);
 		float currentDownwardSpeed = 0.0f;
-		float maxDownwardSpeed = 75.0f;
 		
 		if (relativeVelocity.y < 0.0f) currentDownwardSpeed = -relativeVelocity.y;
 		else currentDownwardSpeed = 0.0f;
 		
-		if (currentDownwardSpeed > maxDownwardSpeed)
+		if (currentDownwardSpeed > moveSpeed.verticalMax)
 		{
-			fallCancelForce = new Vector3(0.0f, ((currentDownwardSpeed - maxDownwardSpeed) * playerRB.mass), 0.0f) -gravity;
+			fallCancelForce = new Vector3(0.0f, ((currentDownwardSpeed - moveSpeed.verticalMax) * playerRB.mass), 0.0f) -gravity;
 			
 			playerRB.AddRelativeForce(fallCancelForce, ForceMode.Impulse);
 		}
