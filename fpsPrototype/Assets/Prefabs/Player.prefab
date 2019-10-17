@@ -615,7 +615,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 279
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -883,7 +883,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 544
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1130,11 +1130,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 0}
   firstPersonArms_Animator: {fileID: 4392674234314282691}
-  hud_LateralVelocity: {fileID: 0}
-  hud_VerticalVelocity: {fileID: 0}
+  hud: {fileID: 0}
   jumpForceMultiplier: 5
   mouseSensitivity_X: 3
-  mouseSensitivity_Y: 3
+  mouseSensitivity_Y: 1
   matchXYSensitivity: 1
   useRawMouseInput: 1
   invertVerticalInput: 0
@@ -1153,7 +1152,7 @@ MonoBehaviour:
   enableCameraShake_gpLanding: 1
   autoJumpBeforeGroundedRocketJump: 1
   blastDealsDamage: 0
-  rj_trainingHitMarker: 0
+  rj_trainingHitMarker: 1
   groundPoundParticles: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
     type: 3}
   raycastMask:
