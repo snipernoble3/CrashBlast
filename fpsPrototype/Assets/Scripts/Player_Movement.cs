@@ -26,7 +26,7 @@ public class Player_Movement : MonoBehaviour
 	private float moveSpeedReduction = 1.0f; // Set to 1.0f so there is no reduction while grounded.
 	private const float moveSpeedReduction_Air = 0.5f;
 	private const float moveSpeedReduction_Water = 0.75f;
-	private Vector3 inputMovementVector;
+	private Vector3 moveVector_Input;
 	
 	private Vector3 gravity; // Use this instead of Physics.gravity in case we want to replace gravity with attraction to a gravity sorce (like a tiny planet).
 	
@@ -91,7 +91,7 @@ public class Player_Movement : MonoBehaviour
 		CheckIfGrounded(); // Update the isGrounded bool for use elsewhere
 		LateralMovement(); // Move the player based on the lateral movement input.
 		// Slow the player down with "friction" if he is grounded and not trying to move.
-		if (inputMovementVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
+		if (moveVector_Input == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
 		
 		Vector3 localVelocity = transform.InverseTransformDirection(playerRB.velocity);
 		Vector3 lateralSpeed = new Vector3(localVelocity.x, 0.0f, localVelocity.z);
@@ -101,10 +101,10 @@ public class Player_Movement : MonoBehaviour
 			hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");		
 			hud_VerticalVelocity.text = "Vertical Velocity: " + localVelocity.y.ToString("F2");
 
-			//radarLines[0].SetVector(new Vector3(inputMovementVector.x * moveSpeed_Input_Current, inputMovementVector.z * moveSpeed_Input_Current, -2.0f));
+			//radarLines[0].SetVector(new Vector3(moveVector_Input.x * moveSpeed_Input_Current, moveVector_Input.z * moveSpeed_Input_Current, -2.0f));
 			//radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -1.0f));
 			
-			radarLines[0].SetVector(new Vector3(inputMovementVector.x * moveSpeed_Input_Current, inputMovementVector.z * moveSpeed_Input_Current, -0.5f));
+			radarLines[0].SetVector(new Vector3(moveVector_Input.x * moveSpeed_Input_Current, moveVector_Input.z * moveSpeed_Input_Current, -0.5f));
 			radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -0.3f));
 		}
 
@@ -114,9 +114,9 @@ public class Player_Movement : MonoBehaviour
 	private void GetInput_LateralMovement()
 	{
 		// Get input for Movement from project input manager and build a Vector3 to store the two inputs
-		inputMovementVector = new Vector3 (Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+		moveVector_Input = new Vector3 (Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
 		// Limit the magnitude of the vector so that horizontal and vertical input doesn't stack to excede the indended maximum move speed
-		inputMovementVector = Vector3.ClampMagnitude(inputMovementVector, 1.0f);
+		moveVector_Input = Vector3.ClampMagnitude(moveVector_Input, 1.0f);
 	}
 	
 	// Add lateral movement via the physics system (doesn't affect vertical velocity).
@@ -126,59 +126,65 @@ public class Player_Movement : MonoBehaviour
 		rampUpMultiplier *= Time.fixedDeltaTime; // Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step.
 		
 		// The distinction between "Current" and "Max" is needed so that partial analogue input doesn't ramp up over time.
-		moveSpeed_Input_Current = moveSpeed_Input_Max * inputMovementVector.magnitude * moveSpeedReduction;
+		moveSpeed_Input_Current = moveSpeed_Input_Max * moveVector_Input.magnitude * moveSpeedReduction;
 		
 		// Start with the the user input (for direction of the vector),
 		// Multiply by the player's mass (so this script will work consistently regardless of the player's mass)
 		// And Multiply by the rampUpMultiplier to add speed at the desired rate.
-		Vector3 requestedMoveVector = inputMovementVector * playerRB.mass * rampUpMultiplier;
+		Vector3 moveVector_Request = moveVector_Input * playerRB.mass * rampUpMultiplier;
 		
 		// Convert the velocity vector from world space to local space (Because the force will be added to the player in local space).
-		Vector3 currentMoveVector =  transform.InverseTransformDirection(playerRB.velocity);
+		Vector3 moveVector_Current =  transform.InverseTransformDirection(playerRB.velocity);
 		// We are only concerned with the lateral part of the local space velocity vector, so the vertical axis is zeroed out.
-		currentMoveVector = new Vector3(currentMoveVector.x, 0.0f, currentMoveVector.z);
+		moveVector_Current = new Vector3(moveVector_Current.x, 0.0f, moveVector_Current.z);
 
+			
+		Vector3 moveVector_Projected = Vector3.Project(moveVector_Request, moveVector_Current);
 		
-		// Calculate what the lateral velocity will be if we add the requested force BEFORE actually adding the force.
-		Vector3 testMoveVector = currentMoveVector + requestedMoveVector / playerRB.mass;
-		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
-		if (testMoveVector.magnitude > moveSpeed_Input_Current) requestedMoveVector = requestedMoveVector.normalized * Mathf.Clamp(moveSpeed_Input_Current - currentMoveVector.magnitude, 0.0f, moveSpeed_Input_Current);
-		// Apply the calculated force to the player in local space
-		playerRB.AddRelativeForce(requestedMoveVector, ForceMode.Impulse);
-		
-		//radarLine_Input.SetVector(requestedMoveVector);
-		
-		// Change Direction	
-		if (Vector3.Angle(currentMoveVector, requestedMoveVector) != 0.0f) 
+		/*
+		// Check if the player is changing direction
+		if (Vector3.Angle(moveVector_Current, moveVector_Request) != 0.0f) 
 		{
 			float redirectInfluence = 1.0f; // Change 100%
 		
-			//Vector3 directionChangeVector = requestedMoveVector.normalized * currentMoveVector.magnitude * redirectInfluence;
-			//directionChangeVector -= currentMoveVector;
+			//Vector3 directionChangeVector = moveVector_Request.normalized * moveVector_Current.magnitude * redirectInfluence;
+			//directionChangeVector -= moveVector_Current;
 			//playerRB.velocity = directionChangeVector;
 		
-			Vector3 directionChangeVector = Vector3.Project(requestedMoveVector, currentMoveVector);
-			//directionChangeVector -= currentMoveVector;
+			Vector3 directionChangeVector = Vector3.Project(moveVector_Request, moveVector_Current);
+			//directionChangeVector -= moveVector_Current;
 			//directionChangeVector *= playerRB.mass;
 			playerRB.AddRelativeForce(directionChangeVector, ForceMode.Impulse);
-		}		
+		}	
+		*/
+		
+		
+		
+		// Calculate what the lateral velocity will be if we add the requested force BEFORE actually adding the force.
+		Vector3 moveVector_Test = moveVector_Current + moveVector_Request / playerRB.mass;
+		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
+		if (moveVector_Test.magnitude > moveSpeed_Input_Current) moveVector_Request = moveVector_Request.normalized * Mathf.Clamp(moveSpeed_Input_Current - moveVector_Current.magnitude, 0.0f, moveSpeed_Input_Current);
+		// Apply the calculated force to the player in local space
+		playerRB.AddRelativeForce(moveVector_Request, ForceMode.Impulse);
+		
+	
 
 		
 		/*
 		////////Emulate Quake Code
 		// Implement this instead to get bhopping working.
 		
-		float projVel = Vector3.Dot(currentMoveVector, inputMovementVector.normalized); // Vector projection of Current velocity onto input Movement direction.
-		float accelVel = requestedMoveVector.magnitude * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
+		float projVel = Vector3.Dot(moveVector_Current, moveVector_Input.normalized); // Vector projection of Current velocity onto input Movement direction.
+		float accelVel = moveVector_Request.magnitude * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
 
 		// If necessary, truncate the accelerated velocity so the vector projection does not exceed max velocity
 		if(projVel + accelVel > moveSpeed_Input_Max)
         accelVel = moveSpeed_Input_Max - projVel;
 
-		Vector3 directionChangeVector = currentMoveVector + inputMovementVector.normalized * accelVel; // This is the new movement vector original code returned this
+		Vector3 directionChangeVector = moveVector_Current + moveVector_Input.normalized * accelVel; // This is the new movement vector original code returned this
 		
 		
-		playerRB.AddRelativeForce(requestedMoveVector, ForceMode.Impulse);
+		playerRB.AddRelativeForce(moveVector_Request, ForceMode.Impulse);
 		*/
 	}
 	
