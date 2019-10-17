@@ -41,7 +41,7 @@ public class Beetle2 : MonoBehaviour {
 
     private void Update () {
 
-        if (transform.position.y > 5f) {
+        if (transform.position.y > 3f) {
             rb.constraints = RigidbodyConstraints.None;
         } else {
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
