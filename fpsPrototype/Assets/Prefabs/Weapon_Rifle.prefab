@@ -123,6 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a83080211ae904885f312cc575007c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycastMask:
+    serializedVersion: 2
+    m_Bits: 275
   deviationDistance: 20
   maxAmmo: 50
   firstPersonArms_Animator: {fileID: 0}

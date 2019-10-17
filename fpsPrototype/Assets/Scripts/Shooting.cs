@@ -5,6 +5,7 @@ using TMPro;
 
 public class Shooting : MonoBehaviour
 {
+	public LayerMask raycastMask;
 
     private float maxDeviation = 0.001f;
     public float deviationDistance = 25f;
@@ -39,7 +40,7 @@ public class Shooting : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate() {
+    void Update() {
         
 
         //Debug.DrawRay(firingPosition.transform.position, firingPosition.transform.forward * range, Color.red, 2f);
@@ -79,10 +80,8 @@ public class Shooting : MonoBehaviour
         }
     }
 
-
     void Fire () {
         
-
         shotCount++;
         if (shotCount > 18) shotCount = 18;
 
@@ -94,29 +93,24 @@ public class Shooting : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(firingPosition.transform.position, forwardVector, out hit, range)) {
+        if (Physics.Raycast(firingPosition.transform.position, forwardVector, out hit, range, raycastMask)) {
             //Debug.Log("Hit something");
             //Debug.DrawRay(firingPosition.transform.position, forwardVector * range, Color.green, 2f);
-
-            if (hit.collider.gameObject.GetComponent<Player_Movement>() == null) {
-				if (hit.collider.gameObject.GetComponent<Health>() != null && hit.collider.gameObject.GetComponent<Health>().GetTag() != Health.AlignmentTag.Ally) {
-					hit.collider.gameObject.GetComponent<Health>().TakeDamage(1);
-				} else if (hit.collider.gameObject.GetComponent<CritSpot>() != null && hit.collider.gameObject.GetComponent<CritSpot>().GetTag() != CritSpot.AlignmentTag.Ally) {
-                    hit.collider.gameObject.GetComponent<CritSpot>().TakeDamage(1);
-                }
-			}
+			if (hit.collider.gameObject.GetComponent<Health>() != null && hit.collider.gameObject.GetComponent<Health>().GetTag() != Health.AlignmentTag.Ally) {
+				hit.collider.gameObject.GetComponent<Health>().TakeDamage(1);
+				}
+			else if (hit.collider.gameObject.GetComponent<CritSpot>() != null && hit.collider.gameObject.GetComponent<CritSpot>().GetTag() != CritSpot.AlignmentTag.Ally) {
+				hit.collider.gameObject.GetComponent<CritSpot>().TakeDamage(1);
+				}
         }
-
-        if (hit.point != null) {
-            StartCoroutine(Laser(hit.point));
-        } else {
-            StartCoroutine(Laser(forwardVector * range));
-        }
-        
+		
+		Vector3 impactPoint;
+		if (hit.collider != null) impactPoint = hit.point;
+		else impactPoint = forwardVector * range;
+		StartCoroutine(Laser(impactPoint));        
 
         currAmmo--;
         UpdateAmmoCount();
-
     }
 
     void UpdateSpread () {
