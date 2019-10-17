@@ -16,10 +16,13 @@ public class Health : MonoBehaviour {
     public TextMeshProUGUI healthText;
     private string baseText;
 
+    public ParticleSystem critDeath;
+
     private bool alive = true;
     
     void Awake() {
-        currHealth = maxHealth;
+        FullHeal();
+
         try {
             baseText = healthText.text;
         } catch (NullReferenceException e) {
@@ -57,6 +60,18 @@ public class Health : MonoBehaviour {
         currHealth = 0;
         alive = false;
         OnDeath();
+    }
+
+    public void CritKill () {
+        Debug.Log("Crit Death");
+        Instantiate(critDeath, transform.position, transform.rotation);
+        currHealth = 0;
+        alive = false;
+        OnDeath();
+    }
+
+    public void FullHeal () {
+        currHealth = maxHealth;
     }
 
     private void OnDeath () {

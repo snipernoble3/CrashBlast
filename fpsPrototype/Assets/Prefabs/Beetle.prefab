@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4384747206622748805}
   - component: {fileID: 1936157841093618515}
+  - component: {fileID: 1998298998576950706}
   m_Layer: 0
   m_Name: Belly
   m_TagString: Untagged
@@ -44,6 +45,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1998298998576950706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5860465621353037183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f535b06992b58c042a0463195094a2d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  mod: 0
 --- !u!1 &5987044430576371578
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +160,8 @@ MonoBehaviour:
   alignment: 2
   maxHealth: 3
   healthText: {fileID: 0}
+  critDeath: {fileID: 7478230885114946392, guid: 59d4c2a196ad78e4eaa31159f6a45ea5,
+    type: 3}
 --- !u!1001 &5654390492816772012
 PrefabInstance:
   m_ObjectHideFlags: 0

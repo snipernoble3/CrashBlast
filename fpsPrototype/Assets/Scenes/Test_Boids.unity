@@ -644,6 +644,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alignment: 0
   maxHealth: 3
+  healthText: {fileID: 0}
+  critDeath: {fileID: 0}
 --- !u!1 &1704621219
 GameObject:
   m_ObjectHideFlags: 0
