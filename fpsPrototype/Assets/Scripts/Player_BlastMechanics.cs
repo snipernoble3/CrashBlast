@@ -19,7 +19,6 @@ public class Player_BlastMechanics : MonoBehaviour
 	private GameObject firstPersonCam;
 	private GameObject camOffset;
 	
-	
 	public LayerMask raycastMask;
 	private Rigidbody playerRB;
 	public Animator firstPersonArms_Animator;

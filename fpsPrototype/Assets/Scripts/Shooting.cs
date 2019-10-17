@@ -46,7 +46,7 @@ public class Shooting : MonoBehaviour
         //Debug.DrawRay(firingPosition.transform.position, firingPosition.transform.forward * range, Color.red, 2f);
 
         if (timeToFire > 0) {
-            timeToFire -= Time.fixedDeltaTime;
+            timeToFire -= Time.deltaTime;
         }
 
         if (Input.GetButton("Fire1") && timeToFire <= 0) {
@@ -69,7 +69,7 @@ public class Shooting : MonoBehaviour
 
     private void LateUpdate () {
         if (timeToReduce > 0 && shotCount > 0) {
-            timeToReduce -= Time.fixedDeltaTime;
+            timeToReduce -= Time.deltaTime;
         }
 
         if (reloading || ((currAmmo == 0 || !Input.GetMouseButton(0)) && timeToReduce <= 0)) {
