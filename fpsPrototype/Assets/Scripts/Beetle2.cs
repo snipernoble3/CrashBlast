@@ -7,6 +7,8 @@ public class Beetle2 : MonoBehaviour {
     private enum State {Attacking, Moving, Idle};
     private State currState;
 
+    private Rigidbody rb;
+
     private Transform target;
     private float distanceToTarget;
 
@@ -34,9 +36,16 @@ public class Beetle2 : MonoBehaviour {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         currState = State.Idle;
         randomSpeedChange = Random.Range(0.5f, 1f);
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update () {
+
+        if (transform.position.y > 5f) {
+            rb.constraints = RigidbodyConstraints.None;
+        } else {
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        }
 
         distanceToTarget = Mathf.Abs(Vector3.Magnitude(target.position - transform.position));
 
