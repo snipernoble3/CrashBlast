@@ -5,13 +5,15 @@ using TMPro;
 
 public class MoveSpeed
 {
-	public float input = 0.0f;
+	public float accelerationTarget = 0.0f;
 	
 	// Speed caps for different situations
 	public readonly float groundedMax = 10.0f; // Cap the walking speed.
 	public readonly float bHopMax = 25.0f; // Cap the bunny hopping speed.
 	public readonly float lateralMax = 50.0f; // NEVER let the player move faster than this lateraly.	
 	public readonly float verticalMax = 75.0f; // NEVER let the player move faster than this verticaly.	
+	
+	public Vector3 localVelocity;
 	
 	public Vector3 inputVector;
 	public Vector3 projectedVector;
@@ -143,24 +145,20 @@ public class Player_Movement : MonoBehaviour
 	void FixedUpdate()
 	{		
 		gravity = GetGravity();
+		moveSpeed.localVelocity = transform.InverseTransformDirection(playerRB.velocity);
+
+
 		LateralMovement(); // Move the player based on the lateral movement input.
 		// Slow the player down with "friction" if he is grounded and not trying to move.
 		if (moveSpeed.inputVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
-		
-		Vector3 localVelocity = transform.InverseTransformDirection(playerRB.velocity);
-		Vector3 lateralSpeed = new Vector3(localVelocity.x, 0.0f, localVelocity.z);
+		Vector3 lateralSpeed = new Vector3(moveSpeed.localVelocity.x, 0.0f, moveSpeed.localVelocity.z);
 		
 		if (hud != null) // Update HUD elements.
 		{
 			hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");
-			hud_VerticalVelocity.text = "Vertical Velocity: " + localVelocity.y.ToString("F2");
+			hud_VerticalVelocity.text = "Vertical Velocity: " + moveSpeed.localVelocity.y.ToString("F2");
 			
-			/*
-			hud_LateralVelocity.text = "Lateral Velocity: " + (lateralSpeed.magnitude * 2.237f).ToString("F2") + " MPH";
-			hud_VerticalVelocity.text = "Vertical Velocity: " + (localVelocity.y * 2.237f).ToString("F2") + " MPH";
-			*/
-			
-			radarLines[0].SetVector(new Vector3(moveSpeed.inputVector.x * moveSpeed.input, moveSpeed.inputVector.z * moveSpeed.input, -2.0f));
+			radarLines[0].SetVector(new Vector3(moveSpeed.inputVector.x * moveSpeed.accelerationTarget, moveSpeed.inputVector.z * moveSpeed.accelerationTarget, -2.0f));
 			radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -1.0f));
 		}
 
@@ -169,7 +167,7 @@ public class Player_Movement : MonoBehaviour
 	
 	private void GetInput_LateralMovement()
 	{
-		// Get input for Movement from project input manager and build a Vector3 to store the two inputs
+		// Get input for Movement from input manager and build a Vector3 to store the two inputs
 		moveSpeed.inputVector = new Vector3 (Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
 		// Limit the magnitude of the vector so that horizontal and vertical input doesn't stack to excede the indended maximum move speed
 		moveSpeed.inputVector = Vector3.ClampMagnitude(moveSpeed.inputVector, 1.0f);
@@ -183,7 +181,7 @@ public class Player_Movement : MonoBehaviour
 		rampUpMultiplier *= Time.fixedDeltaTime; // Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step.
 		
 		// The distinction between "Current" and "Max" is needed so that partial analogue input doesn't ramp up over time.
-		moveSpeed.input = moveSpeed.groundedMax * moveSpeed.inputVector.magnitude * moveSpeed.reduction.multiplier;
+		moveSpeed.accelerationTarget = moveSpeed.groundedMax * moveSpeed.inputVector.magnitude * moveSpeed.reduction.multiplier;
 		
 		// Start with the the user input (for direction of the vector),
 		// Multiply by the player's mass (so this script will work consistently regardless of the player's mass)
@@ -199,18 +197,21 @@ public class Player_Movement : MonoBehaviour
 		
 		//Emulate Quake's vector limiting code so as to enable Bunny Hopping.
 		
-		// Vector projection of Current velocity onto input Movement direction.
-		float projVel = Vector3.Dot(moveVector_Current, moveVector_Request.normalized);
+			// Vector projection of Current velocity onto input Movement direction.
+			float projVel = Vector3.Dot(moveVector_Current, moveVector_Request.normalized);
 		
-		// If necessary, truncate the accelerated velocity so the vector projection does not exceed max velocity
-		if(projVel + rampUpMultiplier > moveSpeed.groundedMax) rampUpMultiplier = moveSpeed.groundedMax - projVel;
+			// If necessary, truncate the accelerated velocity so the vector projection does not exceed max velocity
+			if(projVel + rampUpMultiplier > moveSpeed.groundedMax) rampUpMultiplier = moveSpeed.groundedMax - projVel;
 		
-		moveSpeed.projectedVector = moveVector_Current + moveVector_Request.normalized * rampUpMultiplier;
+			moveSpeed.projectedVector = moveVector_Current + moveVector_Request.normalized * rampUpMultiplier;
 		
-		moveSpeed.projectedVector = Vector3.ClampMagnitude(moveSpeed.projectedVector, moveSpeed.bHopMax);
+			moveSpeed.projectedVector = Vector3.ClampMagnitude(moveSpeed.projectedVector, moveSpeed.bHopMax);
 		
-		Vector3 desiredVelocity = new Vector3(moveSpeed.projectedVector.x, 0.0f, moveSpeed.projectedVector.z);
-		playerRB.AddRelativeForce((desiredVelocity - moveVector_Current) * playerRB.mass, ForceMode.Impulse);
+			//moveSpeed.projectedVector = Vector3.ClampMagnitude(moveSpeed.projectedVector, moveSpeed.accelerationTarget);
+		
+			Vector3 desiredVelocity = new Vector3(moveSpeed.projectedVector.x, 0.0f, moveSpeed.projectedVector.z);
+			
+			playerRB.AddRelativeForce((desiredVelocity - moveVector_Current) * playerRB.mass, ForceMode.Impulse);
 		
 		/*
 		// Check if the player is changing direction
