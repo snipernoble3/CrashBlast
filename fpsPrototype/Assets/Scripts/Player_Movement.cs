@@ -152,11 +152,16 @@ public class Player_Movement : MonoBehaviour
 		
 		if (hud != null) // Update HUD elements.
 		{
-			hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");		
+			hud_LateralVelocity.text = "Lateral Velocity: " + lateralSpeed.magnitude.ToString("F2");
 			hud_VerticalVelocity.text = "Vertical Velocity: " + localVelocity.y.ToString("F2");
 			
-			radarLines[0].SetVector(new Vector3(moveSpeed.inputVector.x * moveSpeed.input, moveSpeed.inputVector.z * moveSpeed.input, -1.0f));
-			radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -2.0f));
+			/*
+			hud_LateralVelocity.text = "Lateral Velocity: " + (lateralSpeed.magnitude * 2.237f).ToString("F2") + " MPH";
+			hud_VerticalVelocity.text = "Vertical Velocity: " + (localVelocity.y * 2.237f).ToString("F2") + " MPH";
+			*/
+			
+			radarLines[0].SetVector(new Vector3(moveSpeed.inputVector.x * moveSpeed.input, moveSpeed.inputVector.z * moveSpeed.input, -2.0f));
+			radarLines[1].SetVector(new Vector3(lateralSpeed.x, lateralSpeed.z, -1.0f));
 		}
 
 		TerminalVelocity();

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5637351680575529413}
   - component: {fileID: 7734434149666960220}
   - component: {fileID: 1058861108}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: XP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4290145d7d07b1b4fbbde63c7ba0487e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!65 &1058861108
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -71,7 +70,7 @@ GameObject:
   - component: {fileID: 8855306547914488890}
   - component: {fileID: 9052033550878893690}
   - component: {fileID: 6864250808794157952}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: XP Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

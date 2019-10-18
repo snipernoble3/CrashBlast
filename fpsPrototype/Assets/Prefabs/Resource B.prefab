@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6089586581175939720}
   - component: {fileID: 1181409885488202118}
   - component: {fileID: 5629325531547137159}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Resource B Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 1700399791311426718}
   - component: {fileID: 7510917405902843837}
   - component: {fileID: 2023814769451022290}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Resource B
   m_TagString: Resource B
   m_Icon: {fileID: 0}
