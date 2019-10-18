@@ -64,19 +64,16 @@ public class Player_Movement : MonoBehaviour
 	private TextMeshProUGUI hud_VerticalVelocity;
 	
 	private MoveSpeed moveSpeed = new MoveSpeed();
-	
 	private Vector3 gravity; // Use this instead of Physics.gravity in case we want to replace gravity with attraction to a gravity sorce (like a tiny planet).
+	private bool isGrounded = false; // Initialize as false, since player may spawn in mid-air
 	
 	// Jump
-	[SerializeField] private float jumpForceMultiplier =  5.0f;
+	[SerializeField] private float jumpForceMultiplier =  3.0f;
 	private const float jumpCoolDownTime = 0.2f;
 	private float timeSinceLastJump;
-	
 	private bool jumpQueue_isQueued = false;
-	private const float jumpQueue_gracePeriod = 1.0f; // How long will the jump stay queued.
+	private const float jumpQueue_gracePeriod = 0.3f; // How long will the jump stay queued.
 	private float jumpQueue_timeSinceQueued = 0.0f; // How long has it been since the jump was queued.
-	
-	private bool isGrounded = false; // Initialize as false, since player may spawn in mid-air
 	
 	// Mouse Input
 	[SerializeField] private float mouseSensitivity_X = 3.0f;
@@ -97,7 +94,7 @@ public class Player_Movement : MonoBehaviour
 		
 		// Set up references
 		firstPersonCam = transform.Find("Camera Position Offset/Main Camera").gameObject;
-        playerRB = GetComponent<Rigidbody>();
+		playerRB = GetComponent<Rigidbody>();
 		playerRB.constraints = RigidbodyConstraints.FreezeRotation;
 		gravity = GetGravity();
 		
@@ -126,18 +123,26 @@ public class Player_Movement : MonoBehaviour
 		if (timeSinceLastJump < jumpCoolDownTime) timeSinceLastJump = Mathf.Clamp(timeSinceLastJump += 1.0f * Time.deltaTime, 0.0f, jumpCoolDownTime);
 		// Count how long it's been since the player queued the next jump.
 		if (jumpQueue_timeSinceQueued < jumpQueue_gracePeriod) jumpQueue_timeSinceQueued = Mathf.Clamp(jumpQueue_timeSinceQueued += 1.0f * Time.deltaTime, 0.0f, jumpQueue_gracePeriod);
+		if (jumpQueue_timeSinceQueued == jumpQueue_gracePeriod) jumpQueue_isQueued = false;
 		
 		// Inputs
 		GetInput_Mouse();
 		MouseLook();
 		GetInput_LateralMovement();
-		if (isGrounded && Input.GetButtonDown("Jump")) Jump();
+		if (Input.GetButtonDown("Jump"))
+		{
+			if (isGrounded) Jump();
+			else
+			{
+				jumpQueue_isQueued = true;
+				jumpQueue_timeSinceQueued = 0.0f;
+			}
+		}
     }
 	
 	void FixedUpdate()
 	{		
 		gravity = GetGravity();
-		CheckIfGrounded(); // Update the isGrounded bool for use elsewhere
 		LateralMovement(); // Move the player based on the lateral movement input.
 		// Slow the player down with "friction" if he is grounded and not trying to move.
 		if (moveSpeed.inputVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
@@ -279,35 +284,41 @@ public class Player_Movement : MonoBehaviour
 		transform.rotation *= Quaternion.Euler(new Vector3(0.0f, horizontalAngle, 0.0f));
 	}
 	
-	public void CheckIfGrounded()
-	{
-		moveSpeed.reduction.Set("air"); // Start out as if we are in the air, then prove otherwise.
-		isGrounded = false; // Start out false, then prove otherwise.
-		
-		RaycastHit[] hits = Physics.SphereCastAll(playerRB.position + (transform.up * 0.49f), 0.49f, -transform.up, 0.1f);
-		foreach (RaycastHit groundCheckObject in hits)
-		{
-			if (groundCheckObject.rigidbody == playerRB) continue;
-			if (groundCheckObject.collider != null)
-			{
-				moveSpeed.reduction.Set("regular");
-				isGrounded = true;
-			}
-		}
-	}
-	
 	public void Jump()
 	{
 		if (timeSinceLastJump == jumpCoolDownTime)
 		{
 			timeSinceLastJump = 0.0f;
-			playerRB.AddRelativeForce(Vector3.up * jumpForceMultiplier * playerRB.mass, ForceMode.Impulse);
+			playerRB.AddRelativeForce(Vector3.up * (jumpForceMultiplier + GetDownwardVelocity()) * playerRB.mass, ForceMode.Impulse);
+			SetIsGrounded(false);
 		}
 	}
 	
 	public float GetVerticalCameraAngle()
 	{
 		return verticalAngle;
+	}
+	
+	public void SetIsGrounded(bool groundedState)
+	{
+		if (groundedState)
+		{
+			if (jumpQueue_isQueued)
+			{
+				Jump();
+				jumpQueue_isQueued = false;
+			}	
+			else
+			{
+				moveSpeed.reduction.Set("regular");
+				isGrounded = true;
+			}
+		}
+		else
+		{
+			moveSpeed.reduction.Set("air");
+			isGrounded = false;
+		}
 	}
 	
 	public bool GetIsGrounded()
