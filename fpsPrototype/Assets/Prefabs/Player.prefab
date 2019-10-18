@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5eb4721a1d43c24a96ae331a03c12f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundingLayers:
+  groundedLayers:
     serializedVersion: 2
     m_Bits: 1
 --- !u!1 &267518274643486358
