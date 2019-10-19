@@ -25,8 +25,6 @@ public class MoveSpeed
 	public Vector3 localVelocity;
 	public Vector3 localVelocity_Lateral;
 	
-	
-	
 	public ReductionMultiplier reduction = new ReductionMultiplier();
 }
 
@@ -83,8 +81,10 @@ public class Player_Movement : MonoBehaviour
 	private const float jumpCoolDownTime = 0.2f;
 	private float timeSinceLastJump;
 	private bool jumpQueue_isQueued = false;
-	private const float jumpQueue_gracePeriod = 0.3f; // How long will the jump stay queued.
-	private float jumpQueue_timeSinceQueued = 0.0f; // How long has it been since the jump was queued.
+	private const float jumpQueue_Expiration = 0.3f; // How long will the jump stay queued.
+	private float jumpQueue_TimeSinceQueued = 0.0f; // How long has it been since the jump was queued.
+	private const float jumpQueue_bHopGracePeriod = 0.3f; // How long before friction starts being applied to the player.
+	private float jumpQueue_timeSinceGrounded = 0.0f; // How long has it been since the player became grounded.
 	
 	// Mouse Input
 	[SerializeField] private float mouseSensitivity_X = 3.0f;
@@ -133,8 +133,14 @@ public class Player_Movement : MonoBehaviour
 		// Count how long it's been since the player jumped.
 		if (timeSinceLastJump < jumpCoolDownTime) timeSinceLastJump = Mathf.Clamp(timeSinceLastJump += 1.0f * Time.deltaTime, 0.0f, jumpCoolDownTime);
 		// Count how long it's been since the player queued the next jump.
-		if (jumpQueue_timeSinceQueued < jumpQueue_gracePeriod) jumpQueue_timeSinceQueued = Mathf.Clamp(jumpQueue_timeSinceQueued += 1.0f * Time.deltaTime, 0.0f, jumpQueue_gracePeriod);
-		if (jumpQueue_timeSinceQueued == jumpQueue_gracePeriod) jumpQueue_isQueued = false;
+		if (jumpQueue_TimeSinceQueued < jumpQueue_Expiration) jumpQueue_TimeSinceQueued = Mathf.Clamp(jumpQueue_TimeSinceQueued += 1.0f * Time.deltaTime, 0.0f, jumpQueue_Expiration);
+		if (jumpQueue_TimeSinceQueued == jumpQueue_Expiration) jumpQueue_isQueued = false;
+		// Count how long it's been since the player became grounded.
+		if (jumpQueue_timeSinceGrounded < jumpQueue_bHopGracePeriod) jumpQueue_timeSinceGrounded = Mathf.Clamp(jumpQueue_timeSinceGrounded += 1.0f * Time.deltaTime, 0.0f, jumpQueue_bHopGracePeriod);
+
+		
+		
+		
 		
 		// Inputs
 		GetInput_Mouse();
@@ -146,7 +152,7 @@ public class Player_Movement : MonoBehaviour
 			else
 			{
 				jumpQueue_isQueued = true;
-				jumpQueue_timeSinceQueued = 0.0f;
+				jumpQueue_TimeSinceQueued = 0.0f;
 			}
 		}
     }
@@ -165,7 +171,8 @@ public class Player_Movement : MonoBehaviour
 		
 		
 		// Slow the player down with "friction" if he is grounded and not trying to move.
-		if (moveSpeed.inputVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
+		//if (moveSpeed.inputVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
+		if (isGrounded && jumpQueue_timeSinceGrounded == jumpQueue_bHopGracePeriod) SimulateFriction();
 		
 		TerminalVelocity();
 		
@@ -174,7 +181,7 @@ public class Player_Movement : MonoBehaviour
 	
 	void UpdateHUD()
 	{
-		//hud_LateralVelocity.text = "Lateral Velocity: " + moveSpeed.localVelocity_Lateral.magnitude.ToString("F2");
+		hud_LateralVelocity.text = "Lateral Velocity: " + moveSpeed.localVelocity_Lateral.magnitude.ToString("F2");
 		hud_VerticalVelocity.text = "Vertical Velocity: " + moveSpeed.localVelocity.y.ToString("F2");
 			
 		radarLines[0].SetVector(new Vector3(moveSpeed.requestVector.x, moveSpeed.requestVector.z, -2.0f));
@@ -204,8 +211,6 @@ public class Player_Movement : MonoBehaviour
         
 		
 		float currentspeed = Vector3.Dot(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector.normalized);
-        
-		hud_LateralVelocity.text = currentspeed.ToString();
 		
 		float addspeed = moveSpeed.acceleration - currentspeed;
         
@@ -227,6 +232,34 @@ public class Player_Movement : MonoBehaviour
 		playerRB.AddRelativeForce(moveSpeed.requestVector, ForceMode.VelocityChange);
 		
 */
+	}
+	
+	// Emulate Quake's "vector limiting" air strafe code to enable Bunny Hopping.
+	private void Accelerate_Lateral()
+	{
+		// Start by Projecting the player's current velocity vector onto the input acceleration direction (modified to have a length of 1.0f).
+		// The Quake approach uses a dot product calculation as a roundabout way of getting the number we care about instead of doing a proper (expensive) vector projection.
+		float projectedSpeed = Vector3.Dot(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector.normalized); // Vector projection of current velocity onto a unit vector input direction.
+		
+		// Although the dot product result isn't representitive of the actual velocity, it can still be used for the speed comparison:
+		// Calculate the difference between the speed player is asking to go, and the result of the "projected" vector (the dot product calculation).
+		float speedToAdd = moveSpeed.acceleration - projectedSpeed;
+		
+		// Do nothing if this value goes negative. NEVER let this method decelerate the player.
+		if (speedToAdd <= 0.0f) return;
+		
+
+		if (moveSpeed.acceleration > speedToAdd) moveSpeed.acceleration = speedToAdd;
+		
+		// Normalizing the inputVector doesn't matter because we've already gotten the good out of it's length eariler while calculating the moveSpeed.acceleration value;
+		moveSpeed.outputVector = moveSpeed.inputVector.normalized * moveSpeed.acceleration;
+		
+		// If necessary, truncate the accelerated velocity so the vector projection does not exceed max_velocity
+		//if (projectedSpeed + moveSpeed.acceleration > moveSpeed.max) moveSpeed.acceleration = moveSpeed.max - projectedSpeed;
+		
+		
+		// Apply the calculated force to the player in local space
+		playerRB.AddRelativeForce(moveSpeed.outputVector, ForceMode.VelocityChange);
 	}
 	
 	// Add lateral movement via the physics system (doesn't affect vertical velocity).
@@ -256,11 +289,21 @@ public class Player_Movement : MonoBehaviour
 		// Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step. 
 		moveSpeed.max *= Time.fixedDeltaTime;
 
-
-
-		//Emulate Quake's vector limiting code so as to enable Bunny Hopping.
-		float projectedSpeed = Vector3.Dot(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector.normalized);
-		moveSpeed.acceleration -= projectedSpeed;
+		Accelerate_Lateral();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+		
+		
+		
+		//moveSpeed.acceleration -= projectedSpeed;
 		//moveSpeed.acceleration = Mathf.Clamp(moveSpeed.acceleration, 0.0f, moveSpeed.max);
 		
 		
@@ -311,10 +354,7 @@ public class Player_Movement : MonoBehaviour
 		
 		//moveSpeed.acceleration
 		
-		moveSpeed.outputVector = moveSpeed.inputVector.normalized * moveSpeed.acceleration;
-		
-		// Apply the calculated force to the player in local space
-		playerRB.AddRelativeForce(moveSpeed.outputVector, ForceMode.VelocityChange);
+
 		
 		
 
@@ -362,22 +402,21 @@ public class Player_Movement : MonoBehaviour
 	
 	private void SimulateFriction()
 	{
-		Vector3 frictionForceToAdd = transform.InverseTransformDirection(playerRB.velocity); // Start by getting the the player's velocity in local space.
-		
 		float rampDownMultiplier = 10.0f;
 		rampDownMultiplier *= Time.fixedDeltaTime; // Multiply by Time.fixedDeltaTime so that friction speed is not bound to inconsitencies in the physics time step.
 		
-		float verticalFrictionMultiplier = 1.0f; // We need some vertical counter force so the player doesn't slip off of edges.
-		if (frictionForceToAdd.y >= -0.02f) verticalFrictionMultiplier = 0.0f; // Don't slow down the player's force if he is trying to jump.
+		Vector3 frictionForceToAdd = -moveSpeed.localVelocity; // Start with a force in the opposite direction of the player's velocity.
+		frictionForceToAdd -= transform.InverseTransformDirection(gravity);  // Counter gravity (in local space) so that the player won't slip off of edges.
 		
-		verticalFrictionMultiplier = 0.0f; // DELETE THIS!!!!
-
-		frictionForceToAdd *= -playerRB.mass; // Point the force in the opposite direction with enough strength to counter the mass.
-		frictionForceToAdd -= transform.InverseTransformDirection(gravity);  // Counter gravity (in local space) so that the player won't slip off of edges
+		// Decide if vertical friction should be applied:
+		//float verticalFrictionMultiplier = 1.0f; // We need some vertical counter force so the player doesn't slip off of edges.
+		//if (frictionForceToAdd.y <= 0.02f) verticalFrictionMultiplier = 0.0f; // Don't slow down the player's force if he is trying to jump.
+		float verticalFrictionMultiplier = 0.0f;
+		
 		// Multiply the rampDownMultiplier with the x and z components so that speed will ramp down for lateral movment, but the vertical friction will be instantanious if enabled.
 		frictionForceToAdd = Vector3.Scale(frictionForceToAdd, new Vector3(rampDownMultiplier, verticalFrictionMultiplier, rampDownMultiplier));
 		
-		playerRB.AddRelativeForce(frictionForceToAdd, ForceMode.Impulse); // Apply the friction to the player in local space
+		playerRB.AddRelativeForce(frictionForceToAdd, ForceMode.VelocityChange); // Apply the friction to the player in local space.
 	}
 		
 	private void GetInput_Mouse()
