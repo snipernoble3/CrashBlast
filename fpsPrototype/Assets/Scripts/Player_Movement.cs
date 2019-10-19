@@ -77,6 +77,7 @@ public class Player_Movement : MonoBehaviour
 	private bool isGrounded = false; // Initialize as false, since player may spawn in mid-air
 	
 	// Jump
+	public bool holdSpaceToKeepJumping = true;
 	[SerializeField] private float jumpForceMultiplier =  3.0f;
 	private const float jumpCoolDownTime = 0.2f;
 	private float timeSinceLastJump;
@@ -146,6 +147,14 @@ public class Player_Movement : MonoBehaviour
 		GetInput_Mouse();
 		MouseLook();
 		GetInput_LateralMovement();
+		
+		
+		if (holdSpaceToKeepJumping && Input.GetButton("Jump"))
+		{
+			jumpQueue_isQueued = true;
+			jumpQueue_TimeSinceQueued = 0.0f;
+		}
+			
 		if (Input.GetButtonDown("Jump"))
 		{
 			if (isGrounded) Jump();
@@ -181,8 +190,8 @@ public class Player_Movement : MonoBehaviour
 	
 	void UpdateHUD()
 	{
-		hud_LateralVelocity.text = "Lateral Velocity: " + moveSpeed.localVelocity_Lateral.magnitude.ToString("F2");
-		hud_VerticalVelocity.text = "Vertical Velocity: " + moveSpeed.localVelocity.y.ToString("F2");
+		//hud_LateralVelocity.text = "Lateral Velocity: " + moveSpeed.localVelocity_Lateral.magnitude.ToString("F2");
+		//hud_VerticalVelocity.text = "Vertical Velocity: " + moveSpeed.localVelocity.y.ToString("F2");
 			
 		radarLines[0].SetVector(new Vector3(moveSpeed.requestVector.x, moveSpeed.requestVector.z, -2.0f));
 		radarLines[1].SetVector(new Vector3(moveSpeed.localVelocity_Lateral.x, moveSpeed.localVelocity_Lateral.z, -1.0f));
@@ -239,7 +248,12 @@ public class Player_Movement : MonoBehaviour
 	{
 		// Start by Projecting the player's current velocity vector onto the input acceleration direction (modified to have a length of 1.0f).
 		// The Quake approach uses a dot product calculation as a roundabout way of getting the number we care about instead of doing a proper (expensive) vector projection.
+		// This is the same as getting Vector3.Project(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector.normalized).magnitude which is the only part of the projection we care about.
 		float projectedSpeed = Vector3.Dot(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector.normalized); // Vector projection of current velocity onto a unit vector input direction.
+		
+		
+		radarLines[2].SetVector(new Vector3(moveSpeed.projectedVector.x, moveSpeed.projectedVector.z, -0.5f));
+		
 		
 		// Although the dot product result isn't representitive of the actual velocity, it can still be used for the speed comparison:
 		// Calculate the difference between the speed player is asking to go, and the result of the "projected" vector (the dot product calculation).
@@ -262,9 +276,17 @@ public class Player_Movement : MonoBehaviour
 		playerRB.AddRelativeForce(moveSpeed.outputVector, ForceMode.VelocityChange);
 	}
 	
+	
+	
+	
+	
+	
+	
 	// Add lateral movement via the physics system (doesn't affect vertical velocity).
 	private void LateralMovement()
 	{
+	// GROUND MOVE v
+
 		// Calculate how fast the player is asking to go.
 		moveSpeed.acceleration = 640.0f; // The base speed of the acceleration.
 		// The input vector's megnitute will equal 1.0f if the movement keys are held down long enough (determined by input manager sensitivity settings) OR if the analogue input is maxed out.
@@ -290,6 +312,11 @@ public class Player_Movement : MonoBehaviour
 		moveSpeed.max *= Time.fixedDeltaTime;
 
 		Accelerate_Lateral();
+		
+	// GROUND MOVE ^
+	// AIR MOVE v
+	
+		
 		
 		
 		
