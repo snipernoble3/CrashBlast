@@ -24,7 +24,7 @@ public class Player_BlastMechanics : MonoBehaviour
 	public Animator firstPersonArms_Animator;
 	
 	// Rocket Jumping Variables
-	public int rjBlast_NumSinceGrounded = 0;
+	private int rjBlast_NumSinceGrounded = 0;
 	[SerializeField] private int rjBlast_MidAirLimit = 1;
 	private bool rjBlast_DidHitSurface = false;
 	
