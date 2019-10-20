@@ -10,7 +10,7 @@ public class MoveSpeed
 	public float targetSpeed; // The speed the player is trying to accelerate to.
 	
 	// Speed caps for different situations
-	public readonly float groundedMax = 10.0f; // Cap the walking speed.
+	public readonly float groundedMax = 14.0f; // Cap the walking speed.
 	public readonly float bHopMax = 25.0f; // Cap the bunny hopping speed.
 	
 	public readonly float lateralMax = 50.0f; // NEVER let the player move faster than this lateraly.	
@@ -77,7 +77,7 @@ public class Player_Movement : MonoBehaviour
 	private bool isGrounded = false; // Initialize as false, since player may spawn in mid-air
 	
 	// Jump
-	public bool holdSpaceToKeepJumping = true;
+	public bool holdJumpToKeepJumping = false;
 	[SerializeField] private float jumpForceMultiplier =  3.0f;
 	private const float jumpCoolDownTime = 0.2f;
 	private float timeSinceLastJump;
@@ -149,7 +149,7 @@ public class Player_Movement : MonoBehaviour
 		GetInput_LateralMovement();
 		
 		
-		if (holdSpaceToKeepJumping && Input.GetButton("Jump"))
+		if (holdJumpToKeepJumping && Input.GetButton("Jump"))
 		{
 			jumpQueue_isQueued = true;
 			jumpQueue_TimeSinceQueued = 0.0f;
@@ -178,7 +178,6 @@ public class Player_Movement : MonoBehaviour
 		LateralMovement(); // Move the player based on the lateral movement input.
 		
 		// Slow the player down with "friction" if he is grounded and not trying to move.
-		//if (moveSpeed.inputVector == Vector3.zero && playerRB.velocity != Vector3.zero && isGrounded) SimulateFriction();
 		if (isGrounded && jumpQueue_timeSinceGrounded == jumpQueue_bHopGracePeriod) SimulateFriction();
 		
 		TerminalVelocity();
@@ -203,9 +202,13 @@ public class Player_Movement : MonoBehaviour
 		moveSpeed.inputVector = Vector3.ClampMagnitude(moveSpeed.inputVector, 1.0f);
 	}
 	
+	/*
+	
 	// Add lateral movement via the physics system (doesn't affect vertical velocity).
 	private void LateralMovement()
 	{
+		
+		/*
 		// Calculate the acceleration rate at which the player's speed will build.
 		moveSpeed.accelerationRate = 1.0f; // The base speed of the acceleration.
 		// The input vector's megnitute will equal 1.0f if the movement keys are held down long enough (determined by input manager sensitivity settings) OR if the analogue input is maxed out.
@@ -214,6 +217,7 @@ public class Player_Movement : MonoBehaviour
 		moveSpeed.accelerationRate *= moveSpeed.reduction.multiplier;
 		// Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step. 
 		moveSpeed.accelerationRate *= Time.fixedDeltaTime;
+		*/
 		
 	// GROUND MOVEMENT
 		//if (isGrounded)
@@ -225,13 +229,15 @@ public class Player_Movement : MonoBehaviour
 
 			Accelerate(wishdir, wishspeed, runAcceleration);
 */			
-			// Calculate the target speed the player is trying to acclerate to (The player can move faster than this if he is bunny hopping, rocket jumping, or affected by outside sources of force).
-			moveSpeed.targetSpeed = moveSpeed.groundedMax;
 			
-			// Reduce the target speed based on player input. (If the input is not maxed out, the player will walk instead of run (primarily for analogue input)).
-			moveSpeed.targetSpeed *= moveSpeed.inputVector.magnitude;
-			// Reduce the target speed based on the environment (no reduction when grounded (1.0f), but reduced in the air or in water.
-			moveSpeed.targetSpeed *= moveSpeed.reduction.multiplier;
+			
+			
+			
+			
+
+			
+			
+			//moveSpeed.targetSpeed += 10.0f * Time.deltaTime; // Compensate for friction // DO THIS BETTER LATER.
 		//}
 	/*	
 	// AIR MOVEMENT
@@ -274,14 +280,28 @@ public class Player_Movement : MonoBehaviour
 				AirControl(wishdir, wishspeed2);
 		}
 	*/
-		Accelerate_Lateral();
-	}
+		//Accelerate_Lateral();
+	//}
+
 	
 	// Emulate Quake's "vector limiting" air strafe code to enable Bunny Hopping.
-	private void Accelerate_Lateral()
+	private void LateralMovement()
 	{
+		// Calculate the target speed the player is trying to acclerate to (The player can move faster than this if he is bunny hopping, rocket jumping, or affected by outside sources of force).
+		moveSpeed.targetSpeed = moveSpeed.groundedMax;
+		
+		// Reduce the target speed based on player input. (If the input is not maxed out, the player will walk instead of run (primarily for analogue input)).
+		moveSpeed.targetSpeed *= moveSpeed.inputVector.magnitude;
+		
+		// Reduce the target speed based on the environment (no reduction when grounded (1.0f), but reduced in the air or in water.
+		// moveSpeed.targetSpeed *= moveSpeed.reduction.multiplier;
+		
+
+		
 		moveSpeed.accelerationRate = 140.0f;
 		if (!isGrounded) moveSpeed.accelerationRate = 20.0f;
+		
+		moveSpeed.accelerationRate *= moveSpeed.reduction.multiplier;
 		
 		// Start by Projecting the player's current velocity vector onto the input acceleration direction (modified to have a length of 1.0f).
 		// The Quake approach uses a dot product calculation as a roundabout way of getting the number we care about (magnitude) instead of doing a proper (expensive) vector projection.
@@ -293,16 +313,12 @@ public class Player_Movement : MonoBehaviour
 		// If necessary, truncate the accelerated velocity so the vector projection does not exceed the target speed.
 		if(projectedVelocity + velocityToAdd > moveSpeed.targetSpeed)
         velocityToAdd = moveSpeed.targetSpeed - projectedVelocity;
-
-
-		moveSpeed.outputVector = moveSpeed.inputVector.normalized * velocityToAdd;
 		
-		
-		
+		// Prevent the player from going past the maximum allowed bHop speed.
 		if (moveSpeed.localVelocity_Lateral.magnitude + velocityToAdd > moveSpeed.bHopMax) velocityToAdd = moveSpeed.bHopMax - moveSpeed.localVelocity_Lateral.magnitude;
 		
-		// Apply the calculated force to the player in local space
-		playerRB.AddRelativeForce(moveSpeed.outputVector, ForceMode.VelocityChange);
+		// Apply the calculated force to the player in the requested direction in local space
+		playerRB.AddRelativeForce(moveSpeed.inputVector.normalized * velocityToAdd, ForceMode.VelocityChange);
 
 		
 		/*
@@ -481,21 +497,5 @@ public class Player_Movement : MonoBehaviour
 		cancelVector += (Vector3.up * cancelForce_Vertical);
 		
 		if (cancelVector != Vector3.zero) playerRB.AddRelativeForce(cancelVector, ForceMode.VelocityChange);
-	
-	
-		/*
-		Vector3 fallCancelForce;
-		float currentDownwardSpeed = 0.0f;
-		
-		if (moveSpeed.localVelocity.y < 0.0f) currentDownwardSpeed = -moveSpeed.localVelocity.y;
-		else currentDownwardSpeed = 0.0f;
-		
-		if (currentDownwardSpeed > moveSpeed.verticalMax)
-		{
-			fallCancelForce = new Vector3(0.0f, ((currentDownwardSpeed - moveSpeed.verticalMax) * playerRB.mass), 0.0f) -gravity;
-			
-			playerRB.AddRelativeForce(fallCancelForce, ForceMode.Impulse);
-		}
-		*/
 	}
 }
