@@ -18,6 +18,6 @@ public class Gravity_Source : MonoBehaviour
 		attractedObject.rotation = Quaternion.FromToRotation(-attractedObject.up, gravityVector.normalized) * attractedObject.rotation;
 		
 		// Add force to the attracted object to simulate gravity toward the gravity source.
-		attractedObject.gameObject.GetComponent<Rigidbody>().AddForce(gravityVector, ForceMode.Impulse);
+		attractedObject.gameObject.GetComponent<Rigidbody>().AddForce(gravityVector, ForceMode.Acceleration);
 	}
 }
