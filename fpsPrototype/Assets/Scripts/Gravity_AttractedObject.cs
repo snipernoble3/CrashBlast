@@ -6,6 +6,8 @@ using UnityEngine;
 public class Gravity_AttractedObject : MonoBehaviour
 {
 	public Gravity_Source gravitySource;
+	public float blendToNewSource = 1.0f;
+	private float blendSpeed = 0.025f;
 	
     void Awake()
     {
@@ -17,7 +19,8 @@ public class Gravity_AttractedObject : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (gravitySource != null) gravitySource.AttractObject(transform);
+		if (blendToNewSource != 1.0f) blendToNewSource = Mathf.Clamp(blendToNewSource + (blendSpeed * Time.fixedDeltaTime), 0.0f, 1.0f);
+        if (gravitySource != null) gravitySource.AttractObject(transform, blendToNewSource);
     }
 	
 	void SetGravitySource(Gravity_Source gravitySource)
