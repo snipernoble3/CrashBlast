@@ -5,11 +5,11 @@ using TMPro;
 
 public class MoveSpeed
 {
-	public float acceleration = 0.0f;
+	public float accelerationRate; // The ammount of acceleration the player is requesting to be added to his movement each frame.
+	public float accelerationLimit; // The maximum ammount of force that can be added per physics step.
+	public float targetSpeed; // The speed the player is trying to accelerate to.
 	
 	// Speed caps for different situations
-	public float max;
-	
 	public readonly float groundedMax = 10.0f; // Cap the walking speed.
 	public readonly float bHopMax = 25.0f; // Cap the bunny hopping speed.
 	
@@ -191,7 +191,7 @@ public class Player_Movement : MonoBehaviour
 		hud_LateralVelocity.text = "Lateral Velocity: " + moveSpeed.localVelocity_Lateral.magnitude.ToString("F2");
 		hud_VerticalVelocity.text = "Vertical Velocity: " + moveSpeed.localVelocity.y.ToString("F2");
 			
-		radarLines[0].SetVector(new Vector3(moveSpeed.requestVector.x, moveSpeed.requestVector.z, -2.0f));
+		radarLines[0].SetVector(new Vector3((moveSpeed.inputVector.normalized * moveSpeed.targetSpeed).x, (moveSpeed.inputVector.normalized * moveSpeed.targetSpeed).z, -2.0f));
 		radarLines[1].SetVector(new Vector3(moveSpeed.localVelocity_Lateral.x, moveSpeed.localVelocity_Lateral.z, -1.0f));
 	}
 	
@@ -203,47 +203,110 @@ public class Player_Movement : MonoBehaviour
 		moveSpeed.inputVector = Vector3.ClampMagnitude(moveSpeed.inputVector, 1.0f);
 	}
 	
-	private void GroundMove()
-    {
-        // Calculate how fast the player is asking to go.
-		moveSpeed.acceleration = 640.0f; // The base speed of the acceleration.
+	// Add lateral movement via the physics system (doesn't affect vertical velocity).
+	private void LateralMovement()
+	{
+		// Calculate the acceleration rate at which the player's speed will build.
+		moveSpeed.accelerationRate = 1.0f; // The base speed of the acceleration.
 		// The input vector's megnitute will equal 1.0f if the movement keys are held down long enough (determined by input manager sensitivity settings) OR if the analogue input is maxed out.
-		moveSpeed.acceleration *= moveSpeed.inputVector.magnitude;
+		moveSpeed.accelerationRate *= moveSpeed.inputVector.magnitude;
 		// The reduction multiplier is 1.0f by default, but will be reduced in the air or in water.
-		moveSpeed.acceleration *= moveSpeed.reduction.multiplier;
+		moveSpeed.accelerationRate *= moveSpeed.reduction.multiplier;
 		// Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step. 
-		moveSpeed.acceleration *= Time.fixedDeltaTime;
+		moveSpeed.accelerationRate *= Time.fixedDeltaTime;
 		
-		
-        
-		
-		float currentspeed = Vector3.Dot(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector.normalized);
-		
-		float addspeed = moveSpeed.acceleration - currentspeed;
-        
-		if(addspeed <= 0) return;
-        if(moveSpeed.acceleration > addspeed) moveSpeed.acceleration = addspeed;
-
-        //playerVelocity.x += moveSpeed.acceleration * moveSpeed.inputVector.x;
-        //playerVelocity.z += moveSpeed.acceleration * moveSpeed.inputVector.z;
-		
+	// GROUND MOVEMENT
+		//if (isGrounded)
+		//{
 /*
-		
-		//Build the requested vector via the input direction and the desired acceleration.
-		moveSpeed.requestVector = moveSpeed.inputVector.normalized * moveSpeed.acceleration;
+			Vector3 wishdir = moveSpeed.inputVector.normalized;
+			float wishspeed = moveSpeed.targetSpeed;
+			float runAcceleration = moveSpeed.accelerationRate
 
-		// Subtract the player's current lateral velocity in order to get the force need to send the player in the desired direction.
-		moveSpeed.requestVector -= moveSpeed.localVelocity_Lateral;
+			Accelerate(wishdir, wishspeed, runAcceleration);
+*/			
+			// Calculate the target speed the player is trying to acclerate to (The player can move faster than this if he is bunny hopping, rocket jumping, or affected by outside sources of force).
+			moveSpeed.targetSpeed = moveSpeed.groundedMax;
+			
+			// Reduce the target speed based on player input. (If the input is not maxed out, the player will walk instead of run (primarily for analogue input)).
+			moveSpeed.targetSpeed *= moveSpeed.inputVector.magnitude;
+			// Reduce the target speed based on the environment (no reduction when grounded (1.0f), but reduced in the air or in water.
+			moveSpeed.targetSpeed *= moveSpeed.reduction.multiplier;
+		//}
+	/*	
+	// AIR MOVEMENT
+		else
+		{
+			moveSpeed.targetSpeed = moveSpeed.bHopMax;
+			
+			
+			
+			Vector3 wishdir = moveSpeed.inputVector;
+			float wishvel = airAcceleration;
+			float accel;
 
-		// Apply the calculated force to the player in local space
-		playerRB.AddRelativeForce(moveSpeed.requestVector, ForceMode.VelocityChange);
-		
-*/
+			float wishspeed = wishdir.magnitude;
+			wishspeed *= moveSpeed;
+
+			wishdir.Normalize();
+			moveDirectionNorm = wishdir;
+
+
+
+			// CPM: Aircontrol
+			float wishspeed2 = wishspeed;
+			if (Vector3.Dot(playerVelocity, wishdir) < 0)
+				accel = airDecceleration;
+			else
+				accel = airAcceleration;
+			
+			// If the player is ONLY strafing left or right
+			if(_cmd.forwardMove == 0 && _cmd.rightMove != 0)
+			{
+				if(wishspeed > sideStrafeSpeed)
+					wishspeed = sideStrafeSpeed;
+				accel = sideStrafeAcceleration;
+			}
+
+			Accelerate(wishdir, wishspeed, accel);
+			
+			if(airControl > 0)
+				AirControl(wishdir, wishspeed2);
+		}
+	*/
+		Accelerate_Lateral();
 	}
 	
 	// Emulate Quake's "vector limiting" air strafe code to enable Bunny Hopping.
 	private void Accelerate_Lateral()
 	{
+		moveSpeed.accelerationRate = 140.0f;
+		if (!isGrounded) moveSpeed.accelerationRate = 20.0f;
+		
+		// Start by Projecting the player's current velocity vector onto the input acceleration direction (modified to have a length of 1.0f).
+		// The Quake approach uses a dot product calculation as a roundabout way of getting the number we care about (magnitude) instead of doing a proper (expensive) vector projection.
+		// The result gets the same number as Vector3.Project(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector).magnitude which is the only part of the projection we care about.
+		float projectedVelocity = Vector3.Dot(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector.normalized); // Vector projection of current velocity onto a unit vector input direction.
+		
+		float velocityToAdd = moveSpeed.accelerationRate * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
+
+		// If necessary, truncate the accelerated velocity so the vector projection does not exceed the target speed.
+		if(projectedVelocity + velocityToAdd > moveSpeed.targetSpeed)
+        velocityToAdd = moveSpeed.targetSpeed - projectedVelocity;
+
+
+		moveSpeed.outputVector = moveSpeed.inputVector.normalized * velocityToAdd;
+		
+		
+		
+		if (moveSpeed.localVelocity_Lateral.magnitude + velocityToAdd > moveSpeed.bHopMax) velocityToAdd = moveSpeed.bHopMax - moveSpeed.localVelocity_Lateral.magnitude;
+		
+		// Apply the calculated force to the player in local space
+		playerRB.AddRelativeForce(moveSpeed.outputVector, ForceMode.VelocityChange);
+
+		
+		/*
+		
 		// Start by Projecting the player's current velocity vector onto the input acceleration direction (modified to have a length of 1.0f).
 		// The Quake approach uses a dot product calculation as a roundabout way of getting the number we care about (magnitude) instead of doing a proper (expensive) vector projection.
 		// The result gets the same number as Vector3.Project(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector).magnitude which is the only part of the projection we care about.
@@ -251,208 +314,46 @@ public class Player_Movement : MonoBehaviour
 		
 		// Although the magnitude of the projected vector (same number as the result of the dot product calculation above) isn't representitive of the actual velocity, it can still be used for the speed comparison:
 		// Calculate the difference between the speed player is asking to go, and the result of the "projected" vector (the dot product calculation).
-		moveSpeed.acceleration = moveSpeed.max - projectedSpeed;
-		
-		float MAX_ACCEL = moveSpeed.max; // Similar to the max speed, this is the maximum ammount the player can accelerate per tick.
-		
-		moveSpeed.acceleration = Mathf.Clamp(moveSpeed.acceleration, 0.0f, MAX_ACCEL * Time.fixedDeltaTime);
-
-////*****////******////****		
+		float speedToAdd = moveSpeed.targetSpeed - projectedSpeed;
 		
 		
-		moveSpeed.acceleration *= 10;
-		
-		
-		
-		//float speedToAdd = moveSpeed.max - projectedSpeed;
-		//float speedToAdd = moveSpeed.acceleration - projectedSpeed;
-		
-		//speedToAdd = Mathf.Clamp(speedToAdd, 0.0f, moveSpeed.max * Time.fixedDeltaTime);
-		
-		//moveSpeed.outputVector = moveSpeed.localVelocity_Lateral + moveSpeed.inputVector.normalized * speedToAdd;
-		
-		/*
 		// Do nothing if this value goes negative. NEVER let this method decelerate the player.
 		if (speedToAdd <= 0.0f) return;
+		
+		
+		moveSpeed.accelerationRate = moveSpeed.accelerationRate * moveSpeed.targetSpeed;
+		
+		if (moveSpeed.accelerationRate > speedToAdd) moveSpeed.accelerationRate = speedToAdd;
+		
 		*/
 		
-
-		//if (moveSpeed.acceleration > speedToAdd) moveSpeed.acceleration = speedToAdd;
-		
-		// Normalizing the inputVector doesn't matter because we've already gotten the good out of it's length eariler while calculating the moveSpeed.acceleration value;
-		//moveSpeed.outputVector = moveSpeed.inputVector.normalized * moveSpeed.acceleration;
+		/*
+		moveSpeed.accelerationRate = moveSpeed.targetSpeed - projectedSpeed; // If this goes negative it would create decelerattion
 		
 		
+		moveSpeed.accelerationLimit = moveSpeed.targetSpeed; // Similar to the target speed, this is the maximum ammount the player can accelerate per tick.
+		moveSpeed.accelerationRate = Mathf.Clamp(moveSpeed.accelerationRate, 0.0f, moveSpeed.accelerationLimit * Time.fixedDeltaTime);
 		
-		//moveSpeed.outputVector = moveSpeed.inputVector.normalized * moveSpeed.acceleration;
 		
+		hud_LateralVelocity.text = moveSpeed.targetSpeed.ToString();
+		hud_VerticalVelocity.text = projectedSpeed.ToString();
 		
+		*/
 		
 		// If necessary, truncate the accelerated velocity so the vector projection does not exceed max_velocity
-		//if (projectedSpeed + moveSpeed.acceleration > moveSpeed.max) moveSpeed.acceleration = moveSpeed.max - projectedSpeed;
+		
+		//if (moveSpeed.localVelocity_Lateral.magnitude + moveSpeed.accelerationRate > moveSpeed.bHopMax) moveSpeed.accelerationRate = moveSpeed.bHopMax - moveSpeed.localVelocity_Lateral.magnitude;
+
+		//moveSpeed.accelerationRate = Mathf.Clamp(moveSpeed.accelerationRate, 0.0f, moveSpeed.accelerationLimit * Time.fixedDeltaTime);
 		
 		
-		moveSpeed.outputVector = moveSpeed.inputVector.normalized * moveSpeed.acceleration;
-		
-		//moveSpeed.outputVector = moveSpeed.inputVector.normalized * moveSpeed.acceleration;
-		
-		
+		// APPLY MOVEMENT
+
+		// Normalizing the inputVector isn't a problem because we've already gotten the good out of it's length eariler while calculating the moveSpeed.accelerationRate value;
+		//moveSpeed.outputVector = moveSpeed.inputVector.normalized * moveSpeed.accelerationRate;
 		
 		// Apply the calculated force to the player in local space
-		playerRB.AddRelativeForce(moveSpeed.outputVector, ForceMode.VelocityChange);
-	}
-	
-	
-	
-	
-	
-	
-	
-	// Add lateral movement via the physics system (doesn't affect vertical velocity).
-	private void LateralMovement()
-	{
-	// GROUND MOVE v
-		/*
-
-		// Calculate the rate that the player's speed will build.
-		moveSpeed.acceleration = 640.0f; // The base speed of the acceleration.
-		// The input vector's megnitute will equal 1.0f if the movement keys are held down long enough (determined by input manager sensitivity settings) OR if the analogue input is maxed out.
-		moveSpeed.acceleration *= moveSpeed.inputVector.magnitude;
-		// The reduction multiplier is 1.0f by default, but will be reduced in the air or in water.
-		moveSpeed.acceleration *= moveSpeed.reduction.multiplier;
-		// Multiply by Time.fixedDeltaTime so that speed is not bound to inconsitencies in the physics time step. 
-		moveSpeed.acceleration *= Time.fixedDeltaTime;
-		
-		*/
-		
-		
-		
-		
-		
-		
-		// Calculate the max speed the player is alowed to acclerate to (The player can move faster than this if he is bunny hopping, rocket jumping, or affected by outside sources of force).
-		moveSpeed.max = moveSpeed.groundedMax;
-		//if (!isGrounded) moveSpeed.max = moveSpeed.bHopMax;
-		
-		// Reduce the max speed based on player input. (If the input is not maxed out, the player will walk instead of run (primarily for analogue input)).
-		moveSpeed.max *= moveSpeed.inputVector.magnitude;
-		// The reduction multiplier is 1.0f by default, but will be reduced in the air or in water.
-		moveSpeed.max *= moveSpeed.reduction.multiplier;
-
-		Accelerate_Lateral();
-		
-	// GROUND MOVE ^
-	// AIR MOVE v
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-		
-		
-		
-		//moveSpeed.acceleration -= projectedSpeed;
-		//moveSpeed.acceleration = Mathf.Clamp(moveSpeed.acceleration, 0.0f, moveSpeed.max);
-		
-		
-		//moveSpeed.projectedVector = moveSpeed.localVelocity_Lateral + moveSpeed.inputVector.normalized * moveSpeed.acceleration;
-
-
-		/*
-		//Emulate Quake's vector limiting code so as to enable Bunny Hopping.
-		float projectedSpeed = Vector3.Dot(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector.normalized);
-		float addspeed = moveSpeed.acceleration - projectedSpeed;
-		addspeed = Mathf.Clamp(addspeed, 0.0f, moveSpeed.max);
-		
-		
-		moveSpeed.projectedVector = moveSpeed.localVelocity_Lateral + moveSpeed.inputVector.normalized * addspeed;
-		*/
-	
-		/*
-
-		// Calculate what the lateral velocity will be if we add the requested force BEFORE actually adding the force.
-		Vector3 moveVector_Test = moveSpeed.localVelocity_Lateral + moveSpeed.requestVector;
-		
-		
-		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
-		if (moveVector_Test.magnitude > moveSpeed.input) moveSpeed.requestVector = moveSpeed.requestVector.normalized * Mathf.Clamp(moveSpeed.input - moveSpeed.localVelocity_Lateral.magnitude, 0.0f, moveSpeed.input);
-		// Apply the calculated force to the player in local space
-		playerRB.AddRelativeForce(moveSpeed.requestVector, ForceMode.Impulse);
-	
-	
-	
-		/*
-
-		moveSpeed.outputVector = moveSpeed.localVelocity_Lateral + (moveSpeed.inputVector.normalized * moveSpeed.acceleration);
-		
-		// Subtract the player's current lateral velocity in order to get the force need to send the player in the desired direction.
-		moveSpeed.outputVector -= moveSpeed.localVelocity_Lateral;
-		
-		*/
-		
-		
-		
-		/*
-		
-		// If the requested movement vector is too high, calculate how much force we have to add to maintain top speed without going past it.
-		if (moveVector_Test.magnitude > moveSpeed.input) moveSpeed.requestVector = moveSpeed.requestVector.normalized * Mathf.Clamp(moveSpeed.input - moveSpeed.localVelocity_Lateral.magnitude, 0.0f, moveSpeed.input);
-		// Apply the calculated force to the player in local space
-		playerRB.AddRelativeForce(moveSpeed.requestVector, ForceMode.Impulse);
-		*/
-		
-		//moveSpeed.acceleration
-		
-
-		
-		
-
-
-
-
-
-		
-		//Emulate Quake's vector limiting code so as to enable Bunny Hopping.
-		
-			// Vector projection of Current velocity onto input Movement direction.
-			//float projVel = Vector3.Dot(moveSpeed.localVelocity_Lateral, moveSpeed.inputVector.normalized);
-		
-			// If necessary, truncate the accelerated velocity so the vector projection does not exceed max velocity
-			//if(projVel + rampUpMultiplier > moveSpeed.groundedMax) rampUpMultiplier = moveSpeed.groundedMax - projVel;
-		
-		//	moveSpeed.projectedVector = moveSpeed.localVelocity_Lateral + moveSpeed.requestVector;
-		
-			//moveSpeed.projectedVector = Vector3.ClampMagnitude(moveSpeed.projectedVector, moveSpeed.bHopMax);
-		
-			//moveSpeed.projectedVector = Vector3.ClampMagnitude(moveSpeed.projectedVector, moveSpeed.acceleration);
-			
-		//	moveSpeed.projectedVector = Vector3.ClampMagnitude(moveSpeed.projectedVector, moveSpeed.requestVector.magnitude);
-		
-		//	Vector3 desiredVelocity = new Vector3(moveSpeed.projectedVector.x, 0.0f, moveSpeed.projectedVector.z);
-	
-		
-		/*
-		// Check if the player is changing direction
-		if (Vector3.Angle(moveSpeed.localVelocity_Lateral, moveSpeed.requestVector) != 0.0f) 
-		{
-			float redirectInfluence = 1.0f; // Change 100%
-		
-			//Vector3 directionChangeVector = moveSpeed.requestVector.normalized * moveSpeed.localVelocity_Lateral.magnitude * redirectInfluence;
-			//directionChangeVector -= moveSpeed.localVelocity_Lateral;
-			//playerRB.velocity = directionChangeVector;
-		
-			Vector3 directionChangeVector = Vector3.Project(moveSpeed.requestVector, moveSpeed.localVelocity_Lateral);
-			//directionChangeVector -= moveSpeed.localVelocity_Lateral;
-			//directionChangeVector *= playerRB.mass;
-			playerRB.AddRelativeForce(directionChangeVector, ForceMode.Impulse);
-		}	
-		*/
+		//playerRB.AddRelativeForce(moveSpeed.outputVector, ForceMode.VelocityChange);
 	}
 	
 	private void SimulateFriction()

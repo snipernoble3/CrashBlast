@@ -1191,7 +1191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 0}
   firstPersonArms_Animator: {fileID: 4392674234314282691}
-  jumpForceMultiplier: 5
+  holdSpaceToKeepJumping: 1
+  jumpForceMultiplier: 4
   mouseSensitivity_X: 3
   mouseSensitivity_Y: 1
   matchXYSensitivity: 1
@@ -1210,7 +1211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableCameraShake_gpLanding: 1
-  autoJumpBeforeGroundedRocketJump: 1
+  autoJumpBeforeGroundedRocketJump: 0
   blastDealsDamage: 0
   rj_trainingHitMarker: 0
   groundPoundParticles: {fileID: 8743116498911252564, guid: 1f9f7733e39f51b49a74b9172b78ad65,
@@ -1219,7 +1220,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 823
   firstPersonArms_Animator: {fileID: 4392674234314282691}
-  rjBlast_NumSinceGrounded: 0
   rjBlast_MidAirLimit: 1
   minGroundPoundVelocity: 8
   groundPound_Multiplier: 25
