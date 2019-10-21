@@ -12,7 +12,7 @@ public class Shooting : MonoBehaviour
     public int maxAmmo = 50;
     private int currAmmo;
 
-    private float fireRate = 0.1f;
+    private float fireRate = 0.05f;
     private float timeToFire = 0f;
     private float shotCount;
     private float timeToReduce = 0f;
@@ -115,6 +115,7 @@ public class Shooting : MonoBehaviour
             GameObject b = Instantiate(bullet, endOfGun.transform.position, endOfGun.transform.rotation);
             b.transform.rotation = Quaternion.FromToRotation(endOfGun.transform.rotation.eulerAngles, forwardVector);
             b.GetComponent<Rigidbody>().AddForce(forwardVector * 1000);
+			Destroy(b, 5.0f);
         }
 
 
