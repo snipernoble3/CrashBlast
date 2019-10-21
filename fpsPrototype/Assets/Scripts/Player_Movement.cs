@@ -62,7 +62,8 @@ public class Player_Movement : MonoBehaviour
 {
 	// Object References
 	public Gravity_Source gravitySource;
-	private GameObject firstPersonCam;
+	private GameObject mainCam;
+	private GameObject firstPersonVisuals;
 	private Rigidbody playerRB;
 	public Animator firstPersonArms_Animator;
 	
@@ -105,7 +106,9 @@ public class Player_Movement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 		
 		// Set up references
-		firstPersonCam = transform.Find("Camera Position Offset/Main Camera").gameObject;
+		mainCam = transform.Find("Camera Position Offset/Main Camera").gameObject;
+		firstPersonVisuals = transform.Find("Camera Position Offset/First Person Visuals").gameObject;
+		
 		playerRB = GetComponent<Rigidbody>();
 		playerRB.constraints = RigidbodyConstraints.FreezeRotation;
 		gravity = GetGravity();
@@ -118,8 +121,7 @@ public class Player_Movement : MonoBehaviour
 		if (hud != null)
 		{
 			hud.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
-			hud.GetComponent<Canvas>().worldCamera = firstPersonCam.transform.Find("First Person Camera").GetComponent<Camera>();
-			//hud.GetComponent<Canvas>().worldCamera = firstPersonCam.GetComponent<Camera>();
+			hud.GetComponent<Canvas>().worldCamera = mainCam.transform.Find("First Person Camera").GetComponent<Camera>();
 			
 			hud.transform.GetComponentsInChildren<VectorVisualizer>(false, radarLines);	
 			hud_LateralVelocity = hud.transform.Find("Current Lateral Velocity").gameObject.GetComponent<TextMeshProUGUI>();
@@ -139,6 +141,20 @@ public class Player_Movement : MonoBehaviour
 		// Count how long it's been since the player became grounded.
 		if (jumpQueue_timeSinceGrounded < jumpQueue_bHopGracePeriod) jumpQueue_timeSinceGrounded = Mathf.Clamp(jumpQueue_timeSinceGrounded += 1.0f * Time.deltaTime, 0.0f, jumpQueue_bHopGracePeriod);
 
+		// Rotate arms to follow screen.
+		//firstPersonVisuals.transform.rotation = Quaternion.RotateTowards(firstPersonVisuals.rotation, Quaternion.Euler(mainCam.transform.forward), 50.0f);
+		
+		//firstPersonVisuals.transform.rotation = Quaternion.RotateTowards(firstPersonVisuals.rotation, Quaternion.Euler(mainCam.transform.TransformDirection(Vector3.forward)), 50.0f);
+		
+		//firstPersonVisuals.transform.rotation = Quaternion.Euler(mainCam.transform.forward);
+		
+		//firstPersonVisuals.transform.rotation = Quaternion.Euler(mainCam.transform.TransformDirection(Vector3.forward));
+		
+		//firstPersonVisuals.transform.rotation = mainCam.transform.rotation;
+		
+		firstPersonVisuals.transform.rotation = Quaternion.RotateTowards(firstPersonVisuals.transform.rotation, mainCam.transform.rotation, 1.0f);
+		
+		
 		
 		// Inputs
 		GetInput_Mouse();
@@ -282,7 +298,7 @@ public class Player_Movement : MonoBehaviour
 		// Up Down
 		verticalAngle += rotation_vertical * Time.deltaTime * deltaTimeCompensation;
 		verticalAngle = Mathf.Clamp(verticalAngle, verticalAngle_Min, verticalAngle_Max);
-		firstPersonCam.transform.localRotation = Quaternion.Euler(Vector3.left * verticalAngle);
+		mainCam.transform.localRotation = Quaternion.Euler(Vector3.left * verticalAngle);
 		
 		// Left Right
 		horizontalAngle = rotation_horizontal * Time.deltaTime * deltaTimeCompensation;
