@@ -22,7 +22,10 @@ public class Shooting : MonoBehaviour
     public GameObject firingPosition;
     public GameObject target;
     public GameObject endOfGun;
+    public GameObject bullet;
     public TextMeshProUGUI ammoUI;
+
+    public bool projectile = true;
 
     private float range = 150f;
     private Vector3[] linePositions = new Vector3[2];
@@ -90,7 +93,7 @@ public class Shooting : MonoBehaviour
         Vector3 deviation3D = Random.insideUnitCircle * maxDeviation;
         Quaternion rot = Quaternion.LookRotation(Vector3.forward * deviationDistance + deviation3D);
         Vector3 forwardVector = Camera.main.transform.rotation * rot * Vector3.forward;
-
+        if (!projectile) { 
         RaycastHit hit;
 
         if (Physics.Raycast(firingPosition.transform.position, forwardVector, out hit, range, raycastMask)) {
@@ -108,7 +111,14 @@ public class Shooting : MonoBehaviour
 		if (hit.collider != null) impactPoint = hit.point;
 		else impactPoint = forwardVector * range;
 		StartCoroutine(Laser(impactPoint));        
+        } else {
+            GameObject b = Instantiate(bullet, endOfGun.transform.position, endOfGun.transform.rotation);
+            b.transform.rotation = Quaternion.FromToRotation(endOfGun.transform.rotation.eulerAngles, forwardVector);
+            b.GetComponent<Rigidbody>().AddForce(forwardVector * 1000);
+        }
 
+
+        
         currAmmo--;
         UpdateAmmoCount();
     }

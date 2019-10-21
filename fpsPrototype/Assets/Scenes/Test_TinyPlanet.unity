@@ -7167,6 +7167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRadial: 0
   gravityStrength: -9.81
+  nonRadialDirection: {x: 0, y: 0, z: 0}
 --- !u!65 &1246353063
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7829,6 +7830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRadial: 1
   gravityStrength: -9.81
+  nonRadialDirection: {x: 0, y: 0, z: 0}
 --- !u!135 &1396705186
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8971,11 +8973,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7308633463188416211, guid: 978ccc9568ae967499c26e069b6eff52,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1397496574}
     - target: {fileID: 7308633461641061656, guid: 978ccc9568ae967499c26e069b6eff52,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8986,6 +8983,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 40.599976
       objectReference: {fileID: 0}
+    - target: {fileID: 7308633463188416211, guid: 978ccc9568ae967499c26e069b6eff52,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1397496574}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 978ccc9568ae967499c26e069b6eff52, type: 3}
 --- !u!114 &1568693497 stripped
@@ -10928,6 +10930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRadial: 0
   gravityStrength: -9.81
+  nonRadialDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1866275880
 GameObject:
   m_ObjectHideFlags: 0
@@ -11042,6 +11045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRadial: 1
   gravityStrength: -9.81
+  nonRadialDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1867111068
 GameObject:
   m_ObjectHideFlags: 0
@@ -12004,6 +12008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRadial: 1
   gravityStrength: -9.81
+  nonRadialDirection: {x: 0, y: 0, z: 0}
 --- !u!135 &1982332450
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12915,15 +12920,21 @@ PrefabInstance:
       propertyPath: holdJumpToKeepJumping
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 746588269, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
-      propertyPath: gravitySource
-      value: 
-      objectReference: {fileID: 1866275885}
     - target: {fileID: 8191805556244224253, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: ammoUI
       value: 
       objectReference: {fileID: 1568693498}
+    - target: {fileID: 8191805556244224253, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 125204817742315580, guid: eb11a102ed1129c4ca035afbeb476eb9,
+        type: 3}
+    - target: {fileID: 746588269, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
+      propertyPath: gravitySource
+      value: 
+      objectReference: {fileID: 1866275885}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
 --- !u!1001 &7834512189983992170
