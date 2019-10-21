@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Gravity_Source : MonoBehaviour
 {
-	public float gravityStrength = -9.81f;
-	private float angularSpeed = 360.0f;
+	[SerializeField] private bool isRadial = true;
+	[SerializeField] private float gravityStrength = -9.81f;
+	public Vector3 nonRadialDirection;
+	
+	private void Awake()
+	{
+		nonRadialDirection = transform.up;
+	}
 	
 	public Vector3 GetGravityVector(Transform attractedObject)
 	{
-		return (attractedObject.position - transform.position).normalized * gravityStrength;
+		if (isRadial) return (attractedObject.position - transform.position).normalized * gravityStrength;
+		else return nonRadialDirection * gravityStrength;
 	}
 	
 	public void AttractObject(Transform attractedObject, float blend)
@@ -19,12 +26,7 @@ public class Gravity_Source : MonoBehaviour
 		
 		// Set the target rotation (aim at gravity source)
 		Quaternion targetRotation = Quaternion.FromToRotation(-attractedObject.up, gravityVector.normalized) * attractedObject.rotation;
-		
-		// Blend the object's rotation toward the gravity source.
-		//attractedObject.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, angularSpeed);
-		
-		//attractedObject.rotation = targetRotation;
-		
+				
 		attractedObject.rotation = Quaternion.Slerp(attractedObject.rotation, targetRotation, blend);
 		
 		// Add force to the attracted object to simulate gravity toward the gravity source.
