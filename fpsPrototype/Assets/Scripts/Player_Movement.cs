@@ -250,7 +250,8 @@ public class Player_Movement : MonoBehaviour
 		{
 			velocityToAdd = moveSpeed.bHopMax - moveSpeed.localVelocity_Lateral.magnitude;
 			// If it's negative make it possitive to prevent the infamous "Accelerated Back Hopping" glitch.
-			if (velocityToAdd < 0.0f) velocityToAdd = 0.0f - velocityToAdd;
+			//if (velocityToAdd < 0.0f) velocityToAdd = 0.0f - velocityToAdd;
+			if (velocityToAdd < 0.0f) velocityToAdd = 0.0f;
 		}
 		
 		// Apply the calculated force to the player in the requested direction in local space
