@@ -20,6 +20,8 @@ public class Gravity_AreaOfEffect : MonoBehaviour
 		{
 			attractedObject.blendToNewSource = 0.0f;
 			attractedObject.gravitySource = this.gravitySource;
+			
+			triggeredObject.transform.SetParent(transform.parent);
 		}
 		
 		Player_Movement player = triggeredObject.transform.GetComponent<Player_Movement>();

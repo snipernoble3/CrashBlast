@@ -32,7 +32,7 @@ public class Player_BlastMechanics : MonoBehaviour
 	private float rjBlast_TimeSinceLastJump;
 	
 	private const float rjBlast_Range = 4.0f;
-	private const float rjBlast_Power = 550.0f;
+	private const float rjBlast_Power = 850.0f;
 	private Vector3 rjBlast_Epicenter; // The origin of the rocket jump blast radius.
 	private const float rjBlast_Radius = 5.0f;
 	private const float rjBlast_UpwardForce = 0.5f;
