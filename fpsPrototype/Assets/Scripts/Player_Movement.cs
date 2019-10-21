@@ -10,8 +10,8 @@ public class MoveSpeed
 	public float targetSpeed; // The speed the player is trying to accelerate to.
 	
 	// Speed caps for different situations
-	public readonly float groundedMax = 14.0f; // Cap the walking speed.
-	public readonly float bHopMax = 25.0f; // Cap the bunny hopping speed.
+	public readonly float groundedMax = 14.0f; // Cap the walking speed. // Quake set this to 320 ups (approximately 10 player's thickness per second OR a velocity of 10 in Unity)
+	public readonly float bHopMax = 20.0f; // Cap the bunny hopping speed.
 	
 	public readonly float lateralMax = 50.0f; // NEVER let the player move faster than this lateraly.	
 	public readonly float verticalMax = 75.0f; // NEVER let the player move faster than this verticaly.	
@@ -244,15 +244,14 @@ public class Player_Movement : MonoBehaviour
 		// If necessary, truncate the accelerated velocity so the vector projection does not exceed the target speed.
 		if(projectedVelocity + velocityToAdd > moveSpeed.targetSpeed) velocityToAdd = moveSpeed.targetSpeed - projectedVelocity;
 		
-		/* THIS IS CAUSING THE PLAYER TO EXPLODE OUT OF THE MAP WHEN PUSHING PAST THE MAX
-			// Prevent the player from going past the maximum allowed bHop speed.
-			if (moveSpeed.localVelocity_Lateral.magnitude + velocityToAdd > moveSpeed.bHopMax) velocityToAdd = moveSpeed.bHopMax - moveSpeed.localVelocity_Lateral.magnitude;
-		*/
 		
-		/* THIS IS LEFTOVER FROM A DIFERENT IMPLEMENTATION OF THE QUAKE CODE.
-		// Do nothing if this value goes negative. NEVER let this method decelerate the player.
-		if (velocityToAdd <= 0.0f) return;
-		*/
+		// Prevent the player from going past the maximum allowed bHop speed.
+		if (moveSpeed.localVelocity_Lateral.magnitude + velocityToAdd > moveSpeed.bHopMax)
+		{
+			velocityToAdd = moveSpeed.bHopMax - moveSpeed.localVelocity_Lateral.magnitude;
+			// If it's negative make it possitive to prevent the infamous "Accelerated Back Hopping" glitch.
+			if (velocityToAdd < 0.0f) velocityToAdd = 0.0f - velocityToAdd;
+		}
 		
 		// Apply the calculated force to the player in the requested direction in local space
 		playerRB.AddRelativeForce(moveSpeed.inputVector.normalized * velocityToAdd, ForceMode.VelocityChange);	
