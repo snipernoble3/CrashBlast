@@ -6,6 +6,7 @@ using TMPro;
 public class Shooting : MonoBehaviour
 {
 	public LayerMask raycastMask;
+	public GameObject player;
 
     private float maxDeviation = 0.001f;
     public float deviationDistance = 25f;
@@ -113,9 +114,10 @@ public class Shooting : MonoBehaviour
 		StartCoroutine(Laser(impactPoint));        
         } else {
             GameObject b = Instantiate(bullet, endOfGun.transform.position, endOfGun.transform.rotation);
+			b.GetComponent<Gravity_AttractedObject>().SetGravitySource(player.GetComponent<Player_Movement>().gravitySource);
             b.transform.rotation = Quaternion.FromToRotation(endOfGun.transform.rotation.eulerAngles, forwardVector);
-            b.GetComponent<Rigidbody>().AddForce(forwardVector * 1000);
-			Destroy(b, 5.0f);
+            b.GetComponent<Rigidbody>().AddForce(forwardVector * 50, ForceMode.VelocityChange);
+			Destroy(b, 20.0f);
         }
 
 

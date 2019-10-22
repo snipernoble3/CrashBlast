@@ -21,6 +21,8 @@ public class Gravity_Source : MonoBehaviour
 	
 	public void AttractObject(Transform attractedObject, float blend)
 	{		
+		// float blend = 0.025f;
+		
 		// Rotate the attracted object so that its downward direction faces the gravity source
 		Vector3 gravityVector = GetGravityVector(attractedObject);
 		
@@ -33,15 +35,11 @@ public class Gravity_Source : MonoBehaviour
 		// 0.03f is fast, for things will small angle diferences, 0.0025f is slow for things with large angle differences.
 		rotationStep = Mathf.Lerp(0.03f, 0.0025f, rotationStep); // Convert the angles 0-180 to a 0-1 mapping.
 		
-		
-		
 		/*
 		rotationStep = Vector3.Distance(attractedObject.position, transform.position);
 		rotationStep = Mathf.InverseLerp(0.0f, 50.0f, rotationStep); // Convert the angles 0-180 to a 0-1 mapping.
 		rotationStep = Mathf.Lerp(0.03f, 0.0025f, rotationStep); // Convert the angles 0-180 to a 0-1 mapping.
-		*/
-		
-		
+		*/	
 		
 		// Set the target rotation (aim at gravity source)
 		Quaternion targetRotation = Quaternion.FromToRotation(-attractedObject.up, gravityVector.normalized) * attractedObject.rotation;

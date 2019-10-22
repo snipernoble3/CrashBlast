@@ -23,8 +23,9 @@ public class Gravity_AttractedObject : MonoBehaviour
         if (gravitySource != null) gravitySource.AttractObject(transform, blendToNewSource);
     }
 	
-	void SetGravitySource(Gravity_Source gravitySource)
+	public void SetGravitySource(Gravity_Source gravitySource)
 	{
 		this.gravitySource = gravitySource;
+		GetComponent<Rigidbody>().useGravity = false;
 	}
 }

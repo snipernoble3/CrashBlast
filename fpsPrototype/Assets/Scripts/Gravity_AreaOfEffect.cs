@@ -14,7 +14,10 @@ public class Gravity_AreaOfEffect : MonoBehaviour
 		
 		defaultGravitySource = transform.parent.parent; // The parent of the AOE is the source, get the parent of THAT object.
 		
-		if (defaultGravitySource.GetComponent<Gravity_Source>() == null) defaultGravitySource = transform.root; 
+		if (defaultGravitySource != null)
+		{
+			if (defaultGravitySource.GetComponent<Gravity_Source>() == null) defaultGravitySource = transform.root; 	
+		}
     }
 	
 	private void OnTriggerEnter(Collider triggeredObject)
