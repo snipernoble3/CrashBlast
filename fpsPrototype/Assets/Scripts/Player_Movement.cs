@@ -107,7 +107,8 @@ public class Player_Movement : MonoBehaviour
 		
 		// Set up references
 		mainCam = transform.Find("Camera Position Offset/Main Camera").gameObject;
-		firstPersonVisuals = transform.Find("Camera Position Offset/First Person Visuals").gameObject;
+		//firstPersonVisuals = transform.Find("Camera Position Offset/First Person Visuals").gameObject;
+		firstPersonVisuals = mainCam.transform.Find("First Person Camera/First Person Visuals").gameObject;
 		
 		playerRB = GetComponent<Rigidbody>();
 		playerRB.constraints = RigidbodyConstraints.FreezeRotation;

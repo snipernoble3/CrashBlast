@@ -173,7 +173,9 @@ public class Player_BlastMechanics : MonoBehaviour
 	
 			float gpParticle_Duration = camShake_Duration * 3.0f;			
 			
-			gpParticles_GameObject = Instantiate(groundPoundParticles, playerRB.position, Quaternion.Euler(playerMovement.gravitySource.GetGravityVector(transform).normalized)) as GameObject;
+			gpParticles_GameObject = Instantiate(groundPoundParticles, playerRB.position, Quaternion.Euler(transform.up)) as GameObject;
+			
+			//gpParticles_GameObject = Instantiate(groundPoundParticles, playerRB.position, Quaternion.Euler(playerMovement.gravitySource.GetGravityVector(transform).normalized)) as GameObject;
 			//gpParticles_GameObject = Instantiate(groundPoundParticles, playerRB.position, Quaternion.LookRotation(playerRB.transform.forward, (transform.position - playerMovement.gravitySource.transform.position).normalized)) as GameObject;
 			//gpParticles_GameObject = Instantiate(groundPoundParticles, playerRB.position, Quaternion.Euler((transform.position - playerMovement.gravitySource.transform.position).normalized)) as GameObject;
 			
