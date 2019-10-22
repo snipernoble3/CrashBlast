@@ -8,6 +8,7 @@ public class Gravity_AttractedObject : MonoBehaviour
 	public Gravity_Source gravitySource;
 	public float blendToNewSource = 1.0f;
 	private float blendSpeed = 0.025f;
+	public bool rotateToGravitySoruce = true; // Keep this on for important objects like characters, off for more preformance (for things like bullets).
 	
     void Awake()
     {
@@ -20,7 +21,7 @@ public class Gravity_AttractedObject : MonoBehaviour
     void FixedUpdate()
     {
 		if (blendToNewSource != 1.0f) blendToNewSource = Mathf.Clamp(blendToNewSource + (blendSpeed * Time.fixedDeltaTime), 0.0f, 1.0f);
-        if (gravitySource != null) gravitySource.AttractObject(transform, blendToNewSource);
+        if (gravitySource != null) gravitySource.AttractObject(transform, blendToNewSource, rotateToGravitySoruce);
     }
 	
 	public void SetGravitySource(Gravity_Source gravitySource)

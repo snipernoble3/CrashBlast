@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 0}
   blendToNewSource: 1
+  rotateToGravitySoruce: 0
 --- !u!54 &3016374577844431547
 Rigidbody:
   m_ObjectHideFlags: 0

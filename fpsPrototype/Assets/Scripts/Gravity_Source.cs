@@ -19,35 +19,38 @@ public class Gravity_Source : MonoBehaviour
 		else return nonRadialDirection * gravityStrength;
 	}
 	
-	public void AttractObject(Transform attractedObject, float blend)
+	public void AttractObject(Transform attractedObject, float blend, bool rotateToGravitySoruce)
 	{		
-		// float blend = 0.025f;
-		
-		// Rotate the attracted object so that its downward direction faces the gravity source
+		// Find the direction of gravity
 		Vector3 gravityVector = GetGravityVector(attractedObject);
-		
-		// Calculate how far the object has to rotate.
-		float rotationDegrees = Vector3.Angle(-attractedObject.up, gravityVector.normalized);
-		
-		float rotationStep = Mathf.InverseLerp(0.0f, 180.0f, rotationDegrees); // Convert the angles 0-180 to a 0-1 mapping.
-		
-		// 0.0f doesn't rotate at all, 1.0f rotates instantly.
-		// 0.03f is fast, for things will small angle diferences, 0.0025f is slow for things with large angle differences.
-		rotationStep = Mathf.Lerp(0.03f, 0.0025f, rotationStep); // Convert the angles 0-180 to a 0-1 mapping.
-		
-		/*
-		rotationStep = Vector3.Distance(attractedObject.position, transform.position);
-		rotationStep = Mathf.InverseLerp(0.0f, 50.0f, rotationStep); // Convert the angles 0-180 to a 0-1 mapping.
-		rotationStep = Mathf.Lerp(0.03f, 0.0025f, rotationStep); // Convert the angles 0-180 to a 0-1 mapping.
-		*/	
-		
-		// Set the target rotation (aim at gravity source)
-		Quaternion targetRotation = Quaternion.FromToRotation(-attractedObject.up, gravityVector.normalized) * attractedObject.rotation;
-		
-		// Rotate towards the target.
-		attractedObject.rotation = Quaternion.Slerp(attractedObject.rotation, targetRotation, rotationStep);
 		
 		// Add force to the attracted object to simulate gravity toward the gravity source.
 		attractedObject.gameObject.GetComponent<Rigidbody>().AddForce(gravityVector, ForceMode.Acceleration);
+		
+		if (rotateToGravitySoruce) // Rotate the attracted object so that its downward direction faces the gravity source
+		{
+			// float blend = 0.025f;
+			
+			// Calculate how far the object has to rotate.
+			float rotationDegrees = Vector3.Angle(-attractedObject.up, gravityVector.normalized);
+			
+			float rotationStep = Mathf.InverseLerp(0.0f, 180.0f, rotationDegrees); // Convert the angles 0-180 to a 0-1 mapping.
+			
+			// 0.0f doesn't rotate at all, 1.0f rotates instantly.
+			// 0.03f is fast, for things will small angle diferences, 0.0025f is slow for things with large angle differences.
+			rotationStep = Mathf.Lerp(0.03f, 0.0025f, rotationStep); // Convert the angles 0-180 to a 0-1 mapping.
+			
+			/*
+			rotationStep = Vector3.Distance(attractedObject.position, transform.position);
+			rotationStep = Mathf.InverseLerp(0.0f, 50.0f, rotationStep); // Convert the angles 0-180 to a 0-1 mapping.
+			rotationStep = Mathf.Lerp(0.03f, 0.0025f, rotationStep); // Convert the angles 0-180 to a 0-1 mapping.
+			*/	
+			
+			// Set the target rotation (aim at gravity source)
+			Quaternion targetRotation = Quaternion.FromToRotation(-attractedObject.up, gravityVector.normalized) * attractedObject.rotation;
+			
+			// Rotate towards the target.
+			attractedObject.rotation = Quaternion.Slerp(attractedObject.rotation, targetRotation, rotationStep);
+		}
 	}
 }
