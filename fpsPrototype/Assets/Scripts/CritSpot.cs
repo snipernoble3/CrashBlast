@@ -21,6 +21,13 @@ public class CritSpot : MonoBehaviour {
         SetAlignment();
     }
 
+    private void OnCollisionEnter (Collision collision) {
+        if (collision.gameObject.tag == "Bullet") {
+            TakeDamage(-1);
+            Destroy(collision.gameObject);
+        }
+    }
+
     private void SetAlignment () {
         switch (transform.parent.GetComponent<Health>().GetTag()) {
             case Health.AlignmentTag.Player:

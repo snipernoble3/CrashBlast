@@ -19,6 +19,13 @@ public class Spawner : MonoBehaviour {
 
     }
 
+    private void OnCollisionEnter (Collision collision) {
+        if (collision.gameObject.tag == "Bullet") {
+            gameObject.GetComponent<Health>().TakeDamage(1);
+            Destroy(collision.gameObject);
+        }
+    }
+
     void Spawn () {
         if (!gameObject.activeInHierarchy) {
             CancelInvoke("Spawn");
