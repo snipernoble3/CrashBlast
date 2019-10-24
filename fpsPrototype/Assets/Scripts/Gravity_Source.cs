@@ -7,6 +7,7 @@ public class Gravity_Source : MonoBehaviour
 	[SerializeField] private bool isRadial = true;
 	[SerializeField] private float gravityStrength = -9.81f;
 	public Vector3 nonRadialDirection;
+	[SerializeField] private bool useTestSpheres = false;
 	
 	private void Awake()
 	{
@@ -28,10 +29,7 @@ public class Gravity_Source : MonoBehaviour
 		attractedObject.gameObject.GetComponent<Rigidbody>().AddForce(gravityVector, ForceMode.Acceleration);
 		
 		if (rotateToGravitySoruce) // Rotate the attracted object so that its downward direction faces the gravity source
-		{
-			bool useTestSpheres = true;
-			useTestSpheres = false;
-			
+		{			
 			// Start by getting the distance from the attracted object to the CENTER of the gravity source (this will be longer than the distnace to the SURFACE, but it gives us a range to check).
 			float distanceToSurface = Vector3.Distance(attractedObject.position, transform.position);
 			
@@ -66,8 +64,13 @@ public class Gravity_Source : MonoBehaviour
 			}
 			
 			
-			float rotationStep = Mathf.InverseLerp(0.0f, 30.0f, distanceToSurface); // Convert the distance to a 0-1 mapping.
+			// Convert the distance to a 0-1 mapping for use in the rotation slerp.
+			float rotationStep = Mathf.InverseLerp(0.0f, 30.0f, distanceToSurface); 
 			
+			// What is the slowest the player is allowed to rotate (useful for when the object is SUPER far away from the gravity source).
+			float maxRotationStep = 0.025f;
+			
+			rotationStep = Mathf.Clamp(rotationStep, 0, maxRotationStep);
 			
 			// float blend = 0.025f;
 			
