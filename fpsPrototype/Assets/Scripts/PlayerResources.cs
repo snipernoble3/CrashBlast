@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerResources : MonoBehaviour {
 
     public ParticleSystem depositLight;
 
     private int currXP;
+    [SerializeField] private int xpCap = 20;
     //private int currLvl;
     private int currResourceA; //currency?
     private int currResourceB; //rare gem? battery? turn in to ship for xp + currency
 
     [SerializeField] private GameObject inventory;
-    [SerializeField] private TextMeshProUGUI xpText;
-    [SerializeField] private TextMeshProUGUI resourceAText;
-    [SerializeField] private TextMeshProUGUI resourceBText;
+    //[SerializeField] private TextMeshProUGUI xpText;
+    [SerializeField] private Slider xpBar;
+    //[SerializeField] private TextMeshProUGUI resourceAText;
+    //[SerializeField] private TextMeshProUGUI resourceBText;
 
     private string baseXPText;
     private string baseResourceAText;
@@ -23,14 +26,16 @@ public class PlayerResources : MonoBehaviour {
 
     private void Awake () {
         //set base text
-        baseXPText = xpText.text;
-        baseResourceAText = resourceAText.text;
-        baseResourceBText = resourceBText.text;
+        //baseXPText = xpText.text;
+        //baseResourceAText = resourceAText.text;
+        //baseResourceBText = resourceBText.text;
+        xpBar.minValue = 0;
+        xpBar.maxValue = xpCap;
     }
 
     private void Update () {
-        inventory.SetActive(Input.GetKey(KeyCode.Tab));
-        if (inventory.activeInHierarchy) UpdateUI();
+        //inventory.SetActive(Input.GetKey(KeyCode.Tab));
+        //if (inventory.activeInHierarchy) UpdateUI();
     }
 
     private void OnTriggerEnter (Collider other) {
@@ -41,6 +46,7 @@ public class PlayerResources : MonoBehaviour {
 
         if (other.gameObject.GetComponent<MoveToPlayer>()) {
             AddXP(1);
+            UpdateUI();
             other.gameObject.SetActive(false);
         }
 
@@ -80,9 +86,13 @@ public class PlayerResources : MonoBehaviour {
 
     void UpdateUI () {
         //update text values
-        xpText.text = baseXPText + currXP;
-        resourceAText.text = baseResourceAText + currResourceA;
-        resourceBText.text = baseResourceBText + currResourceB;
+        //xpText.text = baseXPText + currXP;
+        //resourceAText.text = baseResourceAText + currResourceA;
+        //resourceBText.text = baseResourceBText + currResourceB;
+        xpBar.value = currXP;
+        if (currXP >= xpCap) {
+            //allow scene to be reloaded
+        }
     }
 
 }
