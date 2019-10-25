@@ -675,7 +675,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2327
+    m_Bits: 10519
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1179,8 +1179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 0}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  sourceChangeDuration: 3
+  timeSinceSourceChange: 0
 --- !u!114 &3820172613042789074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1195,6 +1196,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 0}
   firstPersonArms_Animator: {fileID: 4392674234314282691}
+  movement:
+    accelerationRate: 0
+    accelerationLimit: 0
+    targetSpeed: 0
+    reduction:
+      walk: 0.5
+      crouch: 0.5
+      air: 0.5
+      water: 0.75
   holdJumpToKeepJumping: 0
   jumpForceMultiplier: 4
   mouseSensitivity_X: 3
@@ -1252,7 +1262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alignment: 0
-  maxHealth: 3
+  maxHealth: 100
   healthText: {fileID: 0}
   death: {fileID: 0}
   critDeath: {fileID: 0}
