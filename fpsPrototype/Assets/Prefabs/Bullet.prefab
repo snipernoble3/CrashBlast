@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3016374577844431547}
   - component: {fileID: 2055906442237995661}
   - component: {fileID: 1556410178936914221}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8218680724852597033
 MonoBehaviour:
