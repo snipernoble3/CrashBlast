@@ -428,8 +428,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &146982196
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,8 +662,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &161110616
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,8 +787,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &161549781
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,8 +912,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &171358500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,8 +1129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &254989017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,8 +1254,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!224 &292057961 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7308633463188416208, guid: 978ccc9568ae967499c26e069b6eff52,
@@ -1391,8 +1391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1001 &302078269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1595,8 +1595,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &321522683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,8 +1885,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &324910183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2010,8 +2010,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &327674339
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,8 +2135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &347252366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,8 +2260,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &380201296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,8 +2385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &406077671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2510,8 +2510,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!4 &418709183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2331697997774483210, guid: d416ce69e9583ea4db2b794e683b2e22,
@@ -2733,8 +2733,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &425556094
 GameObject:
   m_ObjectHideFlags: 0
@@ -2858,8 +2858,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!4 &427600139 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8317686159804332312, guid: f1f02688bb546cc46bc69d7d28d1c555,
@@ -3046,8 +3046,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &498798848
 GameObject:
   m_ObjectHideFlags: 0
@@ -3171,8 +3171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1001 &542980831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3375,8 +3375,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &575244185
 GameObject:
   m_ObjectHideFlags: 0
@@ -3500,8 +3500,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &594538378
 GameObject:
   m_ObjectHideFlags: 0
@@ -3625,8 +3625,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &607198703
 GameObject:
   m_ObjectHideFlags: 0
@@ -3934,8 +3934,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1001 &636510740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4185,8 +4185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &693151247
 GameObject:
   m_ObjectHideFlags: 0
@@ -4310,8 +4310,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -4710,8 +4710,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &763120651
 GameObject:
   m_ObjectHideFlags: 0
@@ -4835,8 +4835,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &797150290
 GameObject:
   m_ObjectHideFlags: 0
@@ -4960,8 +4960,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &827659012
 GameObject:
   m_ObjectHideFlags: 0
@@ -5085,8 +5085,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &849740167
 GameObject:
   m_ObjectHideFlags: 0
@@ -5210,8 +5210,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &912437047
 GameObject:
   m_ObjectHideFlags: 0
@@ -5335,8 +5335,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!4 &927840783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2331697997774483210, guid: d416ce69e9583ea4db2b794e683b2e22,
@@ -5645,8 +5645,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &975460550
 GameObject:
   m_ObjectHideFlags: 0
@@ -5935,8 +5935,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1056580801
 GameObject:
   m_ObjectHideFlags: 0
@@ -6060,8 +6060,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1073690312
 GameObject:
   m_ObjectHideFlags: 0
@@ -6185,8 +6185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1077836510
 GameObject:
   m_ObjectHideFlags: 0
@@ -6310,8 +6310,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1121866739
 GameObject:
   m_ObjectHideFlags: 0
@@ -6501,8 +6501,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1160179296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6626,8 +6626,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1162705065
 GameObject:
   m_ObjectHideFlags: 0
@@ -6751,8 +6751,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!114 &1180274249 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7166692890187780468, guid: 978ccc9568ae967499c26e069b6eff52,
@@ -6888,8 +6888,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1220210365
 GameObject:
   m_ObjectHideFlags: 0
@@ -7013,8 +7013,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1255548947
 GameObject:
   m_ObjectHideFlags: 0
@@ -7138,8 +7138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1260936269
 GameObject:
   m_ObjectHideFlags: 0
@@ -7263,8 +7263,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1281275654
 GameObject:
   m_ObjectHideFlags: 0
@@ -7388,8 +7388,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1324507054
 GameObject:
   m_ObjectHideFlags: 0
@@ -7513,8 +7513,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1325780832
 GameObject:
   m_ObjectHideFlags: 0
@@ -7638,8 +7638,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1336772783
 GameObject:
   m_ObjectHideFlags: 0
@@ -7763,8 +7763,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1359299505
 GameObject:
   m_ObjectHideFlags: 0
@@ -7888,8 +7888,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1375839703
 GameObject:
   m_ObjectHideFlags: 0
@@ -8389,8 +8389,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1480791218
 GameObject:
   m_ObjectHideFlags: 0
@@ -8606,8 +8606,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1488611068
 GameObject:
   m_ObjectHideFlags: 0
@@ -8731,8 +8731,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1489500038
 GameObject:
   m_ObjectHideFlags: 0
@@ -8856,8 +8856,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1496762927
 GameObject:
   m_ObjectHideFlags: 0
@@ -8981,8 +8981,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1505006130
 GameObject:
   m_ObjectHideFlags: 0
@@ -9106,8 +9106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1567919921
 GameObject:
   m_ObjectHideFlags: 0
@@ -9231,8 +9231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1001 &1568693496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9526,8 +9526,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1574692927
 GameObject:
   m_ObjectHideFlags: 0
@@ -9651,8 +9651,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1575757834
 GameObject:
   m_ObjectHideFlags: 0
@@ -9776,8 +9776,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1001 &1591515699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9991,8 +9991,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1607110798
 GameObject:
   m_ObjectHideFlags: 0
@@ -10116,8 +10116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1610239804
 GameObject:
   m_ObjectHideFlags: 0
@@ -10241,8 +10241,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1642166494
 GameObject:
   m_ObjectHideFlags: 0
@@ -10366,8 +10366,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1673660468
 GameObject:
   m_ObjectHideFlags: 0
@@ -10491,8 +10491,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1685412811
 GameObject:
   m_ObjectHideFlags: 0
@@ -10616,8 +10616,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1718531953
 GameObject:
   m_ObjectHideFlags: 0
@@ -10741,8 +10741,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1744145446
 GameObject:
   m_ObjectHideFlags: 0
@@ -10866,8 +10866,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1001 &1769778520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11081,8 +11081,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1801953848
 GameObject:
   m_ObjectHideFlags: 0
@@ -11206,8 +11206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1807202774
 GameObject:
   m_ObjectHideFlags: 0
@@ -11331,8 +11331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1835776235
 GameObject:
   m_ObjectHideFlags: 0
@@ -11456,8 +11456,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!4 &1855294360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3119691386892550029, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
@@ -11587,8 +11587,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1866275880
 GameObject:
   m_ObjectHideFlags: 0
@@ -11834,8 +11834,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &1899653097
 GameObject:
   m_ObjectHideFlags: 0
@@ -12351,8 +12351,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &2023433822
 GameObject:
   m_ObjectHideFlags: 0
@@ -12476,8 +12476,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &2033185998
 GameObject:
   m_ObjectHideFlags: 0
@@ -12601,8 +12601,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &2088661086 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3820172613042789075, guid: f1f02688bb546cc46bc69d7d28d1c555,
@@ -12748,8 +12748,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &2100992291
 GameObject:
   m_ObjectHideFlags: 0
@@ -12873,8 +12873,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &2111083221
 GameObject:
   m_ObjectHideFlags: 0
@@ -13034,8 +13034,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &2128807675
 GameObject:
   m_ObjectHideFlags: 0
@@ -13203,8 +13203,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1 &2137979553
 GameObject:
   m_ObjectHideFlags: 0
@@ -13328,8 +13328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 1866275885}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 1
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1001 &3119691388326179861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13554,6 +13554,11 @@ PrefabInstance:
         type: 3}
       propertyPath: rjBlast_MidAirLimit
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261576995055371843, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}

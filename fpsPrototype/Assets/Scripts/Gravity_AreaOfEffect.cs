@@ -26,9 +26,11 @@ public class Gravity_AreaOfEffect : MonoBehaviour
 		
 		if (attractedObject != null)
 		{
-			attractedObject.blendToNewSource = 0.0f;
-			attractedObject.gravitySource = this.gravitySource;
+			//attractedObject.timeSinceSourceChange = 0.0f; // Reset the timer on the attractedObject.
+			//attractedObject.blendToNewSource = 0.0f;
+			//attractedObject.gravitySource = this.gravitySource;
 			
+			attractedObject.SetGravitySource(this.gravitySource);
 			triggeredObject.transform.SetParent(transform.parent);
 		}
 		
@@ -46,9 +48,13 @@ public class Gravity_AreaOfEffect : MonoBehaviour
 		
 		if (exitingObject != null)
 		{
-			exitingObject.blendToNewSource = 0.0f;
-			exitingObject.gravitySource = defaultGravitySource.GetComponent<Gravity_Source>();
 			
+			
+			//exitingObject.timeSinceSourceChange = 0.0f; // Reset the timer on the attractedObject.
+			//exitingObject.blendToNewSource = 0.0f;
+			//exitingObject.gravitySource = defaultGravitySource.GetComponent<Gravity_Source>();
+			
+			exitingObject.SetGravitySource(defaultGravitySource.GetComponent<Gravity_Source>());
 			triggeredObject.transform.SetParent(defaultGravitySource);
 		}
 		
