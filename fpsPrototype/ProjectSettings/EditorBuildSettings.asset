@@ -8,13 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test_BeetlePit.unity
     guid: ed938d0fbbfe00c428137443dc08a715
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test_Explore.unity
     guid: 753a85ac090d31f488a8c027e50a6105
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test_BunnyHop.unity
     guid: 1157c4aa54c459749965d78303de5bc6
   - enabled: 1
