@@ -1178,7 +1178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityStrength: -9.81
   isRadial: 1
-  nonRadialDirection: {x: 0, y: 0, z: 0}
   useTestSpheres: 0
 --- !u!135 &185712012
 SphereCollider:
@@ -4015,17 +4014,17 @@ PrefabInstance:
     - target: {fileID: 3119691386892550029, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.807295
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3119691386892550029, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 57.78234
+      value: 57.9
       objectReference: {fileID: 0}
     - target: {fileID: 3119691386892550029, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.164679
+      value: -12.5
       objectReference: {fileID: 0}
     - target: {fileID: 3119691386892550029, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
         type: 3}
@@ -4081,6 +4080,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 5.385511
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212971514174846442, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.26
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a5ecb54934ab1a47ba01212623a8dbc, type: 3}
@@ -5422,17 +5426,17 @@ PrefabInstance:
     - target: {fileID: 3119691386892550029, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 45
+      value: 49.8
       objectReference: {fileID: 0}
     - target: {fileID: 3119691386892550029, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 51.6
+      value: 65.1
       objectReference: {fileID: 0}
     - target: {fileID: 3119691386892550029, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -23.55
+      value: -25.1
       objectReference: {fileID: 0}
     - target: {fileID: 3119691386892550029, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
         type: 3}
@@ -5488,6 +5492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 21.183039
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212971514174846442, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a5ecb54934ab1a47ba01212623a8dbc, type: 3}
@@ -8048,7 +8057,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityStrength: -9.81
   isRadial: 1
-  nonRadialDirection: {x: 0, y: 0, z: 0}
   useTestSpheres: 0
 --- !u!135 &1396705186
 SphereCollider:
@@ -9926,6 +9934,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 5.3855104
       objectReference: {fileID: 0}
+    - target: {fileID: 4212971514174846442, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a5ecb54934ab1a47ba01212623a8dbc, type: 3}
 --- !u!4 &1591515700 stripped
@@ -11108,6 +11121,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 5.385511
       objectReference: {fileID: 0}
+    - target: {fileID: 4212971514174846442, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.17
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a5ecb54934ab1a47ba01212623a8dbc, type: 3}
 --- !u!4 &1769778521 stripped
@@ -11868,7 +11886,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityStrength: -9.81
   isRadial: 1
-  nonRadialDirection: {x: 0, y: 0, z: 0}
   useTestSpheres: 0
 --- !u!1 &1897211093
 GameObject:
@@ -12320,7 +12337,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityStrength: -9.81
   isRadial: 1
-  nonRadialDirection: {x: 0, y: 0, z: 0}
   useTestSpheres: 0
 --- !u!135 &1982332450
 SphereCollider:
@@ -13571,8 +13587,72 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 21.183
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3119691388343289708, guid: 3a5ecb54934ab1a47ba01212623a8dbc, type: 3}
+    - target: {fileID: 3119691388343289711, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3119691388343289711, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647608985473249957, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647608985473249957, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245351527708439413, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245351527708439413, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926802163864326454, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926802163864326454, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5792403663383931271, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5792403663383931271, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6118142298346702962, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6118142298346702962, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212971514174846442, guid: 3a5ecb54934ab1a47ba01212623a8dbc,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.83
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a5ecb54934ab1a47ba01212623a8dbc, type: 3}
 --- !u!1001 &4392674233212273464
 PrefabInstance:
@@ -13719,6 +13799,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331099092965340207, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: field of view
+      value: 84.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
