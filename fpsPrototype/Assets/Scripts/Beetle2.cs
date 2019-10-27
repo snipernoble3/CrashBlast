@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Beetle2 : MonoBehaviour {
 
@@ -35,13 +36,21 @@ public class Beetle2 : MonoBehaviour {
     private void Awake () {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         currState = State.Idle;
-        randomSpeedChange = Random.Range(0.5f, 1f);
+        randomSpeedChange = UnityEngine.Random.Range(0.5f, 1f);
         rb = GetComponent<Rigidbody>();
     }
 
     private void Update () {
+        //raycast to gravity source
+        RaycastHit hitGravitySource;
+        Vector3 gravitySource = (GetComponent<Gravity_AttractedObject>().GetGravitySource()) ? GetComponent<Gravity_AttractedObject>().GetGravitySource().transform.position : Vector3.zero;
+        if (Physics.Raycast(transform.position, transform.position - gravitySource, out hitGravitySource)) {
+            gravitySource = hitGravitySource.point;
+        }
 
-        if (transform.position.y > 3f) {
+            
+
+        if (Vector3.Magnitude(gravitySource - transform.position) > 3f) {
             rb.constraints = RigidbodyConstraints.None;
         } else {
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -58,19 +67,19 @@ public class Beetle2 : MonoBehaviour {
         switch (currState) {
             case State.Attacking:
                 if (!charging && !cooldown) {
-                    targetLookDirection = Quaternion.LookRotation(hitLocation - transform.position); //, transform.position + Vector3.up);
+                    targetLookDirection = Quaternion.LookRotation(hitLocation - transform.position, transform.position - GetComponent<Gravity_AttractedObject>().GetGravitySource().transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, lookSpeed * Time.deltaTime);
                 }
                 
                 break;
             case State.Moving:
-                targetLookDirection = Quaternion.LookRotation(target.position - transform.position); //, Vector3.up);
+                targetLookDirection = Quaternion.LookRotation(target.position - transform.position, transform.position - GetComponent<Gravity_AttractedObject>().GetGravitySource().transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, lookSpeed * randomSpeedChange * Time.deltaTime);
                 
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.forward, out hit, attackRange)) {
-                    if (hit.transform.tag == "Player") {
-                        hitLocation = hit.transform.position;
+                RaycastHit hitForward;
+                if (Physics.Raycast(transform.position, transform.forward, out hitForward, attackRange)) {
+                    if (hitForward.transform.tag == "Player") {
+                        hitLocation = hitForward.transform.position;
                         UpdateState(State.Attacking);
                     }
                 }
@@ -122,6 +131,17 @@ public class Beetle2 : MonoBehaviour {
             gameObject.GetComponent<Health>().TakeDamage(1);
             Destroy(collision.gameObject);
         }
+
+    }
+
+    private void MoveOnPlanet () {
+        //raycast from gravity source to this
+
+        //raycast from gravity source to target
+
+        //find angle halfway between
+
+        //set targetLocation
 
     }
 
