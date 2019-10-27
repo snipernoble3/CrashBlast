@@ -4,15 +4,61 @@ using UnityEngine;
 
 public class Gravity_Source : MonoBehaviour
 {
-	[SerializeField] private bool isRadial = true;
 	[SerializeField] private float gravityStrength = -9.81f;
-	public Vector3 nonRadialDirection;
-	[SerializeField] private bool useTestSpheres = false;
+	[SerializeField] private bool isRadial = true;
+	private Vector3 nonRadialDirection;
 	
-	private void Awake()
-	{
-		nonRadialDirection = transform.up;
-	}
+	private Transform defaultGravitySource;
+	
+	// Test stuff
+	[SerializeField] private bool useTestSpheres = false;
+
+	
+	// Start is called before the first frame update
+    void Awake()
+    {
+        nonRadialDirection = transform.up;
+		
+		defaultGravitySource = transform.parent; // The parent of the AOE is the source, get the parent of THAT object.
+		
+		if (defaultGravitySource != null) if (defaultGravitySource.GetComponent<Gravity_Source>() == null) defaultGravitySource = transform.root;
+    }
+	
+	private void OnTriggerEnter(Collider triggeredObject)
+    {
+        Gravity_AttractedObject attractedObject = triggeredObject.transform.GetComponent<Gravity_AttractedObject>();
+		
+		if (attractedObject != null)
+		{
+			//attractedObject.timeSinceSourceChange = 0.0f; // Reset the timer on the attractedObject.
+			//attractedObject.blendToNewSource = 0.0f;
+			
+			attractedObject.SetGravitySource(this);
+			triggeredObject.transform.SetParent(transform.parent);
+		}
+		
+		Player_Movement player = triggeredObject.transform.GetComponent<Player_Movement>();
+		if (player != null) player.gravitySource = this;
+    }
+	
+	private void OnTriggerExit(Collider triggeredObject)
+    {
+        Gravity_AttractedObject exitingObject = triggeredObject.transform.GetComponent<Gravity_AttractedObject>();
+		
+		if (exitingObject != null)
+		{
+			//exitingObject.timeSinceSourceChange = 0.0f; // Reset the timer on the attractedObject.
+			//exitingObject.blendToNewSource = 0.0f;
+			//exitingObject.gravitySource = defaultGravitySource.GetComponent<Gravity_Source>();
+			
+			exitingObject.SetGravitySource(defaultGravitySource.GetComponent<Gravity_Source>());
+			triggeredObject.transform.SetParent(defaultGravitySource);
+		}
+		
+		Player_Movement player = triggeredObject.transform.GetComponent<Player_Movement>();
+		
+		if (player != null) player.gravitySource = defaultGravitySource.GetComponent<Gravity_Source>();
+    }
 	
 	public Vector3 GetGravityVector(Transform attractedObject)
 	{
@@ -104,7 +150,9 @@ public class Gravity_Source : MonoBehaviour
 			//rotationStep = 35.0f; // If we aren't transitioning to a new planet keep the rotation step high.
 			
 			// Make sure the speeds are framerate independant but also clamped to a 0-1 range.
-			rotationStep = Mathf.Clamp(rotationStep * Time.fixedDeltaTime, 0.0f, 1.0f);
+			//rotationStep = Mathf.Clamp(rotationStep * Time.fixedDeltaTime, 0.0f, 1.0f);
+			
+			rotationStep = 2.5f * Time.fixedDeltaTime;
 			
 			//Debug.Log(rotationStep);
 			
