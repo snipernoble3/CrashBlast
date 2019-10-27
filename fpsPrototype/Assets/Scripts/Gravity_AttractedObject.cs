@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent (typeof (Rigidbody))]
 public class Gravity_AttractedObject : MonoBehaviour
 {
-	public Gravity_Source gravitySource;
+	private Gravity_Source gravitySource;
 	//public float blendToNewSource = 1.0f;
 	//private float blendSpeed = 0.025f;
 	public bool rotateToGravitySource = true; // Keep this on for important objects like characters, off for more preformance (for things like bullets).
