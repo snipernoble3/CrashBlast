@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Golem : MonoBehaviour {
 
-    public GameObject target;
+    private GameObject target;
     public GameObject projectile;
+    public GameObject throwingPosition;
     private Rigidbody rb;
 
     [SerializeField] private float moveForce;
@@ -28,7 +29,7 @@ public class Golem : MonoBehaviour {
     }
 
     private void Update () {
-        if (timeSinceAttacking > 0) {
+        /*if (timeSinceAttacking > 0) {
             timeSinceAttacking -= Time.deltaTime;
         }
 
@@ -49,15 +50,62 @@ public class Golem : MonoBehaviour {
             }
 
         }
+        */
+
+        if (Input.GetKeyDown(KeyCode.X) && Input.GetKey(KeyCode.LeftControl)) {
+            StartCoroutine(Attack());
+        }
+
     }
 
 
 
 
     private IEnumerator Attack () {
-
-        yield return new WaitForSeconds(1f);
+        //find and grab throw object
+        GameObject throwable = FindThrowable();
+        yield return new WaitForSeconds(1f); //temporary wait, just to visually see the cube appear
+        //pick up and get into throwing position
+        PickUp(throwable);
+        yield return new WaitForSeconds(1f); //change to wait until object in throw position
+        //charge up
+        yield return new WaitForSeconds(0.5f); //charge throw
+        //throw object
+        ThrowObject(throwable);
+        yield return new WaitForSeconds(2f); //throw/follow through/reset to normal
         attacking = false;
+    }
+
+    private GameObject FindThrowable () {
+        GameObject canThrowThis = null;
+        //search in area around for any beetles
+        //if one is found, return it
+        //else grab a terrain piece
+        Vector2 spawnPoint = Random.insideUnitCircle * 6;
+        //spawnPoint.x += 2.5f; //doesnt work for negatives
+        //spawnPoint.y += 2.5f; //see above
+        canThrowThis = Instantiate(projectile, new Vector3(transform.position.x + spawnPoint.x, transform.position.y, transform.position.z + spawnPoint.y), transform.rotation);
+        return canThrowThis;
+    }
+
+    private void PickUp (GameObject throwable) {
+        //send a stun message to the game object (in case its a moving target)
+        //run animation to pick the game object up
+        throwable.transform.position = Vector3.MoveTowards(throwable.transform.position, throwingPosition.transform.position, Vector3.Magnitude(throwingPosition.transform.position - throwable.transform.position));
+        //throwable.transform.position = throwingPosition.transform.position;
+        //parent the game object when contacted
+
+    }
+
+    private void ThrowObject (GameObject throwable) {
+        Vector3 forwardVector = target.transform.position - throwingPosition.transform.position;
+        throwable.transform.rotation = Quaternion.FromToRotation(throwingPosition.transform.rotation.eulerAngles, forwardVector);
+        Rigidbody tRB = throwable.GetComponent<Rigidbody>();
+        tRB.isKinematic = false;
+        tRB.useGravity = true;
+        tRB.AddForce(forwardVector.normalized * 30, ForceMode.VelocityChange);
+        throwable.GetComponent<BoxCollider>().isTrigger = false;
+        Destroy(throwable, 10.0f);
     }
 
 }

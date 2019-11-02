@@ -95,23 +95,24 @@ public class Shooting : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(Vector3.forward * deviationDistance + deviation3D);
         Vector3 forwardVector = Camera.main.transform.rotation * rot * Vector3.forward;
         if (!projectile) { 
-        RaycastHit hit;
+            RaycastHit hit;
 
-        if (Physics.Raycast(firingPosition.transform.position, forwardVector, out hit, range, raycastMask)) {
-            //Debug.Log("Hit something");
-            //Debug.DrawRay(firingPosition.transform.position, forwardVector * range, Color.green, 2f);
-			if (hit.collider.gameObject.GetComponent<Health>() != null && hit.collider.gameObject.GetComponent<Health>().GetTag() != Health.AlignmentTag.Ally) {
-				hit.collider.gameObject.GetComponent<Health>().TakeDamage(1);
-				}
-			else if (hit.collider.gameObject.GetComponent<CritSpot>() != null && hit.collider.gameObject.GetComponent<CritSpot>().GetTag() != CritSpot.AlignmentTag.Ally) {
-				hit.collider.gameObject.GetComponent<CritSpot>().TakeDamage(1);
-				}
-        }
+            if (Physics.Raycast(firingPosition.transform.position, forwardVector, out hit, range, raycastMask)) {
+                //Debug.Log("Hit something");
+                //Debug.DrawRay(firingPosition.transform.position, forwardVector * range, Color.green, 2f);
+		    	if (hit.collider.gameObject.GetComponent<Health>() != null && hit.collider.gameObject.GetComponent<Health>().GetTag() != Health.AlignmentTag.Ally) {
+		    		hit.collider.gameObject.GetComponent<Health>().TakeDamage(1);
+		   		}
+		    	else if (hit.collider.gameObject.GetComponent<CritSpot>() != null && hit.collider.gameObject.GetComponent<CritSpot>().GetTag() != CritSpot.AlignmentTag.Ally) {
+		    		hit.collider.gameObject.GetComponent<CritSpot>().TakeDamage(1);
+		   		}
+            }
 		
-		Vector3 impactPoint;
-		if (hit.collider != null) impactPoint = hit.point;
-		else impactPoint = forwardVector * range;
-		StartCoroutine(Laser(impactPoint));        
+		    Vector3 impactPoint;
+		    if (hit.collider != null) impactPoint = hit.point;
+		    else impactPoint = forwardVector * range;
+		    StartCoroutine(Laser(impactPoint));        
+
         } else {
             GameObject b = Instantiate(bullet, endOfGun.transform.position, endOfGun.transform.rotation);
 			b.GetComponent<Gravity_AttractedObject>().SetGravitySource(player.GetComponent<Player_Movement>().gravitySource);
