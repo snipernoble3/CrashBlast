@@ -15,12 +15,16 @@ public class Golem : MonoBehaviour {
     [SerializeField] private float projectileThrowRate;
 
     private float grabDiameter = 5f;
-    private float timeSinceAttacking;
+    private float timeToNextAttack;
 
     private bool attacking;
     private bool moving;
+    private bool waiting;
     private float timeMoving;
     private float timeToNextMove;
+
+    private Vector2 randLocation;
+    private Vector3 targetLocation;
 
     private void Awake () {
         target = GameObject.FindGameObjectWithTag("Player");
@@ -29,30 +33,65 @@ public class Golem : MonoBehaviour {
     }
 
     private void Update () {
-        /*if (timeSinceAttacking > 0) {
-            timeSinceAttacking -= Time.deltaTime;
+        if (timeToNextAttack > 0) {
+            timeToNextAttack -= Time.deltaTime;
         }
 
-        if (Vector3.Magnitude(target.transform.position - transform.position) < 50f && timeSinceAttacking <= 0 && !attacking) { //if player in range and able to attack and not already attacking
+        if (timeMoving > 0) {
+            timeMoving -= Time.deltaTime;
+        }
+
+        if (timeToNextMove > 0) {
+            timeToNextMove -= Time.deltaTime;
+        }
+
+        if (Vector3.Magnitude(target.transform.position - transform.position) < 50f && timeToNextAttack <= 0 && !attacking) { //if player in range and able to attack and not already attacking
             //start attack
             attacking = true;
+            moving = false;
+            waiting = false;
             StartCoroutine(Attack());
 
         } else if (!attacking) { //if not attacking
             //idle
+            if (!moving && !waiting) {
+                timeToNextMove = 1f;
+                waiting = true;
+            }
+
             if (moving) {
                 //pick a new direction to move in
+
                 //move and rotate to the move direction
+                Quaternion targetLookDirection = Quaternion.LookRotation(targetLocation - transform.position);//, transform.position - GetComponent<Gravity_AttractedObject>().GetGravitySource().transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, 5f * Time.deltaTime);
+                //rb.AddRelativeForce(transform.forward * moveForce, ForceMode.Impulse);
+                transform.position += transform.forward * moveForce * Time.fixedDeltaTime;
+                float distance = Vector3.Magnitude(targetLocation - transform.position);
+                if (timeMoving <= 0 || Mathf.Abs(distance) <= 1f) {
+                    timeToNextMove = Random.Range(1f, 4f);
+                    moving = false;
+                    waiting = true;
+                }
 
-            } else {
+            } else if (waiting) {
                 //wait for a bit
-
+                if (timeToNextMove <= 0) {
+                    timeMoving = Random.Range(2f, 6f);
+                    moving = true;
+                    waiting = false;
+                    randLocation = Random.insideUnitCircle * 20f;
+                    targetLocation = new Vector3(transform.position.x + randLocation.x, transform.position.y, transform.position.z - randLocation.y);
+                }
             }
 
         }
-        */
+        
 
         if (Input.GetKeyDown(KeyCode.X) && Input.GetKey(KeyCode.LeftControl)) {
+            attacking = true;
+            moving = false;
+            waiting = false;
             StartCoroutine(Attack());
         }
 
@@ -64,15 +103,23 @@ public class Golem : MonoBehaviour {
     private IEnumerator Attack () {
         //find and grab throw object
         GameObject throwable = FindThrowable();
+
         yield return new WaitForSeconds(1f); //temporary wait, just to visually see the cube appear
+
         //pick up and get into throwing position
         PickUp(throwable);
+
         yield return new WaitForSeconds(1f); //change to wait until object in throw position
+
         //charge up
         yield return new WaitForSeconds(0.5f); //charge throw
+
         //throw object
         ThrowObject(throwable);
-        yield return new WaitForSeconds(2f); //throw/follow through/reset to normal
+
+        yield return new WaitForSeconds(0.5f); //throw/follow through/reset to normal
+
+        timeToNextAttack = 10f;
         attacking = false;
     }
 

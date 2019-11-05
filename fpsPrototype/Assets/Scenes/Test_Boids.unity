@@ -368,7 +368,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!136 &880329408
 CapsuleCollider:
@@ -415,7 +415,7 @@ MonoBehaviour:
   projectile: {fileID: 1819728549762003888, guid: 4dfb96cdeba97db44b19429f6ac7a807,
     type: 3}
   throwingPosition: {fileID: 360584339}
-  moveForce: 0
+  moveForce: 5
   attackRange: 50
   projectileVelocity: 0
   projectileThrowRate: 0
@@ -752,7 +752,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389898886}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.84, y: 0.51, z: 8.91}
+  m_LocalPosition: {x: 12.9, y: 0.51, z: 3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
