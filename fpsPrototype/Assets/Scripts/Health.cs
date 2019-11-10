@@ -34,7 +34,14 @@ public class Health : MonoBehaviour {
         
         UpdateUI();
     }
-    
+
+    private void OnCollisionEnter (Collision collision) {
+        if (alignment != AlignmentTag.Player && collision.gameObject.tag == "Bullet") {
+            TakeDamage(1);
+            Destroy(collision.gameObject);
+        }
+    }
+
     public void GainHealth (int heal) {
         if (alive) {
             currHealth = Mathf.Min(currHealth + heal, maxHealth);

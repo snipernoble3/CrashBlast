@@ -18,6 +18,7 @@ public class Golem : MonoBehaviour {
     private float timeToNextAttack;
 
     private bool attacking;
+    private bool aiming;
     private bool moving;
     private bool waiting;
     private float timeMoving;
@@ -30,6 +31,8 @@ public class Golem : MonoBehaviour {
         target = GameObject.FindGameObjectWithTag("Player");
 
         rb = GetComponent<Rigidbody>();
+
+        GetComponent<Gravity_AttractedObject>().SetGravitySource(transform.parent.GetComponent<Gravity_Source>());
     }
 
     private void Update () {
@@ -51,6 +54,11 @@ public class Golem : MonoBehaviour {
             moving = false;
             waiting = false;
             StartCoroutine(Attack());
+
+        } else if (aiming) {
+
+            Quaternion targetLookDirection = Quaternion.LookRotation(target.transform.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, 5f * Time.deltaTime);
 
         } else if (!attacking) { //if not attacking
             //idle
@@ -110,9 +118,11 @@ public class Golem : MonoBehaviour {
         PickUp(throwable);
 
         yield return new WaitForSeconds(1f); //change to wait until object in throw position
-
+        
         //charge up
         yield return new WaitForSeconds(0.5f); //charge throw
+
+        aiming = false;
 
         //throw object
         ThrowObject(throwable);
@@ -139,12 +149,14 @@ public class Golem : MonoBehaviour {
         //send a stun message to the game object (in case its a moving target)
         //run animation to pick the game object up
         throwable.transform.position = Vector3.MoveTowards(throwable.transform.position, throwingPosition.transform.position, Vector3.Magnitude(throwingPosition.transform.position - throwable.transform.position));
+        throwable.transform.parent = transform;
         //throwable.transform.position = throwingPosition.transform.position;
         //parent the game object when contacted
-
+        aiming = true;
     }
 
     private void ThrowObject (GameObject throwable) {
+        throwable.transform.parent = null;
         Vector3 forwardVector = target.transform.position - throwingPosition.transform.position;
         throwable.transform.rotation = Quaternion.FromToRotation(throwingPosition.transform.rotation.eulerAngles, forwardVector);
         Rigidbody tRB = throwable.GetComponent<Rigidbody>();

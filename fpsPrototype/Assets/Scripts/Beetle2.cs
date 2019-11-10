@@ -127,10 +127,7 @@ public class Beetle2 : MonoBehaviour {
 
         }
 
-        if (collision.gameObject.tag == "Bullet") {
-            gameObject.GetComponent<Health>().TakeDamage(1);
-            Destroy(collision.gameObject);
-        }
+        
 
     }
 
