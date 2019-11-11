@@ -117,8 +117,8 @@ MonoBehaviour:
   healthText: {fileID: 0}
   death: {fileID: 0}
   critDeath: {fileID: 0}
-  xpDrop: 2
-  XP: {fileID: 0}
+  xpDrop: 3
+  XP: {fileID: 1857474205569613871, guid: d430494ca21bb60498d4136a7bd2f8f9, type: 3}
 --- !u!1 &2598347307225911776
 GameObject:
   m_ObjectHideFlags: 0

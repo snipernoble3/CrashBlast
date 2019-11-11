@@ -10,11 +10,12 @@ public class PlayerResources : MonoBehaviour {
 
     private int currXP;
     [SerializeField] private int xpCap = 20;
+    public bool jumpReady;
     //private int currLvl;
     private int currResourceA; //currency?
     private int currResourceB; //rare gem? battery? turn in to ship for xp + currency
 
-    [SerializeField] private GameObject inventory;
+    [SerializeField] private GameObject jumpReadyText;
     //[SerializeField] private TextMeshProUGUI xpText;
     [SerializeField] private Slider xpBar;
     //[SerializeField] private TextMeshProUGUI resourceAText;
@@ -36,6 +37,11 @@ public class PlayerResources : MonoBehaviour {
     private void Update () {
         //inventory.SetActive(Input.GetKey(KeyCode.Tab));
         //if (inventory.activeInHierarchy) UpdateUI();
+
+        jumpReady = currXP >= xpCap;
+        jumpReadyText.SetActive(jumpReady);
+        
+
     }
 
     private void OnTriggerEnter (Collider other) {
