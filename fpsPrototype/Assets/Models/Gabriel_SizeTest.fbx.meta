@@ -1,0 +1,3522 @@
+fileFormatVersion: 2
+guid: 78c152513e4c1614292d3e086ff74a6b
+ModelImporter:
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      74: -6644520246477051584
+    second: Quad Sphere.013|Cube.007Action
+  - first:
+      74: -7168455020318285951
+    second: Quad Sphere.013|Cube.008Action
+  - first:
+      74: -3383166813835536175
+    second: Quad Sphere.013|Cube.013Action
+  - first:
+      74: -2434226847496658918
+    second: Quad Sphere.013|Cube.016Action.000
+  - first:
+      74: 7159408390483737842
+    second: Quad Sphere.013|Cube.016Action.002
+  - first:
+      74: -3473418894628027889
+    second: Quad Sphere.013|Cube.017Action.000
+  - first:
+      74: -5797154833097528229
+    second: Quad Sphere.013|Cube.017Action.002
+  - first:
+      74: 6655959318239350164
+    second: Quad Sphere.013|Cube.018Action.002
+  - first:
+      74: 4356676627357237856
+    second: Quad Sphere.013|Cube.043Action
+  - first:
+      74: 6923859466001931850
+    second: Quad Sphere.013|Cube.044Action
+  - first:
+      74: 1102851072941310451
+    second: Quad Sphere.013|Cube.045Action
+  - first:
+      74: -7230325965040106322
+    second: Quad Sphere.013|Cube.046Action
+  - first:
+      74: -6388380830045990516
+    second: Quad Sphere.013|Cube.047Action
+  - first:
+      74: -1839671269971275608
+    second: Quad Sphere.013|Cube.048Action
+  - first:
+      74: 9009051334336799072
+    second: Quad Sphere.013|Cube.049Action
+  - first:
+      74: -6145005793643395112
+    second: Quad Sphere.013|Cube.050Action
+  - first:
+      74: -2666226044124687718
+    second: Quad Sphere.013|Cube.051Action
+  - first:
+      74: 4096059358102404604
+    second: Quad Sphere.013|Cube.052Action
+  - first:
+      74: 145094094668130778
+    second: Quad Sphere.013|Cube.053Action
+  - first:
+      74: -8959028804986761966
+    second: Quad Sphere.013|Cube.054Action
+  - first:
+      74: 9028738046493349367
+    second: Quad Sphere.013|Cube.055Action
+  - first:
+      74: -2804161594997426350
+    second: Quad Sphere.013|Cube.055Action.001
+  - first:
+      74: 5373554167761473857
+    second: Quad Sphere.013|Cube.056Action
+  - first:
+      74: 4893784136696896059
+    second: Quad Sphere.013|Cube.057Action
+  - first:
+      74: -3701851775551221227
+    second: Quad Sphere.013|Cube.058Action
+  - first:
+      74: -2088853396776903058
+    second: Quad Sphere.013|Forearm_LAction
+  - first:
+      74: 3941424701945846762
+    second: Quad Sphere.013|Pelvis_MainAction
+  - first:
+      74: 2082993627777103040
+    second: Quad Sphere.013|Pelvis_MainAction.001
+  - first:
+      74: 5849754748355785739
+    second: Quad Sphere.013|Pelvis_MainAction.002
+  - first:
+      74: 4950325626549863996
+    second: Quad Sphere.013|Quad Sphere.003Action
+  - first:
+      74: -2987872824217124438
+    second: Quad Sphere.013|Quad Sphere.003Action.001
+  - first:
+      74: 7869883053296933025
+    second: Quad Sphere.013|Quad Sphere.003Action.002
+  - first:
+      74: -864764332090381757
+    second: Quad Sphere.013|Quad Sphere.003Action.003
+  - first:
+      74: 3371840812227794547
+    second: Quad Sphere.013|Quad SphereAction
+  - first:
+      74: -8349259191606808636
+    second: Quad Sphere.013|Torso_MainAction
+  - first:
+      74: -1890955049564155472
+    second: Quad Sphere.013|Torso_MainAction.001
+  - first:
+      74: 7874887401243074900
+    second: Quad Sphere.013|Weapon_Rifle.001Action
+  - first:
+      74: -2437552290209576974
+    second: Gabriel_Helmet|Cube.007Action
+  - first:
+      74: -2408082574516230042
+    second: Gabriel_Helmet|Cube.008Action
+  - first:
+      74: 2197519592051806264
+    second: Gabriel_Helmet|Cube.013Action
+  - first:
+      74: -8404510650715616683
+    second: Gabriel_Helmet|Cube.016Action.000
+  - first:
+      74: 4724183776667960073
+    second: Gabriel_Helmet|Cube.016Action.002
+  - first:
+      74: 1237913965795526232
+    second: Gabriel_Helmet|Cube.017Action.000
+  - first:
+      74: -1673401708787633595
+    second: Gabriel_Helmet|Cube.017Action.002
+  - first:
+      74: -2748250728621882612
+    second: Gabriel_Helmet|Cube.018Action.002
+  - first:
+      74: 4158367786311322132
+    second: Gabriel_Helmet|Cube.043Action
+  - first:
+      74: 4822513429615580968
+    second: Gabriel_Helmet|Cube.044Action
+  - first:
+      74: 7675091818470701207
+    second: Gabriel_Helmet|Cube.045Action
+  - first:
+      74: -5685776689595815511
+    second: Gabriel_Helmet|Cube.046Action
+  - first:
+      74: -7744054375735649298
+    second: Gabriel_Helmet|Cube.047Action
+  - first:
+      74: 2417261866468824239
+    second: Gabriel_Helmet|Cube.048Action
+  - first:
+      74: 9029990688640494067
+    second: Gabriel_Helmet|Cube.049Action
+  - first:
+      74: -8042129732086714897
+    second: Gabriel_Helmet|Cube.050Action
+  - first:
+      74: 8336920328753092886
+    second: Gabriel_Helmet|Cube.051Action
+  - first:
+      74: 1530098205446908109
+    second: Gabriel_Helmet|Cube.052Action
+  - first:
+      74: 3926594010195731951
+    second: Gabriel_Helmet|Cube.053Action
+  - first:
+      74: 8901195724528029246
+    second: Gabriel_Helmet|Cube.054Action
+  - first:
+      74: -1015799914036192248
+    second: Gabriel_Helmet|Cube.055Action
+  - first:
+      74: -4344963982157553497
+    second: Gabriel_Helmet|Cube.055Action.001
+  - first:
+      74: 5942088314285507792
+    second: Gabriel_Helmet|Cube.056Action
+  - first:
+      74: 5130572332026523615
+    second: Gabriel_Helmet|Cube.057Action
+  - first:
+      74: -9051141733914594797
+    second: Gabriel_Helmet|Cube.058Action
+  - first:
+      74: 4422198974836475173
+    second: Gabriel_Helmet|Forearm_LAction
+  - first:
+      74: 486333149938622627
+    second: Gabriel_Helmet|Pelvis_MainAction
+  - first:
+      74: -4664522162650496015
+    second: Gabriel_Helmet|Pelvis_MainAction.001
+  - first:
+      74: -5749902846086503321
+    second: Gabriel_Helmet|Pelvis_MainAction.002
+  - first:
+      74: 2301575381274535414
+    second: Gabriel_Helmet|Quad Sphere.003Action
+  - first:
+      74: 3740373065464542842
+    second: Gabriel_Helmet|Quad Sphere.003Action.001
+  - first:
+      74: -5238737775448754722
+    second: Gabriel_Helmet|Quad Sphere.003Action.002
+  - first:
+      74: 3133072929322234199
+    second: Gabriel_Helmet|Quad Sphere.003Action.003
+  - first:
+      74: -5938769794450489261
+    second: Gabriel_Helmet|Quad SphereAction
+  - first:
+      74: -6082519386246478753
+    second: Gabriel_Helmet|Torso_MainAction
+  - first:
+      74: 3329217788223804516
+    second: Gabriel_Helmet|Torso_MainAction.001
+  - first:
+      74: 5879057861472565290
+    second: Gabriel_Helmet|Weapon_Rifle.001Action
+  - first:
+      74: 6583693348544467399
+    second: Wing|Cube.007Action
+  - first:
+      74: -6140450521947873809
+    second: Wing|Cube.008Action
+  - first:
+      74: -2500458559876151313
+    second: Wing|Cube.013Action
+  - first:
+      74: 3291415063767657288
+    second: Wing|Cube.016Action.000
+  - first:
+      74: 6639622461314939704
+    second: Wing|Cube.016Action.002
+  - first:
+      74: 6359323127415913816
+    second: Wing|Cube.017Action.000
+  - first:
+      74: -6441494491507558364
+    second: Wing|Cube.017Action.002
+  - first:
+      74: 686867753973992389
+    second: Wing|Cube.018Action.002
+  - first:
+      74: 4328028167412043462
+    second: Wing|Cube.043Action
+  - first:
+      74: 1452168433725991912
+    second: Wing|Cube.044Action
+  - first:
+      74: -3863833924091293991
+    second: Wing|Cube.045Action
+  - first:
+      74: -1358521700720338181
+    second: Wing|Cube.046Action
+  - first:
+      74: 1148766894791210573
+    second: Wing|Cube.047Action
+  - first:
+      74: -4340684906767291869
+    second: Wing|Cube.048Action
+  - first:
+      74: -3878491966607370498
+    second: Wing|Cube.049Action
+  - first:
+      74: 5445241390513502981
+    second: Wing|Cube.050Action
+  - first:
+      74: -3049110572415375685
+    second: Wing|Cube.051Action
+  - first:
+      74: 8147645812793227581
+    second: Wing|Cube.052Action
+  - first:
+      74: -3819458823155956109
+    second: Wing|Cube.053Action
+  - first:
+      74: 6885467679692896754
+    second: Wing|Cube.054Action
+  - first:
+      74: 7876651404726183086
+    second: Wing|Cube.055Action
+  - first:
+      74: -5533624310318868589
+    second: Wing|Cube.055Action.001
+  - first:
+      74: -3835066301592526880
+    second: Wing|Cube.056Action
+  - first:
+      74: -2743092769854265389
+    second: Wing|Cube.057Action
+  - first:
+      74: -492853880543693993
+    second: Wing|Cube.058Action
+  - first:
+      74: 2658263528915469021
+    second: Wing|Forearm_LAction
+  - first:
+      74: -4335977763319436700
+    second: Wing|Pelvis_MainAction
+  - first:
+      74: 6125910939670389582
+    second: Wing|Pelvis_MainAction.001
+  - first:
+      74: 3107939857183654539
+    second: Wing|Pelvis_MainAction.002
+  - first:
+      74: -624291694995104415
+    second: Wing|Quad Sphere.003Action
+  - first:
+      74: -1519960825749096349
+    second: Wing|Quad Sphere.003Action.001
+  - first:
+      74: -4800475312964630707
+    second: Wing|Quad Sphere.003Action.002
+  - first:
+      74: 2272198194002257342
+    second: Wing|Quad Sphere.003Action.003
+  - first:
+      74: -5361253738066356910
+    second: Wing|Quad SphereAction
+  - first:
+      74: 6736067838417374921
+    second: Wing|Torso_MainAction
+  - first:
+      74: 7470694994362751583
+    second: Wing|Torso_MainAction.001
+  - first:
+      74: -1432372688771046106
+    second: Wing|Weapon_Rifle.001Action
+  - first:
+      74: -5061929795110651616
+    second: Gabriel_Boot|Cube.007Action
+  - first:
+      74: -758032414156585590
+    second: Gabriel_Boot|Cube.008Action
+  - first:
+      74: -8955065669113735566
+    second: Gabriel_Boot|Cube.013Action
+  - first:
+      74: 525965640003369358
+    second: Gabriel_Boot|Cube.016Action.000
+  - first:
+      74: -9064435682254571672
+    second: Gabriel_Boot|Cube.016Action.002
+  - first:
+      74: 7226530903562779757
+    second: Gabriel_Boot|Cube.017Action.000
+  - first:
+      74: 4669510833810786390
+    second: Gabriel_Boot|Cube.017Action.002
+  - first:
+      74: 8299441502087853035
+    second: Gabriel_Boot|Cube.018Action.002
+  - first:
+      74: 7152221404978313553
+    second: Gabriel_Boot|Cube.043Action
+  - first:
+      74: -6483892186550764265
+    second: Gabriel_Boot|Cube.044Action
+  - first:
+      74: 2752757093008846646
+    second: Gabriel_Boot|Cube.045Action
+  - first:
+      74: -2090124821144249445
+    second: Gabriel_Boot|Cube.046Action
+  - first:
+      74: 3441479664018586715
+    second: Gabriel_Boot|Cube.047Action
+  - first:
+      74: 3682840702810464822
+    second: Gabriel_Boot|Cube.048Action
+  - first:
+      74: -2047721664939028562
+    second: Gabriel_Boot|Cube.049Action
+  - first:
+      74: -3088895702632178209
+    second: Gabriel_Boot|Cube.050Action
+  - first:
+      74: -3658769569139191269
+    second: Gabriel_Boot|Cube.051Action
+  - first:
+      74: -998973274120656668
+    second: Gabriel_Boot|Cube.052Action
+  - first:
+      74: -3213495162455681121
+    second: Gabriel_Boot|Cube.053Action
+  - first:
+      74: 4982571979496892050
+    second: Gabriel_Boot|Cube.054Action
+  - first:
+      74: 7132239957119523840
+    second: Gabriel_Boot|Cube.055Action
+  - first:
+      74: 178618772355572572
+    second: Gabriel_Boot|Cube.055Action.001
+  - first:
+      74: 1476707611728556521
+    second: Gabriel_Boot|Cube.056Action
+  - first:
+      74: -3514141792935843510
+    second: Gabriel_Boot|Cube.057Action
+  - first:
+      74: 5106863555032712436
+    second: Gabriel_Boot|Cube.058Action
+  - first:
+      74: -2032872909871746557
+    second: Gabriel_Boot|Forearm_LAction
+  - first:
+      74: 5193479960027407749
+    second: Gabriel_Boot|Pelvis_MainAction
+  - first:
+      74: 6098396285356830656
+    second: Gabriel_Boot|Pelvis_MainAction.001
+  - first:
+      74: -2806602174450740535
+    second: Gabriel_Boot|Pelvis_MainAction.002
+  - first:
+      74: -2204693068412939516
+    second: Gabriel_Boot|Quad Sphere.003Action
+  - first:
+      74: 4870946966145245656
+    second: Gabriel_Boot|Quad Sphere.003Action.001
+  - first:
+      74: 1290830038675451694
+    second: Gabriel_Boot|Quad Sphere.003Action.002
+  - first:
+      74: 5977247084378453710
+    second: Gabriel_Boot|Quad Sphere.003Action.003
+  - first:
+      74: -1050803289188229242
+    second: Gabriel_Boot|Quad SphereAction
+  - first:
+      74: -5827066651938411517
+    second: Gabriel_Boot|Torso_MainAction
+  - first:
+      74: -6004004031847868688
+    second: Gabriel_Boot|Torso_MainAction.001
+  - first:
+      74: 1159861471466036620
+    second: Gabriel_Boot|Weapon_Rifle.001Action
+  - first:
+      74: -2955181829684128619
+    second: Gabriel_Thigh|Cube.007Action
+  - first:
+      74: -7536772625321973494
+    second: Gabriel_Thigh|Cube.008Action
+  - first:
+      74: -5987393269518850186
+    second: Gabriel_Thigh|Cube.013Action
+  - first:
+      74: -7093130055146243338
+    second: Gabriel_Thigh|Cube.016Action.000
+  - first:
+      74: 168895609477503595
+    second: Gabriel_Thigh|Cube.016Action.002
+  - first:
+      74: -3813428367627896158
+    second: Gabriel_Thigh|Cube.017Action.000
+  - first:
+      74: -5858875855530570754
+    second: Gabriel_Thigh|Cube.017Action.002
+  - first:
+      74: -6591514077981883387
+    second: Gabriel_Thigh|Cube.018Action.002
+  - first:
+      74: 4654015636045996633
+    second: Gabriel_Thigh|Cube.043Action
+  - first:
+      74: 6629245342168199835
+    second: Gabriel_Thigh|Cube.044Action
+  - first:
+      74: -311136820916494565
+    second: Gabriel_Thigh|Cube.045Action
+  - first:
+      74: -1894727860331068529
+    second: Gabriel_Thigh|Cube.046Action
+  - first:
+      74: -997824400292973775
+    second: Gabriel_Thigh|Cube.047Action
+  - first:
+      74: 1314184969146624015
+    second: Gabriel_Thigh|Cube.048Action
+  - first:
+      74: 2613864862149758153
+    second: Gabriel_Thigh|Cube.049Action
+  - first:
+      74: 7183462075778505338
+    second: Gabriel_Thigh|Cube.050Action
+  - first:
+      74: -3130855239658963126
+    second: Gabriel_Thigh|Cube.051Action
+  - first:
+      74: -96786967542621147
+    second: Gabriel_Thigh|Cube.052Action
+  - first:
+      74: -8768990775607449499
+    second: Gabriel_Thigh|Cube.053Action
+  - first:
+      74: -4381131201633573460
+    second: Gabriel_Thigh|Cube.054Action
+  - first:
+      74: 7210626477963537988
+    second: Gabriel_Thigh|Cube.055Action
+  - first:
+      74: -4653666407135140677
+    second: Gabriel_Thigh|Cube.055Action.001
+  - first:
+      74: 8037165400008406638
+    second: Gabriel_Thigh|Cube.056Action
+  - first:
+      74: 590779564385881555
+    second: Gabriel_Thigh|Cube.057Action
+  - first:
+      74: 2969925163450650746
+    second: Gabriel_Thigh|Cube.058Action
+  - first:
+      74: 1788055535987226205
+    second: Gabriel_Thigh|Forearm_LAction
+  - first:
+      74: 2918896762249859903
+    second: Gabriel_Thigh|Pelvis_MainAction
+  - first:
+      74: -48478436176504667
+    second: Gabriel_Thigh|Pelvis_MainAction.001
+  - first:
+      74: -6877590890565245280
+    second: Gabriel_Thigh|Pelvis_MainAction.002
+  - first:
+      74: 3236729229677005591
+    second: Gabriel_Thigh|Quad Sphere.003Action
+  - first:
+      74: -680653995602112460
+    second: Gabriel_Thigh|Quad Sphere.003Action.001
+  - first:
+      74: 2882097754315344714
+    second: Gabriel_Thigh|Quad Sphere.003Action.002
+  - first:
+      74: 3295765427677145377
+    second: Gabriel_Thigh|Quad Sphere.003Action.003
+  - first:
+      74: -4154686847201873603
+    second: Gabriel_Thigh|Quad SphereAction
+  - first:
+      74: 7626304421316232197
+    second: Gabriel_Thigh|Torso_MainAction
+  - first:
+      74: 2202461020403341651
+    second: Gabriel_Thigh|Torso_MainAction.001
+  - first:
+      74: 7100494634025694839
+    second: Gabriel_Thigh|Weapon_Rifle.001Action
+  - first:
+      74: 2898329716228097941
+    second: Gabriel_Shin|Cube.007Action
+  - first:
+      74: -6141935994624317375
+    second: Gabriel_Shin|Cube.008Action
+  - first:
+      74: 8676135924386293693
+    second: Gabriel_Shin|Cube.013Action
+  - first:
+      74: 5217935245561572807
+    second: Gabriel_Shin|Cube.016Action.000
+  - first:
+      74: -1993472273649804986
+    second: Gabriel_Shin|Cube.016Action.002
+  - first:
+      74: -6678497215313190233
+    second: Gabriel_Shin|Cube.017Action.000
+  - first:
+      74: 52637241612392779
+    second: Gabriel_Shin|Cube.017Action.002
+  - first:
+      74: -280227486217225144
+    second: Gabriel_Shin|Cube.018Action.002
+  - first:
+      74: 4447717271941994446
+    second: Gabriel_Shin|Cube.043Action
+  - first:
+      74: 6719999771358381561
+    second: Gabriel_Shin|Cube.044Action
+  - first:
+      74: 3842217105551012179
+    second: Gabriel_Shin|Cube.045Action
+  - first:
+      74: -666082661205953856
+    second: Gabriel_Shin|Cube.046Action
+  - first:
+      74: 5682143478065447584
+    second: Gabriel_Shin|Cube.047Action
+  - first:
+      74: -8785476901576537219
+    second: Gabriel_Shin|Cube.048Action
+  - first:
+      74: -5201802643702340622
+    second: Gabriel_Shin|Cube.049Action
+  - first:
+      74: 4473483411483157429
+    second: Gabriel_Shin|Cube.050Action
+  - first:
+      74: -3360887047073816807
+    second: Gabriel_Shin|Cube.051Action
+  - first:
+      74: -7225106648841185822
+    second: Gabriel_Shin|Cube.052Action
+  - first:
+      74: -2114089802829268485
+    second: Gabriel_Shin|Cube.053Action
+  - first:
+      74: 3435488515714153414
+    second: Gabriel_Shin|Cube.054Action
+  - first:
+      74: 2350373067422412886
+    second: Gabriel_Shin|Cube.055Action
+  - first:
+      74: 3888426916684941176
+    second: Gabriel_Shin|Cube.055Action.001
+  - first:
+      74: -8887461765868403186
+    second: Gabriel_Shin|Cube.056Action
+  - first:
+      74: -3742243776443603778
+    second: Gabriel_Shin|Cube.057Action
+  - first:
+      74: 1482821305031776662
+    second: Gabriel_Shin|Cube.058Action
+  - first:
+      74: 2675748363144956837
+    second: Gabriel_Shin|Forearm_LAction
+  - first:
+      74: -8788075403527111587
+    second: Gabriel_Shin|Pelvis_MainAction
+  - first:
+      74: -7179436653024923765
+    second: Gabriel_Shin|Pelvis_MainAction.001
+  - first:
+      74: 230971730634447523
+    second: Gabriel_Shin|Pelvis_MainAction.002
+  - first:
+      74: -842312065892352564
+    second: Gabriel_Shin|Quad Sphere.003Action
+  - first:
+      74: 649298968758414203
+    second: Gabriel_Shin|Quad Sphere.003Action.001
+  - first:
+      74: 645983248444483301
+    second: Gabriel_Shin|Quad Sphere.003Action.002
+  - first:
+      74: -4152176542024489266
+    second: Gabriel_Shin|Quad Sphere.003Action.003
+  - first:
+      74: -4770254149449584764
+    second: Gabriel_Shin|Quad SphereAction
+  - first:
+      74: 1615385728757903920
+    second: Gabriel_Shin|Torso_MainAction
+  - first:
+      74: -9056248147122042905
+    second: Gabriel_Shin|Torso_MainAction.001
+  - first:
+      74: -5051457248588131457
+    second: Gabriel_Shin|Weapon_Rifle.001Action
+  - first:
+      74: -3769576545742520277
+    second: Gabriel_Pelvis|Cube.007Action
+  - first:
+      74: -9113327667325483580
+    second: Gabriel_Pelvis|Cube.008Action
+  - first:
+      74: -8851959753325100784
+    second: Gabriel_Pelvis|Cube.013Action
+  - first:
+      74: -7343237901867915578
+    second: Gabriel_Pelvis|Cube.016Action.000
+  - first:
+      74: 2886174235426006615
+    second: Gabriel_Pelvis|Cube.016Action.002
+  - first:
+      74: -6708677689159553398
+    second: Gabriel_Pelvis|Cube.017Action.000
+  - first:
+      74: 2973593227631541053
+    second: Gabriel_Pelvis|Cube.017Action.002
+  - first:
+      74: -3688667950606960237
+    second: Gabriel_Pelvis|Cube.018Action.002
+  - first:
+      74: -5537072494583325926
+    second: Gabriel_Pelvis|Cube.043Action
+  - first:
+      74: -8141460101436139621
+    second: Gabriel_Pelvis|Cube.044Action
+  - first:
+      74: 2083479158672042084
+    second: Gabriel_Pelvis|Cube.045Action
+  - first:
+      74: 3207376811956670832
+    second: Gabriel_Pelvis|Cube.046Action
+  - first:
+      74: -2814037896302778437
+    second: Gabriel_Pelvis|Cube.047Action
+  - first:
+      74: 7142731370217281581
+    second: Gabriel_Pelvis|Cube.048Action
+  - first:
+      74: 4272014833282748904
+    second: Gabriel_Pelvis|Cube.049Action
+  - first:
+      74: -6014125585073273288
+    second: Gabriel_Pelvis|Cube.050Action
+  - first:
+      74: -226664021787368637
+    second: Gabriel_Pelvis|Cube.051Action
+  - first:
+      74: 7721847127820692703
+    second: Gabriel_Pelvis|Cube.052Action
+  - first:
+      74: -252493578571001857
+    second: Gabriel_Pelvis|Cube.053Action
+  - first:
+      74: -6095021291471453569
+    second: Gabriel_Pelvis|Cube.054Action
+  - first:
+      74: 370851624111848000
+    second: Gabriel_Pelvis|Cube.055Action
+  - first:
+      74: -3129835443380693909
+    second: Gabriel_Pelvis|Cube.055Action.001
+  - first:
+      74: -4560617718542366292
+    second: Gabriel_Pelvis|Cube.056Action
+  - first:
+      74: 1554920651154086348
+    second: Gabriel_Pelvis|Cube.057Action
+  - first:
+      74: 5061136622987879203
+    second: Gabriel_Pelvis|Cube.058Action
+  - first:
+      74: 1691251045416868028
+    second: Gabriel_Pelvis|Forearm_LAction
+  - first:
+      74: -3629006460735449300
+    second: Gabriel_Pelvis|Pelvis_MainAction
+  - first:
+      74: 3806554044891150298
+    second: Gabriel_Pelvis|Pelvis_MainAction.001
+  - first:
+      74: -2159456300735018956
+    second: Gabriel_Pelvis|Pelvis_MainAction.002
+  - first:
+      74: -574742600022195070
+    second: Gabriel_Pelvis|Quad Sphere.003Action
+  - first:
+      74: -8263470586464729515
+    second: Gabriel_Pelvis|Quad Sphere.003Action.001
+  - first:
+      74: 7940508685906219057
+    second: Gabriel_Pelvis|Quad Sphere.003Action.002
+  - first:
+      74: -4297128124396200757
+    second: Gabriel_Pelvis|Quad Sphere.003Action.003
+  - first:
+      74: 8142216715367691327
+    second: Gabriel_Pelvis|Quad SphereAction
+  - first:
+      74: 975142086301383693
+    second: Gabriel_Pelvis|Torso_MainAction
+  - first:
+      74: 3603862055965428149
+    second: Gabriel_Pelvis|Torso_MainAction.001
+  - first:
+      74: 6168798045578207824
+    second: Gabriel_Pelvis|Weapon_Rifle.001Action
+  - first:
+      74: 4848176876057788715
+    second: Gabriel_RightArm|Cube.007Action
+  - first:
+      74: -1801547640982541692
+    second: Gabriel_RightArm|Cube.008Action
+  - first:
+      74: -8837392785794401928
+    second: Gabriel_RightArm|Cube.013Action
+  - first:
+      74: 3974575146818804797
+    second: Gabriel_RightArm|Cube.016Action.000
+  - first:
+      74: -7343264214024662609
+    second: Gabriel_RightArm|Cube.016Action.002
+  - first:
+      74: -2853553261163093516
+    second: Gabriel_RightArm|Cube.017Action.000
+  - first:
+      74: 5679345027258908293
+    second: Gabriel_RightArm|Cube.017Action.002
+  - first:
+      74: -2507061478523729946
+    second: Gabriel_RightArm|Cube.018Action.002
+  - first:
+      74: 5325738633779732072
+    second: Gabriel_RightArm|Cube.043Action
+  - first:
+      74: -7162213320704094370
+    second: Gabriel_RightArm|Cube.044Action
+  - first:
+      74: 5704313259891973390
+    second: Gabriel_RightArm|Cube.045Action
+  - first:
+      74: -8054087721221424221
+    second: Gabriel_RightArm|Cube.046Action
+  - first:
+      74: 6366770867261103835
+    second: Gabriel_RightArm|Cube.047Action
+  - first:
+      74: -3972417951875179528
+    second: Gabriel_RightArm|Cube.048Action
+  - first:
+      74: -3538117509759591384
+    second: Gabriel_RightArm|Cube.049Action
+  - first:
+      74: 1168517165270893368
+    second: Gabriel_RightArm|Cube.050Action
+  - first:
+      74: -5235865539574399005
+    second: Gabriel_RightArm|Cube.051Action
+  - first:
+      74: 7311259213558704549
+    second: Gabriel_RightArm|Cube.052Action
+  - first:
+      74: 8235801498283562972
+    second: Gabriel_RightArm|Cube.053Action
+  - first:
+      74: 5523194618677954006
+    second: Gabriel_RightArm|Cube.054Action
+  - first:
+      74: 6246817031912080740
+    second: Gabriel_RightArm|Cube.055Action
+  - first:
+      74: -3617337298901535053
+    second: Gabriel_RightArm|Cube.055Action.001
+  - first:
+      74: 895415753453171755
+    second: Gabriel_RightArm|Cube.056Action
+  - first:
+      74: 4038141607322080022
+    second: Gabriel_RightArm|Cube.057Action
+  - first:
+      74: 9137727650206338995
+    second: Gabriel_RightArm|Cube.058Action
+  - first:
+      74: 4224109713733431682
+    second: Gabriel_RightArm|Forearm_LAction
+  - first:
+      74: -3256818940387767380
+    second: Gabriel_RightArm|Pelvis_MainAction
+  - first:
+      74: -6870697208911792901
+    second: Gabriel_RightArm|Pelvis_MainAction.001
+  - first:
+      74: 6469366420823245628
+    second: Gabriel_RightArm|Pelvis_MainAction.002
+  - first:
+      74: 5339471973515807312
+    second: Gabriel_RightArm|Quad Sphere.003Action
+  - first:
+      74: -3030300468782949101
+    second: Gabriel_RightArm|Quad Sphere.003Action.001
+  - first:
+      74: -6074326057174851671
+    second: Gabriel_RightArm|Quad Sphere.003Action.002
+  - first:
+      74: -1515256634755611050
+    second: Gabriel_RightArm|Quad Sphere.003Action.003
+  - first:
+      74: 1045784965336339230
+    second: Gabriel_RightArm|Quad SphereAction
+  - first:
+      74: 1030027587107510801
+    second: Gabriel_RightArm|Torso_MainAction
+  - first:
+      74: 8260222601590166932
+    second: Gabriel_RightArm|Torso_MainAction.001
+  - first:
+      74: 5429456789851567624
+    second: Gabriel_RightArm|Weapon_Rifle.001Action
+  - first:
+      74: 5635423644584549347
+    second: Cube.043|Cube.007Action
+  - first:
+      74: 8743454425731090021
+    second: Cube.043|Cube.008Action
+  - first:
+      74: 257295069761005182
+    second: Cube.043|Cube.013Action
+  - first:
+      74: 6996478843014258287
+    second: Cube.043|Cube.016Action.000
+  - first:
+      74: 6240593610887038862
+    second: Cube.043|Cube.016Action.002
+  - first:
+      74: 4455612099735747890
+    second: Cube.043|Cube.017Action.000
+  - first:
+      74: 3173814199646622208
+    second: Cube.043|Cube.017Action.002
+  - first:
+      74: 6680188027691301861
+    second: Cube.043|Cube.018Action.002
+  - first:
+      74: 373215094587471636
+    second: Cube.043|Cube.043Action
+  - first:
+      74: 8491114295171298276
+    second: Cube.043|Cube.044Action
+  - first:
+      74: 2853141894881187015
+    second: Cube.043|Cube.045Action
+  - first:
+      74: 5744018512404496970
+    second: Cube.043|Cube.046Action
+  - first:
+      74: -3761866002459843773
+    second: Cube.043|Cube.047Action
+  - first:
+      74: -3661063812939890987
+    second: Cube.043|Cube.048Action
+  - first:
+      74: -6647638921140063894
+    second: Cube.043|Cube.049Action
+  - first:
+      74: 318519413019312608
+    second: Cube.043|Cube.050Action
+  - first:
+      74: 5101900755691641693
+    second: Cube.043|Cube.051Action
+  - first:
+      74: -1805871147858920119
+    second: Cube.043|Cube.052Action
+  - first:
+      74: 3245262255978955739
+    second: Cube.043|Cube.053Action
+  - first:
+      74: -4923958118132971186
+    second: Cube.043|Cube.054Action
+  - first:
+      74: -530636063754695525
+    second: Cube.043|Cube.055Action
+  - first:
+      74: 7682714329337002238
+    second: Cube.043|Cube.055Action.001
+  - first:
+      74: -7612123869931491682
+    second: Cube.043|Cube.056Action
+  - first:
+      74: -9180270701504983423
+    second: Cube.043|Cube.057Action
+  - first:
+      74: 3108512902045920264
+    second: Cube.043|Cube.058Action
+  - first:
+      74: 4516413781255042846
+    second: Cube.043|Forearm_LAction
+  - first:
+      74: -1221779848253452209
+    second: Cube.043|Pelvis_MainAction
+  - first:
+      74: 7267003101038208324
+    second: Cube.043|Pelvis_MainAction.001
+  - first:
+      74: 8276163574601966791
+    second: Cube.043|Pelvis_MainAction.002
+  - first:
+      74: 5467489008190813363
+    second: Cube.043|Quad Sphere.003Action
+  - first:
+      74: 5470079676135773573
+    second: Cube.043|Quad Sphere.003Action.001
+  - first:
+      74: -4262737197789837174
+    second: Cube.043|Quad Sphere.003Action.002
+  - first:
+      74: -8539295413868544027
+    second: Cube.043|Quad Sphere.003Action.003
+  - first:
+      74: 4231532663119639886
+    second: Cube.043|Quad SphereAction
+  - first:
+      74: -7261791648681674230
+    second: Cube.043|Torso_MainAction
+  - first:
+      74: -8937652139473457338
+    second: Cube.043|Torso_MainAction.001
+  - first:
+      74: 7101678710128700104
+    second: Cube.043|Weapon_Rifle.001Action
+  - first:
+      74: 3132836501429403012
+    second: Cube.045|Cube.007Action
+  - first:
+      74: 4590843234099316941
+    second: Cube.045|Cube.008Action
+  - first:
+      74: -7003263755721320747
+    second: Cube.045|Cube.013Action
+  - first:
+      74: 688751989315776854
+    second: Cube.045|Cube.016Action.000
+  - first:
+      74: -1278929563101019586
+    second: Cube.045|Cube.016Action.002
+  - first:
+      74: 897161717295423559
+    second: Cube.045|Cube.017Action.000
+  - first:
+      74: -8466720519938896488
+    second: Cube.045|Cube.017Action.002
+  - first:
+      74: -4397808772284024339
+    second: Cube.045|Cube.018Action.002
+  - first:
+      74: -4214436061210130426
+    second: Cube.045|Cube.043Action
+  - first:
+      74: -7659743797670653783
+    second: Cube.045|Cube.044Action
+  - first:
+      74: -4038080485408427148
+    second: Cube.045|Cube.045Action
+  - first:
+      74: -7528793546676206639
+    second: Cube.045|Cube.046Action
+  - first:
+      74: -1613461147130698209
+    second: Cube.045|Cube.047Action
+  - first:
+      74: 2822135649772701384
+    second: Cube.045|Cube.048Action
+  - first:
+      74: -3731692028844701024
+    second: Cube.045|Cube.049Action
+  - first:
+      74: -8996402759794174193
+    second: Cube.045|Cube.050Action
+  - first:
+      74: -4838100076677292990
+    second: Cube.045|Cube.051Action
+  - first:
+      74: 6503254945634709202
+    second: Cube.045|Cube.052Action
+  - first:
+      74: -5529255136589298680
+    second: Cube.045|Cube.053Action
+  - first:
+      74: -32955585085475161
+    second: Cube.045|Cube.054Action
+  - first:
+      74: -932530982718184171
+    second: Cube.045|Cube.055Action
+  - first:
+      74: 4980510591985411707
+    second: Cube.045|Cube.055Action.001
+  - first:
+      74: 726055815099286856
+    second: Cube.045|Cube.056Action
+  - first:
+      74: 563272154940346404
+    second: Cube.045|Cube.057Action
+  - first:
+      74: -5639728790553175399
+    second: Cube.045|Cube.058Action
+  - first:
+      74: 1364505215842661786
+    second: Cube.045|Forearm_LAction
+  - first:
+      74: 3503158217575558321
+    second: Cube.045|Pelvis_MainAction
+  - first:
+      74: -1128278225211123412
+    second: Cube.045|Pelvis_MainAction.001
+  - first:
+      74: -3770581348997455054
+    second: Cube.045|Pelvis_MainAction.002
+  - first:
+      74: -5380652645557775132
+    second: Cube.045|Quad Sphere.003Action
+  - first:
+      74: 6640215265456154712
+    second: Cube.045|Quad Sphere.003Action.001
+  - first:
+      74: 5265737082171185720
+    second: Cube.045|Quad Sphere.003Action.002
+  - first:
+      74: -2558595178776440065
+    second: Cube.045|Quad Sphere.003Action.003
+  - first:
+      74: 4279733719420019604
+    second: Cube.045|Quad SphereAction
+  - first:
+      74: 3549969874740343517
+    second: Cube.045|Torso_MainAction
+  - first:
+      74: 3768299904365522849
+    second: Cube.045|Torso_MainAction.001
+  - first:
+      74: 4050476646148261820
+    second: Cube.045|Weapon_Rifle.001Action
+  - first:
+      74: -5453264063626243836
+    second: Cube.047|Cube.007Action
+  - first:
+      74: 4217398103332529587
+    second: Cube.047|Cube.008Action
+  - first:
+      74: -5998160836370231804
+    second: Cube.047|Cube.013Action
+  - first:
+      74: 2279760122869776477
+    second: Cube.047|Cube.016Action.000
+  - first:
+      74: 4470432009536111462
+    second: Cube.047|Cube.016Action.002
+  - first:
+      74: -2153680455885969249
+    second: Cube.047|Cube.017Action.000
+  - first:
+      74: 5364491197177379688
+    second: Cube.047|Cube.017Action.002
+  - first:
+      74: 557646788429018849
+    second: Cube.047|Cube.018Action.002
+  - first:
+      74: -7940388773634973469
+    second: Cube.047|Cube.043Action
+  - first:
+      74: -8056168938939624770
+    second: Cube.047|Cube.044Action
+  - first:
+      74: 2248754803809208379
+    second: Cube.047|Cube.045Action
+  - first:
+      74: 5440930610519076489
+    second: Cube.047|Cube.046Action
+  - first:
+      74: -4877269479536860126
+    second: Cube.047|Cube.047Action
+  - first:
+      74: 4610982183681854581
+    second: Cube.047|Cube.048Action
+  - first:
+      74: 6890422142010275995
+    second: Cube.047|Cube.049Action
+  - first:
+      74: 1513641489228146873
+    second: Cube.047|Cube.050Action
+  - first:
+      74: 2444431613624904500
+    second: Cube.047|Cube.051Action
+  - first:
+      74: -1242701399608147970
+    second: Cube.047|Cube.052Action
+  - first:
+      74: -7611782902515754772
+    second: Cube.047|Cube.053Action
+  - first:
+      74: 6601974949685710507
+    second: Cube.047|Cube.054Action
+  - first:
+      74: 1677149949095646843
+    second: Cube.047|Cube.055Action
+  - first:
+      74: 8391205599920192078
+    second: Cube.047|Cube.055Action.001
+  - first:
+      74: -6002393315404513187
+    second: Cube.047|Cube.056Action
+  - first:
+      74: 8321043492500253063
+    second: Cube.047|Cube.057Action
+  - first:
+      74: 2993884119658675069
+    second: Cube.047|Cube.058Action
+  - first:
+      74: 7490833258167397118
+    second: Cube.047|Forearm_LAction
+  - first:
+      74: -5711427182174957009
+    second: Cube.047|Pelvis_MainAction
+  - first:
+      74: -2706521935653590602
+    second: Cube.047|Pelvis_MainAction.001
+  - first:
+      74: 1419289547096567932
+    second: Cube.047|Pelvis_MainAction.002
+  - first:
+      74: 4135464425101623178
+    second: Cube.047|Quad Sphere.003Action
+  - first:
+      74: -1844130408592958333
+    second: Cube.047|Quad Sphere.003Action.001
+  - first:
+      74: -3517134218933159318
+    second: Cube.047|Quad Sphere.003Action.002
+  - first:
+      74: 7312163271378456709
+    second: Cube.047|Quad Sphere.003Action.003
+  - first:
+      74: 5175272379221667891
+    second: Cube.047|Quad SphereAction
+  - first:
+      74: -549181564227492777
+    second: Cube.047|Torso_MainAction
+  - first:
+      74: -1857423090715323662
+    second: Cube.047|Torso_MainAction.001
+  - first:
+      74: -1611164425678800980
+    second: Cube.047|Weapon_Rifle.001Action
+  - first:
+      74: 4232510727052767480
+    second: Cube.044|Cube.007Action
+  - first:
+      74: 8849395270519895932
+    second: Cube.044|Cube.008Action
+  - first:
+      74: -2622911346132491397
+    second: Cube.044|Cube.013Action
+  - first:
+      74: -2983105152744522855
+    second: Cube.044|Cube.016Action.000
+  - first:
+      74: -3490189361336137195
+    second: Cube.044|Cube.016Action.002
+  - first:
+      74: -5934248544416483879
+    second: Cube.044|Cube.017Action.000
+  - first:
+      74: 4704797924491606959
+    second: Cube.044|Cube.017Action.002
+  - first:
+      74: -7712968307037241377
+    second: Cube.044|Cube.018Action.002
+  - first:
+      74: -6920509865860019920
+    second: Cube.044|Cube.043Action
+  - first:
+      74: -168260408976350508
+    second: Cube.044|Cube.044Action
+  - first:
+      74: -4758252976564542419
+    second: Cube.044|Cube.045Action
+  - first:
+      74: 5099294949378961502
+    second: Cube.044|Cube.046Action
+  - first:
+      74: -8826612798300417205
+    second: Cube.044|Cube.047Action
+  - first:
+      74: -3185682053193123451
+    second: Cube.044|Cube.048Action
+  - first:
+      74: -3458938394777279883
+    second: Cube.044|Cube.049Action
+  - first:
+      74: -2005604868458028454
+    second: Cube.044|Cube.050Action
+  - first:
+      74: 6644224781461274248
+    second: Cube.044|Cube.051Action
+  - first:
+      74: 4160142761342203506
+    second: Cube.044|Cube.052Action
+  - first:
+      74: -5429304238420102199
+    second: Cube.044|Cube.053Action
+  - first:
+      74: 8071023668770625548
+    second: Cube.044|Cube.054Action
+  - first:
+      74: 4508880194630880371
+    second: Cube.044|Cube.055Action
+  - first:
+      74: 1901501754009797357
+    second: Cube.044|Cube.055Action.001
+  - first:
+      74: 7128955863237501157
+    second: Cube.044|Cube.056Action
+  - first:
+      74: 432817515974892331
+    second: Cube.044|Cube.057Action
+  - first:
+      74: -7539908954462405134
+    second: Cube.044|Cube.058Action
+  - first:
+      74: 2664000510852545116
+    second: Cube.044|Forearm_LAction
+  - first:
+      74: 4105120565687497969
+    second: Cube.044|Pelvis_MainAction
+  - first:
+      74: 1849224232963170604
+    second: Cube.044|Pelvis_MainAction.001
+  - first:
+      74: 758124510557488086
+    second: Cube.044|Pelvis_MainAction.002
+  - first:
+      74: 6183588207987843795
+    second: Cube.044|Quad Sphere.003Action
+  - first:
+      74: -3578416846058810776
+    second: Cube.044|Quad Sphere.003Action.001
+  - first:
+      74: -1909935508135903326
+    second: Cube.044|Quad Sphere.003Action.002
+  - first:
+      74: -210144318831790390
+    second: Cube.044|Quad Sphere.003Action.003
+  - first:
+      74: -4358481356040133485
+    second: Cube.044|Quad SphereAction
+  - first:
+      74: -126177548593714196
+    second: Cube.044|Torso_MainAction
+  - first:
+      74: -5635504984110834539
+    second: Cube.044|Torso_MainAction.001
+  - first:
+      74: 6036095168741969946
+    second: Cube.044|Weapon_Rifle.001Action
+  - first:
+      74: -4035012304155492304
+    second: Cube.046|Cube.007Action
+  - first:
+      74: 4575294988991840010
+    second: Cube.046|Cube.008Action
+  - first:
+      74: -3630766651458474895
+    second: Cube.046|Cube.013Action
+  - first:
+      74: 8138185657727430213
+    second: Cube.046|Cube.016Action.000
+  - first:
+      74: 8912706009706442230
+    second: Cube.046|Cube.016Action.002
+  - first:
+      74: -9208503592062222253
+    second: Cube.046|Cube.017Action.000
+  - first:
+      74: -3176695800480370379
+    second: Cube.046|Cube.017Action.002
+  - first:
+      74: -3973167622378904659
+    second: Cube.046|Cube.018Action.002
+  - first:
+      74: -9044826611010789563
+    second: Cube.046|Cube.043Action
+  - first:
+      74: -26928899378291923
+    second: Cube.046|Cube.044Action
+  - first:
+      74: -458781520064851196
+    second: Cube.046|Cube.045Action
+  - first:
+      74: -8281908042447016087
+    second: Cube.046|Cube.046Action
+  - first:
+      74: 1043810673206878842
+    second: Cube.046|Cube.047Action
+  - first:
+      74: -9141967405803556074
+    second: Cube.046|Cube.048Action
+  - first:
+      74: -4006695126213525840
+    second: Cube.046|Cube.049Action
+  - first:
+      74: -7252272236745572539
+    second: Cube.046|Cube.050Action
+  - first:
+      74: 5558735786459132951
+    second: Cube.046|Cube.051Action
+  - first:
+      74: -3748085608342082711
+    second: Cube.046|Cube.052Action
+  - first:
+      74: 2851998065636635015
+    second: Cube.046|Cube.053Action
+  - first:
+      74: -1842071207795049280
+    second: Cube.046|Cube.054Action
+  - first:
+      74: 811939496458462432
+    second: Cube.046|Cube.055Action
+  - first:
+      74: -1093074234780292139
+    second: Cube.046|Cube.055Action.001
+  - first:
+      74: 6319081010389229661
+    second: Cube.046|Cube.056Action
+  - first:
+      74: -6510519240984921056
+    second: Cube.046|Cube.057Action
+  - first:
+      74: -7840237293742902702
+    second: Cube.046|Cube.058Action
+  - first:
+      74: -522249196634936831
+    second: Cube.046|Forearm_LAction
+  - first:
+      74: -5311748697796806817
+    second: Cube.046|Pelvis_MainAction
+  - first:
+      74: 721788104033120102
+    second: Cube.046|Pelvis_MainAction.001
+  - first:
+      74: 3702104360535363955
+    second: Cube.046|Pelvis_MainAction.002
+  - first:
+      74: -3465262214259046656
+    second: Cube.046|Quad Sphere.003Action
+  - first:
+      74: -3988464816949768925
+    second: Cube.046|Quad Sphere.003Action.001
+  - first:
+      74: 4948984652073891788
+    second: Cube.046|Quad Sphere.003Action.002
+  - first:
+      74: 3635019656713164069
+    second: Cube.046|Quad Sphere.003Action.003
+  - first:
+      74: 7588519663414333614
+    second: Cube.046|Quad SphereAction
+  - first:
+      74: -5507498248756676323
+    second: Cube.046|Torso_MainAction
+  - first:
+      74: -1930666095932677639
+    second: Cube.046|Torso_MainAction.001
+  - first:
+      74: -5782152088742825911
+    second: Cube.046|Weapon_Rifle.001Action
+  - first:
+      74: -8264158633588049435
+    second: Cube.048|Cube.007Action
+  - first:
+      74: 5028970626429660972
+    second: Cube.048|Cube.008Action
+  - first:
+      74: -6421138389259544147
+    second: Cube.048|Cube.013Action
+  - first:
+      74: 8650282936379759167
+    second: Cube.048|Cube.016Action.000
+  - first:
+      74: 7628244664274678191
+    second: Cube.048|Cube.016Action.002
+  - first:
+      74: -4727355590186416534
+    second: Cube.048|Cube.017Action.000
+  - first:
+      74: 2139139063128386685
+    second: Cube.048|Cube.017Action.002
+  - first:
+      74: -4070580030751837565
+    second: Cube.048|Cube.018Action.002
+  - first:
+      74: -7962565632631379371
+    second: Cube.048|Cube.043Action
+  - first:
+      74: -3232921854529977129
+    second: Cube.048|Cube.044Action
+  - first:
+      74: 8962220485191350902
+    second: Cube.048|Cube.045Action
+  - first:
+      74: 4277833133820032322
+    second: Cube.048|Cube.046Action
+  - first:
+      74: -2153081449020430170
+    second: Cube.048|Cube.047Action
+  - first:
+      74: 1613153459614858559
+    second: Cube.048|Cube.048Action
+  - first:
+      74: 6110750494062907544
+    second: Cube.048|Cube.049Action
+  - first:
+      74: 6646497631201786314
+    second: Cube.048|Cube.050Action
+  - first:
+      74: -674957507029837330
+    second: Cube.048|Cube.051Action
+  - first:
+      74: 2896080776618895465
+    second: Cube.048|Cube.052Action
+  - first:
+      74: -496832719656594744
+    second: Cube.048|Cube.053Action
+  - first:
+      74: 1280866206527013280
+    second: Cube.048|Cube.054Action
+  - first:
+      74: -6620804643088504156
+    second: Cube.048|Cube.055Action
+  - first:
+      74: -3885352612830144498
+    second: Cube.048|Cube.055Action.001
+  - first:
+      74: 4281917989481983039
+    second: Cube.048|Cube.056Action
+  - first:
+      74: -1792993902292012619
+    second: Cube.048|Cube.057Action
+  - first:
+      74: -3274633470427196963
+    second: Cube.048|Cube.058Action
+  - first:
+      74: -5735399968306207648
+    second: Cube.048|Forearm_LAction
+  - first:
+      74: -3358314694788084550
+    second: Cube.048|Pelvis_MainAction
+  - first:
+      74: -1712865275335164748
+    second: Cube.048|Pelvis_MainAction.001
+  - first:
+      74: -8023688464363887680
+    second: Cube.048|Pelvis_MainAction.002
+  - first:
+      74: 2359995903969361793
+    second: Cube.048|Quad Sphere.003Action
+  - first:
+      74: 1841488719675803574
+    second: Cube.048|Quad Sphere.003Action.001
+  - first:
+      74: -3065384764947987376
+    second: Cube.048|Quad Sphere.003Action.002
+  - first:
+      74: 5274809323111734698
+    second: Cube.048|Quad Sphere.003Action.003
+  - first:
+      74: -1927349369620616160
+    second: Cube.048|Quad SphereAction
+  - first:
+      74: 4899425654065008033
+    second: Cube.048|Torso_MainAction
+  - first:
+      74: 966463804429707733
+    second: Cube.048|Torso_MainAction.001
+  - first:
+      74: -4202169875972403173
+    second: Cube.048|Weapon_Rifle.001Action
+  - first:
+      74: 266512130798932740
+    second: Cube.049|Cube.007Action
+  - first:
+      74: 2282800825554486048
+    second: Cube.049|Cube.008Action
+  - first:
+      74: -4776486351615715529
+    second: Cube.049|Cube.013Action
+  - first:
+      74: -8219869384982278909
+    second: Cube.049|Cube.016Action.000
+  - first:
+      74: -1375807022253723216
+    second: Cube.049|Cube.016Action.002
+  - first:
+      74: 8033802553224575248
+    second: Cube.049|Cube.017Action.000
+  - first:
+      74: -9007662234778000466
+    second: Cube.049|Cube.017Action.002
+  - first:
+      74: -7552216070962848765
+    second: Cube.049|Cube.018Action.002
+  - first:
+      74: 7494167417725833084
+    second: Cube.049|Cube.043Action
+  - first:
+      74: 6924340471759138006
+    second: Cube.049|Cube.044Action
+  - first:
+      74: -6918539725438672710
+    second: Cube.049|Cube.045Action
+  - first:
+      74: 4673716501689753353
+    second: Cube.049|Cube.046Action
+  - first:
+      74: -5641502207802999950
+    second: Cube.049|Cube.047Action
+  - first:
+      74: -3543898758455027176
+    second: Cube.049|Cube.048Action
+  - first:
+      74: 3809616402750638167
+    second: Cube.049|Cube.049Action
+  - first:
+      74: 6752927691646055269
+    second: Cube.049|Cube.050Action
+  - first:
+      74: 7087624927462610172
+    second: Cube.049|Cube.051Action
+  - first:
+      74: 3600566919714114281
+    second: Cube.049|Cube.052Action
+  - first:
+      74: 6695847373973146682
+    second: Cube.049|Cube.053Action
+  - first:
+      74: -3926669141520197271
+    second: Cube.049|Cube.054Action
+  - first:
+      74: -2563902903805618817
+    second: Cube.049|Cube.055Action
+  - first:
+      74: 8601863607891328807
+    second: Cube.049|Cube.055Action.001
+  - first:
+      74: 8250741464561084541
+    second: Cube.049|Cube.056Action
+  - first:
+      74: -345655418045797588
+    second: Cube.049|Cube.057Action
+  - first:
+      74: 3273142195785321141
+    second: Cube.049|Cube.058Action
+  - first:
+      74: -5264123658253474908
+    second: Cube.049|Forearm_LAction
+  - first:
+      74: -7215471438704025662
+    second: Cube.049|Pelvis_MainAction
+  - first:
+      74: -1763782557577610081
+    second: Cube.049|Pelvis_MainAction.001
+  - first:
+      74: -5477745632674895985
+    second: Cube.049|Pelvis_MainAction.002
+  - first:
+      74: -850886958141968026
+    second: Cube.049|Quad Sphere.003Action
+  - first:
+      74: -5139250236759528167
+    second: Cube.049|Quad Sphere.003Action.001
+  - first:
+      74: -9220032641994342662
+    second: Cube.049|Quad Sphere.003Action.002
+  - first:
+      74: 8780001087405575216
+    second: Cube.049|Quad Sphere.003Action.003
+  - first:
+      74: -1323394549794649362
+    second: Cube.049|Quad SphereAction
+  - first:
+      74: -9081516188549896013
+    second: Cube.049|Torso_MainAction
+  - first:
+      74: -6390128570316899372
+    second: Cube.049|Torso_MainAction.001
+  - first:
+      74: -8565578669592278450
+    second: Cube.049|Weapon_Rifle.001Action
+  - first:
+      74: -1061582900426454683
+    second: Cube.050|Cube.007Action
+  - first:
+      74: 4792166934552489031
+    second: Cube.050|Cube.008Action
+  - first:
+      74: -1548951652360177512
+    second: Cube.050|Cube.013Action
+  - first:
+      74: 3858586011942943060
+    second: Cube.050|Cube.016Action.000
+  - first:
+      74: -3959768144431305166
+    second: Cube.050|Cube.016Action.002
+  - first:
+      74: -4599842725484989400
+    second: Cube.050|Cube.017Action.000
+  - first:
+      74: -825336818586381312
+    second: Cube.050|Cube.017Action.002
+  - first:
+      74: 6858195491969269544
+    second: Cube.050|Cube.018Action.002
+  - first:
+      74: -3791981299472082299
+    second: Cube.050|Cube.043Action
+  - first:
+      74: -793738909154173618
+    second: Cube.050|Cube.044Action
+  - first:
+      74: 8193453697007534144
+    second: Cube.050|Cube.045Action
+  - first:
+      74: 3562749560714119463
+    second: Cube.050|Cube.046Action
+  - first:
+      74: 6141387299749553607
+    second: Cube.050|Cube.047Action
+  - first:
+      74: -3413543069250704797
+    second: Cube.050|Cube.048Action
+  - first:
+      74: 4182735066660970819
+    second: Cube.050|Cube.049Action
+  - first:
+      74: -8728188914777211896
+    second: Cube.050|Cube.050Action
+  - first:
+      74: -8073310149939377907
+    second: Cube.050|Cube.051Action
+  - first:
+      74: -7725438272710824736
+    second: Cube.050|Cube.052Action
+  - first:
+      74: -8458890581195745507
+    second: Cube.050|Cube.053Action
+  - first:
+      74: -3916318368012283134
+    second: Cube.050|Cube.054Action
+  - first:
+      74: 3387969286626520055
+    second: Cube.050|Cube.055Action
+  - first:
+      74: 3317471885021086211
+    second: Cube.050|Cube.055Action.001
+  - first:
+      74: -7479435757324903519
+    second: Cube.050|Cube.056Action
+  - first:
+      74: 7023112429504822094
+    second: Cube.050|Cube.057Action
+  - first:
+      74: 4174809966858484299
+    second: Cube.050|Cube.058Action
+  - first:
+      74: 7070392135942055930
+    second: Cube.050|Forearm_LAction
+  - first:
+      74: -1128047106743254703
+    second: Cube.050|Pelvis_MainAction
+  - first:
+      74: 586990124563139093
+    second: Cube.050|Pelvis_MainAction.001
+  - first:
+      74: -2597951350750924154
+    second: Cube.050|Pelvis_MainAction.002
+  - first:
+      74: -7730289239172915013
+    second: Cube.050|Quad Sphere.003Action
+  - first:
+      74: -4044536102085486288
+    second: Cube.050|Quad Sphere.003Action.001
+  - first:
+      74: -4737947249263317168
+    second: Cube.050|Quad Sphere.003Action.002
+  - first:
+      74: -6147213373700840790
+    second: Cube.050|Quad Sphere.003Action.003
+  - first:
+      74: -8151774888919365918
+    second: Cube.050|Quad SphereAction
+  - first:
+      74: -1113000885133133982
+    second: Cube.050|Torso_MainAction
+  - first:
+      74: 8438942249235895482
+    second: Cube.050|Torso_MainAction.001
+  - first:
+      74: 6255754550607015247
+    second: Cube.050|Weapon_Rifle.001Action
+  - first:
+      74: -2036252311505725793
+    second: Cube.051|Cube.007Action
+  - first:
+      74: -1005961451335149446
+    second: Cube.051|Cube.008Action
+  - first:
+      74: 906137249260129035
+    second: Cube.051|Cube.013Action
+  - first:
+      74: -629508280089219845
+    second: Cube.051|Cube.016Action.000
+  - first:
+      74: -3209065179276015045
+    second: Cube.051|Cube.016Action.002
+  - first:
+      74: 1515462081155352833
+    second: Cube.051|Cube.017Action.000
+  - first:
+      74: -3969994054214225681
+    second: Cube.051|Cube.017Action.002
+  - first:
+      74: -1095509956948842185
+    second: Cube.051|Cube.018Action.002
+  - first:
+      74: 349633116789903022
+    second: Cube.051|Cube.043Action
+  - first:
+      74: -9115343121591226542
+    second: Cube.051|Cube.044Action
+  - first:
+      74: -1889795603700615652
+    second: Cube.051|Cube.045Action
+  - first:
+      74: 8003739422635914432
+    second: Cube.051|Cube.046Action
+  - first:
+      74: 7359902055324110379
+    second: Cube.051|Cube.047Action
+  - first:
+      74: 8537424566853537951
+    second: Cube.051|Cube.048Action
+  - first:
+      74: 6207345814088160146
+    second: Cube.051|Cube.049Action
+  - first:
+      74: -375758766568822788
+    second: Cube.051|Cube.050Action
+  - first:
+      74: -6488800024927073329
+    second: Cube.051|Cube.051Action
+  - first:
+      74: 3950536277283156444
+    second: Cube.051|Cube.052Action
+  - first:
+      74: -3179709473949528137
+    second: Cube.051|Cube.053Action
+  - first:
+      74: 721216326623748501
+    second: Cube.051|Cube.054Action
+  - first:
+      74: 583609352013842313
+    second: Cube.051|Cube.055Action
+  - first:
+      74: 2690793918722949140
+    second: Cube.051|Cube.055Action.001
+  - first:
+      74: 4800662745234252083
+    second: Cube.051|Cube.056Action
+  - first:
+      74: 8926672837844975408
+    second: Cube.051|Cube.057Action
+  - first:
+      74: -7046126684017409985
+    second: Cube.051|Cube.058Action
+  - first:
+      74: 1386018461217950796
+    second: Cube.051|Forearm_LAction
+  - first:
+      74: -2001466415338537235
+    second: Cube.051|Pelvis_MainAction
+  - first:
+      74: 2897457065760442638
+    second: Cube.051|Pelvis_MainAction.001
+  - first:
+      74: 1923000858458093144
+    second: Cube.051|Pelvis_MainAction.002
+  - first:
+      74: -3275762657586720576
+    second: Cube.051|Quad Sphere.003Action
+  - first:
+      74: -3210469760759645410
+    second: Cube.051|Quad Sphere.003Action.001
+  - first:
+      74: -8830350501569243343
+    second: Cube.051|Quad Sphere.003Action.002
+  - first:
+      74: -8644335655293469355
+    second: Cube.051|Quad Sphere.003Action.003
+  - first:
+      74: 2049029393952332721
+    second: Cube.051|Quad SphereAction
+  - first:
+      74: 5925338768991151627
+    second: Cube.051|Torso_MainAction
+  - first:
+      74: 8173453761418176878
+    second: Cube.051|Torso_MainAction.001
+  - first:
+      74: -6190354215358277644
+    second: Cube.051|Weapon_Rifle.001Action
+  - first:
+      74: -8558966108558483867
+    second: Cube.052|Cube.007Action
+  - first:
+      74: -4862817399460450445
+    second: Cube.052|Cube.008Action
+  - first:
+      74: -8919795098034378506
+    second: Cube.052|Cube.013Action
+  - first:
+      74: 5720603756338859657
+    second: Cube.052|Cube.016Action.000
+  - first:
+      74: 3499606362100522646
+    second: Cube.052|Cube.016Action.002
+  - first:
+      74: 5287626030170600298
+    second: Cube.052|Cube.017Action.000
+  - first:
+      74: -6336351382990305089
+    second: Cube.052|Cube.017Action.002
+  - first:
+      74: 6937391401164227704
+    second: Cube.052|Cube.018Action.002
+  - first:
+      74: -3523443702481765813
+    second: Cube.052|Cube.043Action
+  - first:
+      74: 8448112373991275964
+    second: Cube.052|Cube.044Action
+  - first:
+      74: -572008498908234469
+    second: Cube.052|Cube.045Action
+  - first:
+      74: 8562426664977558128
+    second: Cube.052|Cube.046Action
+  - first:
+      74: -1042819647623522138
+    second: Cube.052|Cube.047Action
+  - first:
+      74: 3068440952527760556
+    second: Cube.052|Cube.048Action
+  - first:
+      74: -9013562954935125834
+    second: Cube.052|Cube.049Action
+  - first:
+      74: 2732006120480738694
+    second: Cube.052|Cube.050Action
+  - first:
+      74: 1014088560107695466
+    second: Cube.052|Cube.051Action
+  - first:
+      74: -5110516493211333246
+    second: Cube.052|Cube.052Action
+  - first:
+      74: 8422988827220309214
+    second: Cube.052|Cube.053Action
+  - first:
+      74: 197092470852089337
+    second: Cube.052|Cube.054Action
+  - first:
+      74: 7269247704015054163
+    second: Cube.052|Cube.055Action
+  - first:
+      74: -9045308182912335825
+    second: Cube.052|Cube.055Action.001
+  - first:
+      74: -1756140436026970814
+    second: Cube.052|Cube.056Action
+  - first:
+      74: 4772629504642255602
+    second: Cube.052|Cube.057Action
+  - first:
+      74: 5686591346941590111
+    second: Cube.052|Cube.058Action
+  - first:
+      74: 2010567047126987644
+    second: Cube.052|Forearm_LAction
+  - first:
+      74: -208449573811978727
+    second: Cube.052|Pelvis_MainAction
+  - first:
+      74: 2566751910850354585
+    second: Cube.052|Pelvis_MainAction.001
+  - first:
+      74: 3567050362936461913
+    second: Cube.052|Pelvis_MainAction.002
+  - first:
+      74: -7647674750426586691
+    second: Cube.052|Quad Sphere.003Action
+  - first:
+      74: -4904777432299301173
+    second: Cube.052|Quad Sphere.003Action.001
+  - first:
+      74: -3978345824331090309
+    second: Cube.052|Quad Sphere.003Action.002
+  - first:
+      74: -7717602015351344966
+    second: Cube.052|Quad Sphere.003Action.003
+  - first:
+      74: -4679243862437037398
+    second: Cube.052|Quad SphereAction
+  - first:
+      74: 83350408694027909
+    second: Cube.052|Torso_MainAction
+  - first:
+      74: -1053212577236028782
+    second: Cube.052|Torso_MainAction.001
+  - first:
+      74: 8545484702166177607
+    second: Cube.052|Weapon_Rifle.001Action
+  - first:
+      74: 1804068305009992542
+    second: Cube.053|Cube.007Action
+  - first:
+      74: -4673363790357121761
+    second: Cube.053|Cube.008Action
+  - first:
+      74: -9216001079079700196
+    second: Cube.053|Cube.013Action
+  - first:
+      74: -680618311766961267
+    second: Cube.053|Cube.016Action.000
+  - first:
+      74: 3659340546381216646
+    second: Cube.053|Cube.016Action.002
+  - first:
+      74: -8511088570565030007
+    second: Cube.053|Cube.017Action.000
+  - first:
+      74: -6463322681519089702
+    second: Cube.053|Cube.017Action.002
+  - first:
+      74: -4547881660833445949
+    second: Cube.053|Cube.018Action.002
+  - first:
+      74: 8893961879518511786
+    second: Cube.053|Cube.043Action
+  - first:
+      74: 6149607849111498004
+    second: Cube.053|Cube.044Action
+  - first:
+      74: 5285011156762219140
+    second: Cube.053|Cube.045Action
+  - first:
+      74: 663976401495569156
+    second: Cube.053|Cube.046Action
+  - first:
+      74: -1712818156755322873
+    second: Cube.053|Cube.047Action
+  - first:
+      74: 3704177027955096387
+    second: Cube.053|Cube.048Action
+  - first:
+      74: 4358946033499607503
+    second: Cube.053|Cube.049Action
+  - first:
+      74: -6053315185957342647
+    second: Cube.053|Cube.050Action
+  - first:
+      74: -2155580841784648937
+    second: Cube.053|Cube.051Action
+  - first:
+      74: 4785749353509012192
+    second: Cube.053|Cube.052Action
+  - first:
+      74: 3857168442375420484
+    second: Cube.053|Cube.053Action
+  - first:
+      74: -1341782445976769939
+    second: Cube.053|Cube.054Action
+  - first:
+      74: 6142613824110425520
+    second: Cube.053|Cube.055Action
+  - first:
+      74: -7552699672233943034
+    second: Cube.053|Cube.055Action.001
+  - first:
+      74: 8288922815085092242
+    second: Cube.053|Cube.056Action
+  - first:
+      74: -1483911499895645508
+    second: Cube.053|Cube.057Action
+  - first:
+      74: -6043633510647759919
+    second: Cube.053|Cube.058Action
+  - first:
+      74: -832799537554836162
+    second: Cube.053|Forearm_LAction
+  - first:
+      74: -2571575410161816936
+    second: Cube.053|Pelvis_MainAction
+  - first:
+      74: -9223225502741305462
+    second: Cube.053|Pelvis_MainAction.001
+  - first:
+      74: -739638389482457902
+    second: Cube.053|Pelvis_MainAction.002
+  - first:
+      74: -8252129760804099759
+    second: Cube.053|Quad Sphere.003Action
+  - first:
+      74: -1245823235546971102
+    second: Cube.053|Quad Sphere.003Action.001
+  - first:
+      74: -56633804913229887
+    second: Cube.053|Quad Sphere.003Action.002
+  - first:
+      74: 1906518791866968317
+    second: Cube.053|Quad Sphere.003Action.003
+  - first:
+      74: -2137791228716460421
+    second: Cube.053|Quad SphereAction
+  - first:
+      74: -2990680660090708514
+    second: Cube.053|Torso_MainAction
+  - first:
+      74: 2615100154032301548
+    second: Cube.053|Torso_MainAction.001
+  - first:
+      74: -8418379614645123914
+    second: Cube.053|Weapon_Rifle.001Action
+  - first:
+      74: 8050533913675463775
+    second: Cube.054|Cube.007Action
+  - first:
+      74: 2394198025893698021
+    second: Cube.054|Cube.008Action
+  - first:
+      74: -1758617958777743597
+    second: Cube.054|Cube.013Action
+  - first:
+      74: 1120746645100966089
+    second: Cube.054|Cube.016Action.000
+  - first:
+      74: -7582817100010121610
+    second: Cube.054|Cube.016Action.002
+  - first:
+      74: 245389720468517938
+    second: Cube.054|Cube.017Action.000
+  - first:
+      74: 432845922795908007
+    second: Cube.054|Cube.017Action.002
+  - first:
+      74: 1155519241760292923
+    second: Cube.054|Cube.018Action.002
+  - first:
+      74: -1058011191714661995
+    second: Cube.054|Cube.043Action
+  - first:
+      74: -6369952870691496925
+    second: Cube.054|Cube.044Action
+  - first:
+      74: -5696396606118565758
+    second: Cube.054|Cube.045Action
+  - first:
+      74: -7432753949801554710
+    second: Cube.054|Cube.046Action
+  - first:
+      74: 2286072627910720058
+    second: Cube.054|Cube.047Action
+  - first:
+      74: -8851617436374771686
+    second: Cube.054|Cube.048Action
+  - first:
+      74: -7689788063171717050
+    second: Cube.054|Cube.049Action
+  - first:
+      74: 2433059547320499944
+    second: Cube.054|Cube.050Action
+  - first:
+      74: -9158540056710208079
+    second: Cube.054|Cube.051Action
+  - first:
+      74: 4142428331634289992
+    second: Cube.054|Cube.052Action
+  - first:
+      74: 5989020287426743718
+    second: Cube.054|Cube.053Action
+  - first:
+      74: -6895646324795272509
+    second: Cube.054|Cube.054Action
+  - first:
+      74: 4945858986785935432
+    second: Cube.054|Cube.055Action
+  - first:
+      74: 2692883498139405342
+    second: Cube.054|Cube.055Action.001
+  - first:
+      74: 7865351882922646321
+    second: Cube.054|Cube.056Action
+  - first:
+      74: 1297449645679472491
+    second: Cube.054|Cube.057Action
+  - first:
+      74: 5918791120307974770
+    second: Cube.054|Cube.058Action
+  - first:
+      74: 4211549604405376197
+    second: Cube.054|Forearm_LAction
+  - first:
+      74: 2391402596731410082
+    second: Cube.054|Pelvis_MainAction
+  - first:
+      74: 5323075429355003374
+    second: Cube.054|Pelvis_MainAction.001
+  - first:
+      74: -2089625233731856358
+    second: Cube.054|Pelvis_MainAction.002
+  - first:
+      74: 5713147428040764580
+    second: Cube.054|Quad Sphere.003Action
+  - first:
+      74: 1137048554324490323
+    second: Cube.054|Quad Sphere.003Action.001
+  - first:
+      74: -7423944068340413118
+    second: Cube.054|Quad Sphere.003Action.002
+  - first:
+      74: 8397875755350270539
+    second: Cube.054|Quad Sphere.003Action.003
+  - first:
+      74: 6886658833468515735
+    second: Cube.054|Quad SphereAction
+  - first:
+      74: -4579533451771093992
+    second: Cube.054|Torso_MainAction
+  - first:
+      74: 3471781904143017206
+    second: Cube.054|Torso_MainAction.001
+  - first:
+      74: 7811758940599469858
+    second: Cube.054|Weapon_Rifle.001Action
+  - first:
+      74: 912370149602254603
+    second: Cube.056|Cube.007Action
+  - first:
+      74: 7657961645285582584
+    second: Cube.056|Cube.008Action
+  - first:
+      74: 2586085398452236902
+    second: Cube.056|Cube.013Action
+  - first:
+      74: 8554624616724771768
+    second: Cube.056|Cube.016Action.000
+  - first:
+      74: -2434668566974733035
+    second: Cube.056|Cube.016Action.002
+  - first:
+      74: -1423162729286259350
+    second: Cube.056|Cube.017Action.000
+  - first:
+      74: -7911556682623130617
+    second: Cube.056|Cube.017Action.002
+  - first:
+      74: -4525717535297452177
+    second: Cube.056|Cube.018Action.002
+  - first:
+      74: -8598186168418132097
+    second: Cube.056|Cube.043Action
+  - first:
+      74: 2661707443865339341
+    second: Cube.056|Cube.044Action
+  - first:
+      74: -1032326712525335661
+    second: Cube.056|Cube.045Action
+  - first:
+      74: 1158748603260053280
+    second: Cube.056|Cube.046Action
+  - first:
+      74: -6075750880423738382
+    second: Cube.056|Cube.047Action
+  - first:
+      74: -5700810229963720461
+    second: Cube.056|Cube.048Action
+  - first:
+      74: 4345565645799159531
+    second: Cube.056|Cube.049Action
+  - first:
+      74: 3283412524064073225
+    second: Cube.056|Cube.050Action
+  - first:
+      74: -8337879134854375249
+    second: Cube.056|Cube.051Action
+  - first:
+      74: -5744946860573999246
+    second: Cube.056|Cube.052Action
+  - first:
+      74: 8678399359037300681
+    second: Cube.056|Cube.053Action
+  - first:
+      74: 8868102717781546199
+    second: Cube.056|Cube.054Action
+  - first:
+      74: 306190953148825085
+    second: Cube.056|Cube.055Action
+  - first:
+      74: -4464673279288586398
+    second: Cube.056|Cube.055Action.001
+  - first:
+      74: 6206517947901237340
+    second: Cube.056|Cube.056Action
+  - first:
+      74: 1410523006802052422
+    second: Cube.056|Cube.057Action
+  - first:
+      74: -4237807791916066083
+    second: Cube.056|Cube.058Action
+  - first:
+      74: 8092827503831142537
+    second: Cube.056|Forearm_LAction
+  - first:
+      74: -2780370708559179216
+    second: Cube.056|Pelvis_MainAction
+  - first:
+      74: -8635158867150506733
+    second: Cube.056|Pelvis_MainAction.001
+  - first:
+      74: 2623859426873711805
+    second: Cube.056|Pelvis_MainAction.002
+  - first:
+      74: -7421690666470108652
+    second: Cube.056|Quad Sphere.003Action
+  - first:
+      74: 677328378102533561
+    second: Cube.056|Quad Sphere.003Action.001
+  - first:
+      74: -4175134252295332078
+    second: Cube.056|Quad Sphere.003Action.002
+  - first:
+      74: 296914653513404753
+    second: Cube.056|Quad Sphere.003Action.003
+  - first:
+      74: 4389569082218945582
+    second: Cube.056|Quad SphereAction
+  - first:
+      74: -7491777925685310642
+    second: Cube.056|Torso_MainAction
+  - first:
+      74: 5912114958383817418
+    second: Cube.056|Torso_MainAction.001
+  - first:
+      74: -7595837455032337142
+    second: Cube.056|Weapon_Rifle.001Action
+  - first:
+      74: 653804828625551438
+    second: Cube.057|Cube.007Action
+  - first:
+      74: -6878952053094410375
+    second: Cube.057|Cube.008Action
+  - first:
+      74: 175429005849932408
+    second: Cube.057|Cube.013Action
+  - first:
+      74: 8985814120319456405
+    second: Cube.057|Cube.016Action.000
+  - first:
+      74: -734964769146888660
+    second: Cube.057|Cube.016Action.002
+  - first:
+      74: -6188916782034436085
+    second: Cube.057|Cube.017Action.000
+  - first:
+      74: -5466468415034317448
+    second: Cube.057|Cube.017Action.002
+  - first:
+      74: 5337977555382704518
+    second: Cube.057|Cube.018Action.002
+  - first:
+      74: 2982821906208988561
+    second: Cube.057|Cube.043Action
+  - first:
+      74: 6359700537223939915
+    second: Cube.057|Cube.044Action
+  - first:
+      74: -6257922671262043904
+    second: Cube.057|Cube.045Action
+  - first:
+      74: 1220077697327489277
+    second: Cube.057|Cube.046Action
+  - first:
+      74: -6730153829424553424
+    second: Cube.057|Cube.047Action
+  - first:
+      74: -4920255953748165680
+    second: Cube.057|Cube.048Action
+  - first:
+      74: -5424434234158116097
+    second: Cube.057|Cube.049Action
+  - first:
+      74: -1792475345380176597
+    second: Cube.057|Cube.050Action
+  - first:
+      74: 7267288800106985654
+    second: Cube.057|Cube.051Action
+  - first:
+      74: 8637727499745417438
+    second: Cube.057|Cube.052Action
+  - first:
+      74: 3963101998851988598
+    second: Cube.057|Cube.053Action
+  - first:
+      74: -6342767229060088047
+    second: Cube.057|Cube.054Action
+  - first:
+      74: 8793962319465063104
+    second: Cube.057|Cube.055Action
+  - first:
+      74: 4117293934624912016
+    second: Cube.057|Cube.055Action.001
+  - first:
+      74: 3556422989552224074
+    second: Cube.057|Cube.056Action
+  - first:
+      74: 7550974650261869020
+    second: Cube.057|Cube.057Action
+  - first:
+      74: -3016471083077386324
+    second: Cube.057|Cube.058Action
+  - first:
+      74: -727957733626239451
+    second: Cube.057|Forearm_LAction
+  - first:
+      74: 2698472465048290238
+    second: Cube.057|Pelvis_MainAction
+  - first:
+      74: 247636459993524681
+    second: Cube.057|Pelvis_MainAction.001
+  - first:
+      74: -6752492268087507974
+    second: Cube.057|Pelvis_MainAction.002
+  - first:
+      74: 8888513024500940039
+    second: Cube.057|Quad Sphere.003Action
+  - first:
+      74: -5892711452792050513
+    second: Cube.057|Quad Sphere.003Action.001
+  - first:
+      74: 1604715379981420394
+    second: Cube.057|Quad Sphere.003Action.002
+  - first:
+      74: -7947146571425828702
+    second: Cube.057|Quad Sphere.003Action.003
+  - first:
+      74: -4719965856347564814
+    second: Cube.057|Quad SphereAction
+  - first:
+      74: -1939835474944027222
+    second: Cube.057|Torso_MainAction
+  - first:
+      74: -7884103894704044876
+    second: Cube.057|Torso_MainAction.001
+  - first:
+      74: -8868356350210562815
+    second: Cube.057|Weapon_Rifle.001Action
+  - first:
+      74: 6709373751660459683
+    second: Cube.058|Cube.007Action
+  - first:
+      74: -5344640322665744754
+    second: Cube.058|Cube.008Action
+  - first:
+      74: -8898060143397585728
+    second: Cube.058|Cube.013Action
+  - first:
+      74: -6902608258800572109
+    second: Cube.058|Cube.016Action.000
+  - first:
+      74: -6063941316057527046
+    second: Cube.058|Cube.016Action.002
+  - first:
+      74: -244901956906114353
+    second: Cube.058|Cube.017Action.000
+  - first:
+      74: -5216007089872070396
+    second: Cube.058|Cube.017Action.002
+  - first:
+      74: -6383341761894447898
+    second: Cube.058|Cube.018Action.002
+  - first:
+      74: -6800102972941672184
+    second: Cube.058|Cube.043Action
+  - first:
+      74: 2335384601211331782
+    second: Cube.058|Cube.044Action
+  - first:
+      74: 6844427230520259747
+    second: Cube.058|Cube.045Action
+  - first:
+      74: -9217164412470800809
+    second: Cube.058|Cube.046Action
+  - first:
+      74: 3415123097058871628
+    second: Cube.058|Cube.047Action
+  - first:
+      74: 4598344341375301716
+    second: Cube.058|Cube.048Action
+  - first:
+      74: 3991030872835744622
+    second: Cube.058|Cube.049Action
+  - first:
+      74: -291633760177095571
+    second: Cube.058|Cube.050Action
+  - first:
+      74: -4734015267736555227
+    second: Cube.058|Cube.051Action
+  - first:
+      74: -6744380013043768905
+    second: Cube.058|Cube.052Action
+  - first:
+      74: -6835487674177348109
+    second: Cube.058|Cube.053Action
+  - first:
+      74: -4744779555578949039
+    second: Cube.058|Cube.054Action
+  - first:
+      74: -4643122214148217456
+    second: Cube.058|Cube.055Action
+  - first:
+      74: 7912675162972713355
+    second: Cube.058|Cube.055Action.001
+  - first:
+      74: 4585654957139054083
+    second: Cube.058|Cube.056Action
+  - first:
+      74: 9022967478408876051
+    second: Cube.058|Cube.057Action
+  - first:
+      74: 1716598873292274741
+    second: Cube.058|Cube.058Action
+  - first:
+      74: 7169985890685378332
+    second: Cube.058|Forearm_LAction
+  - first:
+      74: -4244947867482628972
+    second: Cube.058|Pelvis_MainAction
+  - first:
+      74: -8964146108626026751
+    second: Cube.058|Pelvis_MainAction.001
+  - first:
+      74: 4637006295929324174
+    second: Cube.058|Pelvis_MainAction.002
+  - first:
+      74: -6398299042865347238
+    second: Cube.058|Quad Sphere.003Action
+  - first:
+      74: -2668858293916416529
+    second: Cube.058|Quad Sphere.003Action.001
+  - first:
+      74: -3362309480215329842
+    second: Cube.058|Quad Sphere.003Action.002
+  - first:
+      74: 1231981625380317823
+    second: Cube.058|Quad Sphere.003Action.003
+  - first:
+      74: -909810155208012454
+    second: Cube.058|Quad SphereAction
+  - first:
+      74: 1223307673471175569
+    second: Cube.058|Torso_MainAction
+  - first:
+      74: -6822680372212074850
+    second: Cube.058|Torso_MainAction.001
+  - first:
+      74: -7071910292416011661
+    second: Cube.058|Weapon_Rifle.001Action
+  - first:
+      74: 3272805957760374009
+    second: Cube.013|Cube.007Action
+  - first:
+      74: -6570428016461840747
+    second: Cube.013|Cube.008Action
+  - first:
+      74: 4287179037922127428
+    second: Cube.013|Cube.013Action
+  - first:
+      74: 5974878282615754864
+    second: Cube.013|Cube.016Action.000
+  - first:
+      74: -2181348137676773226
+    second: Cube.013|Cube.016Action.002
+  - first:
+      74: 1512150538985375911
+    second: Cube.013|Cube.017Action.000
+  - first:
+      74: -5317673289462239946
+    second: Cube.013|Cube.017Action.002
+  - first:
+      74: 1791137884978170646
+    second: Cube.013|Cube.018Action.002
+  - first:
+      74: -8814433196727490710
+    second: Cube.013|Cube.043Action
+  - first:
+      74: 4333384277631227283
+    second: Cube.013|Cube.044Action
+  - first:
+      74: 4571786537778568820
+    second: Cube.013|Cube.045Action
+  - first:
+      74: -8899591261898856345
+    second: Cube.013|Cube.046Action
+  - first:
+      74: 4227904921701677895
+    second: Cube.013|Cube.047Action
+  - first:
+      74: 6957533509373736979
+    second: Cube.013|Cube.048Action
+  - first:
+      74: 8280177030980881616
+    second: Cube.013|Cube.049Action
+  - first:
+      74: -6031306638462970230
+    second: Cube.013|Cube.050Action
+  - first:
+      74: 5444233174407076724
+    second: Cube.013|Cube.051Action
+  - first:
+      74: 3438841110102948668
+    second: Cube.013|Cube.052Action
+  - first:
+      74: -7100210848357094933
+    second: Cube.013|Cube.053Action
+  - first:
+      74: 6507574200258477078
+    second: Cube.013|Cube.054Action
+  - first:
+      74: 8923016663209664012
+    second: Cube.013|Cube.055Action
+  - first:
+      74: 8899796892680740375
+    second: Cube.013|Cube.055Action.001
+  - first:
+      74: 7437783936704281512
+    second: Cube.013|Cube.056Action
+  - first:
+      74: -4424123843736897154
+    second: Cube.013|Cube.057Action
+  - first:
+      74: 4238664974379589692
+    second: Cube.013|Cube.058Action
+  - first:
+      74: 5254537733255017261
+    second: Cube.013|Forearm_LAction
+  - first:
+      74: 2744132345216378990
+    second: Cube.013|Pelvis_MainAction
+  - first:
+      74: 3479062166754312959
+    second: Cube.013|Pelvis_MainAction.001
+  - first:
+      74: -5309405497327543343
+    second: Cube.013|Pelvis_MainAction.002
+  - first:
+      74: -6196904872527998337
+    second: Cube.013|Quad Sphere.003Action
+  - first:
+      74: -1390473075424606928
+    second: Cube.013|Quad Sphere.003Action.001
+  - first:
+      74: -6365390462328566983
+    second: Cube.013|Quad Sphere.003Action.002
+  - first:
+      74: 1257802296169455410
+    second: Cube.013|Quad Sphere.003Action.003
+  - first:
+      74: -6407930154938108909
+    second: Cube.013|Quad SphereAction
+  - first:
+      74: -8153674519299558090
+    second: Cube.013|Torso_MainAction
+  - first:
+      74: -5151926808653791850
+    second: Cube.013|Torso_MainAction.001
+  - first:
+      74: -4667390738395963862
+    second: Cube.013|Weapon_Rifle.001Action
+  - first:
+      74: 7667764241029340554
+    second: Forearm_L|Cube.007Action
+  - first:
+      74: 1210226801521590738
+    second: Forearm_L|Cube.008Action
+  - first:
+      74: -8470787090012249252
+    second: Forearm_L|Cube.013Action
+  - first:
+      74: -9082051962372023674
+    second: Forearm_L|Cube.016Action.000
+  - first:
+      74: 8400787373569605804
+    second: Forearm_L|Cube.016Action.002
+  - first:
+      74: 8115131658689329399
+    second: Forearm_L|Cube.017Action.000
+  - first:
+      74: -2979407156537510616
+    second: Forearm_L|Cube.017Action.002
+  - first:
+      74: 2136275733622244982
+    second: Forearm_L|Cube.018Action.002
+  - first:
+      74: -5130425173326920862
+    second: Forearm_L|Cube.043Action
+  - first:
+      74: -1812865775329348603
+    second: Forearm_L|Cube.044Action
+  - first:
+      74: 2527065322216243658
+    second: Forearm_L|Cube.045Action
+  - first:
+      74: -2013402506095381853
+    second: Forearm_L|Cube.046Action
+  - first:
+      74: 7370723416660546936
+    second: Forearm_L|Cube.047Action
+  - first:
+      74: -4876378810609328713
+    second: Forearm_L|Cube.048Action
+  - first:
+      74: 791076398930345288
+    second: Forearm_L|Cube.049Action
+  - first:
+      74: 8268030593437290918
+    second: Forearm_L|Cube.050Action
+  - first:
+      74: -7478695857802061871
+    second: Forearm_L|Cube.051Action
+  - first:
+      74: 5931598796471680610
+    second: Forearm_L|Cube.052Action
+  - first:
+      74: -1925094425631035640
+    second: Forearm_L|Cube.053Action
+  - first:
+      74: -7349679991940132674
+    second: Forearm_L|Cube.054Action
+  - first:
+      74: -1016691061994404419
+    second: Forearm_L|Cube.055Action
+  - first:
+      74: -3250871388394826456
+    second: Forearm_L|Cube.055Action.001
+  - first:
+      74: 5491904904605983749
+    second: Forearm_L|Cube.056Action
+  - first:
+      74: -2800963692423710503
+    second: Forearm_L|Cube.057Action
+  - first:
+      74: 1331747367806465405
+    second: Forearm_L|Cube.058Action
+  - first:
+      74: 2555043706442634526
+    second: Forearm_L|Forearm_LAction
+  - first:
+      74: 7656658686191555579
+    second: Forearm_L|Pelvis_MainAction
+  - first:
+      74: 7320331391288954370
+    second: Forearm_L|Pelvis_MainAction.001
+  - first:
+      74: 5942118989299921230
+    second: Forearm_L|Pelvis_MainAction.002
+  - first:
+      74: -550074593019495068
+    second: Forearm_L|Quad Sphere.003Action
+  - first:
+      74: -87859923688064435
+    second: Forearm_L|Quad Sphere.003Action.001
+  - first:
+      74: -8795033956463954132
+    second: Forearm_L|Quad Sphere.003Action.002
+  - first:
+      74: 7956264223267430050
+    second: Forearm_L|Quad Sphere.003Action.003
+  - first:
+      74: -8711984801750206621
+    second: Forearm_L|Quad SphereAction
+  - first:
+      74: 2557291334724526899
+    second: Forearm_L|Torso_MainAction
+  - first:
+      74: -777728825964890457
+    second: Forearm_L|Torso_MainAction.001
+  - first:
+      74: 1272268987802307705
+    second: Forearm_L|Weapon_Rifle.001Action
+  - first:
+      74: 332400317148878683
+    second: Quad Sphere|Cube.007Action
+  - first:
+      74: -829947770342473531
+    second: Quad Sphere|Cube.008Action
+  - first:
+      74: 3746788218991497462
+    second: Quad Sphere|Cube.013Action
+  - first:
+      74: -8841010458905551560
+    second: Quad Sphere|Cube.016Action.000
+  - first:
+      74: 2421974308446513821
+    second: Quad Sphere|Cube.016Action.002
+  - first:
+      74: -2911354535295360513
+    second: Quad Sphere|Cube.017Action.000
+  - first:
+      74: -7619416208952912719
+    second: Quad Sphere|Cube.017Action.002
+  - first:
+      74: 5119778405851084597
+    second: Quad Sphere|Cube.018Action.002
+  - first:
+      74: 3404572492143563518
+    second: Quad Sphere|Cube.043Action
+  - first:
+      74: -3433791309858400377
+    second: Quad Sphere|Cube.044Action
+  - first:
+      74: -975840076394737094
+    second: Quad Sphere|Cube.045Action
+  - first:
+      74: 190297687781755955
+    second: Quad Sphere|Cube.046Action
+  - first:
+      74: 8500463138585203787
+    second: Quad Sphere|Cube.047Action
+  - first:
+      74: 4155111125933286298
+    second: Quad Sphere|Cube.048Action
+  - first:
+      74: -3075997720014599967
+    second: Quad Sphere|Cube.049Action
+  - first:
+      74: -709933319436071186
+    second: Quad Sphere|Cube.050Action
+  - first:
+      74: 4140296220071704729
+    second: Quad Sphere|Cube.051Action
+  - first:
+      74: 4663161882288156165
+    second: Quad Sphere|Cube.052Action
+  - first:
+      74: -27991823360758613
+    second: Quad Sphere|Cube.053Action
+  - first:
+      74: 4452034473023797879
+    second: Quad Sphere|Cube.054Action
+  - first:
+      74: -2271317658681642463
+    second: Quad Sphere|Cube.055Action
+  - first:
+      74: 4440799830112390153
+    second: Quad Sphere|Cube.055Action.001
+  - first:
+      74: -72962277106864374
+    second: Quad Sphere|Cube.056Action
+  - first:
+      74: -5431409349736576909
+    second: Quad Sphere|Cube.057Action
+  - first:
+      74: -8662925332893913177
+    second: Quad Sphere|Cube.058Action
+  - first:
+      74: 970214076257509842
+    second: Quad Sphere|Forearm_LAction
+  - first:
+      74: -3883029991249131715
+    second: Quad Sphere|Pelvis_MainAction
+  - first:
+      74: 6349233996099777792
+    second: Quad Sphere|Pelvis_MainAction.001
+  - first:
+      74: -5811023976689263251
+    second: Quad Sphere|Pelvis_MainAction.002
+  - first:
+      74: 3801389079779210766
+    second: Quad Sphere|Quad Sphere.003Action
+  - first:
+      74: -8902290564960120819
+    second: Quad Sphere|Quad Sphere.003Action.001
+  - first:
+      74: 427096383646919588
+    second: Quad Sphere|Quad Sphere.003Action.002
+  - first:
+      74: 6482421227525838365
+    second: Quad Sphere|Quad Sphere.003Action.003
+  - first:
+      74: 6721386385646643415
+    second: Quad Sphere|Quad SphereAction
+  - first:
+      74: 1119503284359322790
+    second: Quad Sphere|Torso_MainAction
+  - first:
+      74: 4940074755713499403
+    second: Quad Sphere|Torso_MainAction.001
+  - first:
+      74: 2242238728984120330
+    second: Quad Sphere|Weapon_Rifle.001Action
+  - first:
+      74: 1393053600406604201
+    second: Cube.055|Cube.007Action
+  - first:
+      74: 7123212459432239786
+    second: Cube.055|Cube.008Action
+  - first:
+      74: -6965278090587193457
+    second: Cube.055|Cube.013Action
+  - first:
+      74: 1913470200605706512
+    second: Cube.055|Cube.016Action.000
+  - first:
+      74: 6396014001575091169
+    second: Cube.055|Cube.016Action.002
+  - first:
+      74: -2211987972415396467
+    second: Cube.055|Cube.017Action.000
+  - first:
+      74: 1026472338127005584
+    second: Cube.055|Cube.017Action.002
+  - first:
+      74: 5025745028589821049
+    second: Cube.055|Cube.018Action.002
+  - first:
+      74: -1751656969235582763
+    second: Cube.055|Cube.043Action
+  - first:
+      74: 7420416149577660566
+    second: Cube.055|Cube.044Action
+  - first:
+      74: -2934938961277869917
+    second: Cube.055|Cube.045Action
+  - first:
+      74: 1336920072067285631
+    second: Cube.055|Cube.046Action
+  - first:
+      74: -2253922866367525943
+    second: Cube.055|Cube.047Action
+  - first:
+      74: -968641204451045453
+    second: Cube.055|Cube.048Action
+  - first:
+      74: 6298377658529230116
+    second: Cube.055|Cube.049Action
+  - first:
+      74: -7704080056633882571
+    second: Cube.055|Cube.050Action
+  - first:
+      74: 2831138385776273339
+    second: Cube.055|Cube.051Action
+  - first:
+      74: 4798680465094458625
+    second: Cube.055|Cube.052Action
+  - first:
+      74: 1007994162907686591
+    second: Cube.055|Cube.053Action
+  - first:
+      74: 2098622470612935320
+    second: Cube.055|Cube.054Action
+  - first:
+      74: 7100262881277849414
+    second: Cube.055|Cube.055Action
+  - first:
+      74: 7113295132303747066
+    second: Cube.055|Cube.055Action.001
+  - first:
+      74: -3084441522372216470
+    second: Cube.055|Cube.056Action
+  - first:
+      74: 3347379574362785447
+    second: Cube.055|Cube.057Action
+  - first:
+      74: 3208261403532126152
+    second: Cube.055|Cube.058Action
+  - first:
+      74: 5371782542307550319
+    second: Cube.055|Forearm_LAction
+  - first:
+      74: 2374891654135749218
+    second: Cube.055|Pelvis_MainAction
+  - first:
+      74: 5290847395916629672
+    second: Cube.055|Pelvis_MainAction.001
+  - first:
+      74: 8371119652898401089
+    second: Cube.055|Pelvis_MainAction.002
+  - first:
+      74: 3299734307589698875
+    second: Cube.055|Quad Sphere.003Action
+  - first:
+      74: 4884102151340636492
+    second: Cube.055|Quad Sphere.003Action.001
+  - first:
+      74: -350966150770260241
+    second: Cube.055|Quad Sphere.003Action.002
+  - first:
+      74: -4531575969686447952
+    second: Cube.055|Quad Sphere.003Action.003
+  - first:
+      74: 4394715059673109828
+    second: Cube.055|Quad SphereAction
+  - first:
+      74: 2536654511036986659
+    second: Cube.055|Torso_MainAction
+  - first:
+      74: -437244503607787946
+    second: Cube.055|Torso_MainAction.001
+  - first:
+      74: -799770313973716897
+    second: Cube.055|Weapon_Rifle.001Action
+  - first:
+      74: -8746993240191792416
+    second: Right Hand.001|Cube.007Action
+  - first:
+      74: -8182130751312089752
+    second: Right Hand.001|Cube.008Action
+  - first:
+      74: 1198749188620660074
+    second: Right Hand.001|Cube.013Action
+  - first:
+      74: 8561342412772663073
+    second: Right Hand.001|Cube.016Action.000
+  - first:
+      74: -7087970977467403900
+    second: Right Hand.001|Cube.016Action.002
+  - first:
+      74: -3080625756294469456
+    second: Right Hand.001|Cube.017Action.000
+  - first:
+      74: -6896573320263528778
+    second: Right Hand.001|Cube.017Action.002
+  - first:
+      74: -5296191569067394268
+    second: Right Hand.001|Cube.018Action.002
+  - first:
+      74: -7815939032371430652
+    second: Right Hand.001|Cube.043Action
+  - first:
+      74: -6110185751667610260
+    second: Right Hand.001|Cube.044Action
+  - first:
+      74: -4101654496457006470
+    second: Right Hand.001|Cube.045Action
+  - first:
+      74: 8696555924880204890
+    second: Right Hand.001|Cube.046Action
+  - first:
+      74: 3717198306153654044
+    second: Right Hand.001|Cube.047Action
+  - first:
+      74: -4604634447899898654
+    second: Right Hand.001|Cube.048Action
+  - first:
+      74: 4838125329315509752
+    second: Right Hand.001|Cube.049Action
+  - first:
+      74: 6054459565528877340
+    second: Right Hand.001|Cube.050Action
+  - first:
+      74: 3423709460420311910
+    second: Right Hand.001|Cube.051Action
+  - first:
+      74: -1398293481812824547
+    second: Right Hand.001|Cube.052Action
+  - first:
+      74: -3178773018583978436
+    second: Right Hand.001|Cube.053Action
+  - first:
+      74: 4418045648158090368
+    second: Right Hand.001|Cube.054Action
+  - first:
+      74: -3114348831425348382
+    second: Right Hand.001|Cube.055Action
+  - first:
+      74: 4258072555429112307
+    second: Right Hand.001|Cube.055Action.001
+  - first:
+      74: -3227819112988105509
+    second: Right Hand.001|Cube.056Action
+  - first:
+      74: 6117291302440209123
+    second: Right Hand.001|Cube.057Action
+  - first:
+      74: 3595836954934682887
+    second: Right Hand.001|Cube.058Action
+  - first:
+      74: -1977683736065060157
+    second: Right Hand.001|Forearm_LAction
+  - first:
+      74: 8516478211180435470
+    second: Right Hand.001|Pelvis_MainAction
+  - first:
+      74: 7680806764078804598
+    second: Right Hand.001|Pelvis_MainAction.001
+  - first:
+      74: -231841229291480965
+    second: Right Hand.001|Pelvis_MainAction.002
+  - first:
+      74: -4670125647417438330
+    second: Right Hand.001|Quad Sphere.003Action
+  - first:
+      74: -3152130301552166934
+    second: Right Hand.001|Quad Sphere.003Action.001
+  - first:
+      74: -4331790899977925257
+    second: Right Hand.001|Quad Sphere.003Action.002
+  - first:
+      74: 7671314403793470244
+    second: Right Hand.001|Quad Sphere.003Action.003
+  - first:
+      74: 7788798153715718070
+    second: Right Hand.001|Quad SphereAction
+  - first:
+      74: 2553070295983953066
+    second: Right Hand.001|Torso_MainAction
+  - first:
+      74: 1410383739767787711
+    second: Right Hand.001|Torso_MainAction.001
+  - first:
+      74: -7672634751638956467
+    second: Right Hand.001|Weapon_Rifle.001Action
+  - first:
+      74: -2044474733254106878
+    second: Gabriel_Armature|Cube.007Action
+  - first:
+      74: 596669539494030020
+    second: Gabriel_Armature|Cube.008Action
+  - first:
+      74: -3245846384789367527
+    second: Gabriel_Armature|Cube.013Action
+  - first:
+      74: 8677022806288679810
+    second: Gabriel_Armature|Cube.016Action.000
+  - first:
+      74: 9203721641411115894
+    second: Gabriel_Armature|Cube.016Action.002
+  - first:
+      74: 8036997585039451122
+    second: Gabriel_Armature|Cube.017Action.000
+  - first:
+      74: -2458534128988766755
+    second: Gabriel_Armature|Cube.017Action.002
+  - first:
+      74: -7585355036557923586
+    second: Gabriel_Armature|Cube.018Action.002
+  - first:
+      74: 3275866886364296574
+    second: Gabriel_Armature|Cube.043Action
+  - first:
+      74: 8095298976929711820
+    second: Gabriel_Armature|Cube.044Action
+  - first:
+      74: 4771027275187906643
+    second: Gabriel_Armature|Cube.045Action
+  - first:
+      74: 5155672297447885891
+    second: Gabriel_Armature|Cube.046Action
+  - first:
+      74: -7982681612359501744
+    second: Gabriel_Armature|Cube.047Action
+  - first:
+      74: -2435541019450891938
+    second: Gabriel_Armature|Cube.048Action
+  - first:
+      74: 425256307553413205
+    second: Gabriel_Armature|Cube.049Action
+  - first:
+      74: 8468291584998029903
+    second: Gabriel_Armature|Cube.050Action
+  - first:
+      74: -3855783474764218569
+    second: Gabriel_Armature|Cube.051Action
+  - first:
+      74: 5818261502062772765
+    second: Gabriel_Armature|Cube.052Action
+  - first:
+      74: 4561331947881377513
+    second: Gabriel_Armature|Cube.053Action
+  - first:
+      74: -4557536795862315697
+    second: Gabriel_Armature|Cube.054Action
+  - first:
+      74: 1304421259252565876
+    second: Gabriel_Armature|Cube.055Action
+  - first:
+      74: 3773769494818301706
+    second: Gabriel_Armature|Cube.055Action.001
+  - first:
+      74: 1172261760306295218
+    second: Gabriel_Armature|Cube.056Action
+  - first:
+      74: 7029998065191374272
+    second: Gabriel_Armature|Cube.057Action
+  - first:
+      74: -2347587494680595218
+    second: Gabriel_Armature|Cube.058Action
+  - first:
+      74: 9039040758066142990
+    second: Gabriel_Armature|Forearm_LAction
+  - first:
+      74: 4248975742488397183
+    second: Gabriel_Armature|Gabriel_ArmatureAction
+  - first:
+      74: -903806104567695491
+    second: Gabriel_Armature|Pelvis_MainAction
+  - first:
+      74: -5489931065590681361
+    second: Gabriel_Armature|Pelvis_MainAction.001
+  - first:
+      74: -7467843348449278424
+    second: Gabriel_Armature|Pelvis_MainAction.002
+  - first:
+      74: -4819662286280287044
+    second: Gabriel_Armature|Quad Sphere.003Action
+  - first:
+      74: -2871893483315101519
+    second: Gabriel_Armature|Quad Sphere.003Action.001
+  - first:
+      74: -7218224940135972279
+    second: Gabriel_Armature|Quad Sphere.003Action.002
+  - first:
+      74: -9007634473136613557
+    second: Gabriel_Armature|Quad Sphere.003Action.003
+  - first:
+      74: -4482896888772188165
+    second: Gabriel_Armature|Quad SphereAction
+  - first:
+      74: 6156585493745987876
+    second: Gabriel_Armature|Torso_MainAction
+  - first:
+      74: -6786930394428782655
+    second: Gabriel_Armature|Torso_MainAction.001
+  - first:
+      74: -1957388973006463050
+    second: Gabriel_Armature|Weapon_Rifle.001Action
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Gabriel_Armature|Gabriel_ArmatureAction
+      takeName: Gabriel_Armature|Gabriel_ArmatureAction
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 51
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ArmTube
+        weight: 0
+      - path: Gabriel_Armature
+        weight: 0
+      - path: Gabriel_Armature/CTRL_Foot_L
+        weight: 0
+      - path: Gabriel_Armature/CTRL_Foot_L/Toe_L.002
+        weight: 0
+      - path: Gabriel_Armature/CTRL_Foot_L/Toe_L.002/Ankle_L.001
+        weight: 0
+      - path: Gabriel_Armature/CTRL_Foot_L/Toe_L.002/Ankle_L.001/Ankle_L.001_end
+        weight: 0
+      - path: Gabriel_Armature/CTRL_Foot_R
+        weight: 0
+      - path: Gabriel_Armature/CTRL_Foot_R/Toe_R.002
+        weight: 0
+      - path: Gabriel_Armature/CTRL_Foot_R/Toe_R.002/Ankle_R.001
+        weight: 0
+      - path: Gabriel_Armature/CTRL_Foot_R/Toe_R.002/Ankle_R.001/Ankle_R.001_end
+        weight: 0
+      - path: Gabriel_Armature/Root
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Hip_L
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Hip_L/Knee_L
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Hip_L/Knee_L/Ankle_L
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Hip_L/Knee_L/Ankle_L/Toe_L
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Hip_L/Knee_L/Ankle_L/Toe_L/Toe_L_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Hip_R
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Hip_R/Knee_R
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Hip_R/Knee_R/Ankle_R
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Hip_R/Knee_R/Ankle_R/Toe_R
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Hip_R/Knee_R/Ankle_R/Toe_R/Toe_R_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Backpack
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Backpack/Backpack_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Index_01_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Index_01_L/Index_02_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Index_01_L/Index_02_L/Index_03_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Index_01_L/Index_02_L/Index_03_L/Index_03_L_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Middle_01_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Middle_01_L/Middle_02_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Middle_01_L/Middle_02_L/Middle_03_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Middle_01_L/Middle_02_L/Middle_03_L/Middle_03_L_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Pinky_01_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Pinky_01_L/Pinky_02_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Pinky_01_L/Pinky_02_L/Pinky_03_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Pinky_01_L/Pinky_02_L/Pinky_03_L/Pinky_03_L_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Ring_01_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Ring_01_L/Ring_02_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Ring_01_L/Ring_02_L/Ring_03_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Ring_01_L/Ring_02_L/Ring_03_L/Ring_03_L_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Thumb_01_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Thumb_01_L/Thumb_02_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Thumb_01_L/Thumb_02_L/Thumb_03_L
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Forearm_L/Wrist_L/Thumb_01_L/Thumb_02_L/Thumb_03_L/Thumb_03_L_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Index_01_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Index_01_R/Index_02_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Index_01_R/Index_02_R/Index_03_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Index_01_R/Index_02_R/Index_03_R/Index_03_R_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Middle_01_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Middle_01_R/Middle_02_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Middle_01_R/Middle_02_R/Middle_03_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Middle_01_R/Middle_02_R/Middle_03_R/Middle_03_R_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Pinky_01_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Pinky_01_R/Pinky_02_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Pinky_01_R/Pinky_02_R/Pinky_03_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Pinky_01_R/Pinky_02_R/Pinky_03_R/Pinky_03_R_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Ring_01_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Ring_01_R/Ring_02_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Ring_01_R/Ring_02_R/Ring_03_R
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Ring_01_R/Ring_02_R/Ring_03_R/Ring_03_R_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Thumb_01_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Thumb_01_R/Thumb_02_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Thumb_01_R/Thumb_02_R/Thumb_03_R
+        weight: 1
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Forearm_R/Wrist_R/Thumb_01_R/Thumb_02_R/Thumb_03_R/Thumb_03_R_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Neck
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Neck/Head
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Neck/Head/Head_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Wing_L
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Wing_L/Wing_L_end
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Wing_R
+        weight: 0
+      - path: Gabriel_Armature/Root/Pelvis/Spine_01/Spine_02/Spine_03/Wing_R/Wing_R_end
+        weight: 0
+      - path: Gabriel_Main
+        weight: 0
+      - path: Gabriel_Main/Gabriel_Arms
+        weight: 0
+      - path: Gabriel_Main/Gabriel_Helmet
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: Root
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
