@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 81bcdae6a4b72864d87a287ea36e5176, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 28a1e678edcaa2d46ad44574793f1337, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -10945,11 +10945,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5276313134950682590, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: healthText
-      value: 
-      objectReference: {fileID: 102759093}
     - target: {fileID: 3820172613042789075, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: m_Name
@@ -11015,6 +11010,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5276313134950682590, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: healthText
+      value: 
+      objectReference: {fileID: 102759093}
     - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: hud_Velocity
@@ -11035,12 +11035,6 @@ PrefabInstance:
       propertyPath: hud_VerticalVelocity
       value: 
       objectReference: {fileID: 7308633462561431051}
-    - target: {fileID: 8972201421833165979, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 8d2aeff56e01dbe4685ecf8c7a5a6cb4,
-        type: 2}
     - target: {fileID: 8191805556244224253, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: firstPersonArms_Animator
@@ -11051,6 +11045,12 @@ PrefabInstance:
       propertyPath: ammoUI
       value: 
       objectReference: {fileID: 1503453835}
+    - target: {fileID: 8972201421833165979, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 8d2aeff56e01dbe4685ecf8c7a5a6cb4,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
 --- !u!1001 &7308633462561431050
