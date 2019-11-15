@@ -1666,6 +1666,11 @@ PrefabInstance:
       propertyPath: spawnInterval
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2331697997774483253, guid: d416ce69e9583ea4db2b794e683b2e22,
+        type: 3}
+      propertyPath: spawnDelay
+      value: 2.35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d416ce69e9583ea4db2b794e683b2e22, type: 3}
 --- !u!1 &313828369
@@ -13357,6 +13362,21 @@ PrefabInstance:
       propertyPath: ammoUI
       value: 
       objectReference: {fileID: 1450130518}
+    - target: {fileID: 4116424456806575896, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7de8f8d8a06b77048b425370561497a0, type: 2}
+    - target: {fileID: 4116424456806575896, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6b3ed69f7829809468b1b6943e92d01d, type: 2}
+    - target: {fileID: 4116424456806575896, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: e4d360ac9d4383444ab96b875a6c38fc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
 --- !u!1001 &7834512189983992170
