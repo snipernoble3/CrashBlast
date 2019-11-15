@@ -86,7 +86,7 @@ public class Player_BlastMechanics : MonoBehaviour
 			rjBlast_Epicenter = firstPersonCam.transform.position + (firstPersonCam.transform.forward * rjBlast_Range);
 		}
 		
-		firstPersonArms_Animator.Play("FirstPersonArms_Blast", 1, 0.25f); // Play the blast animation.
+		firstPersonArms_Animator.Play("Blast", 1, 0.25f); // Play the blast animation.
 		BlastForce(rjBlast_Power, rjBlast_Epicenter, rjBlast_Radius, rjBlast_UpwardForce); // Add the blast force to affect other objects.
 			
 		if (playerMovement.GetIsGrounded())

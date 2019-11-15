@@ -6941,18 +6941,6 @@ MonoBehaviour:
   gravitySource: {fileID: 0}
   rotateToGravitySource: 1
   isChangingSource: 0
---- !u!114 &1180274249 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7166692890187780468, guid: 978ccc9568ae967499c26e069b6eff52,
-    type: 3}
-  m_PrefabInstance: {fileID: 1568693496}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1218139562
 GameObject:
   m_ObjectHideFlags: 0
@@ -9453,18 +9441,6 @@ MonoBehaviour:
 --- !u!114 &1568693498 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7308633461330099329, guid: 978ccc9568ae967499c26e069b6eff52,
-    type: 3}
-  m_PrefabInstance: {fileID: 1568693496}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1568693499 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7308633461641061657, guid: 978ccc9568ae967499c26e069b6eff52,
     type: 3}
   m_PrefabInstance: {fileID: 1568693496}
   m_PrefabAsset: {fileID: 0}
@@ -12650,29 +12626,6 @@ MonoBehaviour:
   gravitySource: {fileID: 0}
   rotateToGravitySource: 1
   isChangingSource: 0
---- !u!1 &2088661086 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3820172613042789075, guid: f1f02688bb546cc46bc69d7d28d1c555,
-    type: 3}
-  m_PrefabInstance: {fileID: 4392674233212273464}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2088661095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2088661086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8b78cb6abd983d4f8ebedf6b5407e08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  depositLight: {fileID: 0}
-  xpCap: 20
-  jumpReady: 0
-  jumpReadyText: {fileID: 307486006}
-  xpBar: {fileID: 939908290}
 --- !u!1 &2096309685
 GameObject:
   m_ObjectHideFlags: 0
@@ -13539,11 +13492,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3820172613042789075, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 8317686159804332312, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13599,21 +13547,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8317686159804332312, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317686159804332312, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8317686159804332312, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5276313134950682590, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: healthText
@@ -13624,60 +13557,22 @@ PrefabInstance:
       propertyPath: gravitySource
       value: 
       objectReference: {fileID: 1866275885}
-    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: hud_LateralVelocity
-      value: 
-      objectReference: {fileID: 1568693499}
-    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: hud_VerticalVelocity
-      value: 
-      objectReference: {fileID: 1180274249}
-    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: radarLine
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3820172613042789074, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: holdJumpToKeepJumping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8191805556244224253, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: ammoUI
-      value: 
-      objectReference: {fileID: 1568693498}
-    - target: {fileID: 8191805556244224253, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2088661086}
     - target: {fileID: 746588269, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
       propertyPath: gravitySource
       value: 
       objectReference: {fileID: 1866275885}
-    - target: {fileID: 6531711672340719521, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: autoJumpBeforeGroundedRocketJump
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6531711672340719521, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: rjBlast_MidAirLimit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5261576995055371843, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 2331099092965340207, guid: f1f02688bb546cc46bc69d7d28d1c555,
-        type: 3}
-      propertyPath: field of view
-      value: 84.6
-      objectReference: {fileID: 0}
+    - target: {fileID: 2088661095, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
+      propertyPath: jumpReadyText
+      value: 
+      objectReference: {fileID: 307486006}
+    - target: {fileID: 2088661095, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
+      propertyPath: xpBar
+      value: 
+      objectReference: {fileID: 939908290}
+    - target: {fileID: 1378531593, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
+      propertyPath: ammoUI
+      value: 
+      objectReference: {fileID: 1568693498}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
 --- !u!1001 &7834512189983992170

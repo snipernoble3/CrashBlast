@@ -64,7 +64,7 @@ public class Shooting : MonoBehaviour
 		else firstPersonArms_Animator.SetBool("fire", false);
 
         if (Input.GetButton("Reload") && !reloading && currAmmo != maxAmmo) {
-            firstPersonArms_Animator.Play("FirstPersonArms_Reload", 0, 0.0f); // Play the reload animation.
+            firstPersonArms_Animator.Play("Rifle_Reload", 0, 0.0f); // Play the reload animation.
 			StartCoroutine(Reload());
         }
         

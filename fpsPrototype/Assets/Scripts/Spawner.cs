@@ -34,8 +34,10 @@ public class Spawner : MonoBehaviour {
         Vector2 r = Random.insideUnitCircle * spawnDistance;
         Vector3 loc = transform.position - new Vector3(r.x, 0f, r.y);
         GameObject b = Instantiate(spawnObject, loc, spawnObject.transform.rotation);
-        b.GetComponent<Gravity_AttractedObject>().SetGravitySource(transform.parent.gameObject.GetComponent<Gravity_Source>());
+        
+		if (transform.parent.gameObject.GetComponent<Gravity_Source>() != null)
+		{
+			b.GetComponent<Gravity_AttractedObject>().SetGravitySource(transform.parent.gameObject.GetComponent<Gravity_Source>());
+		}
     }
-
-
 }

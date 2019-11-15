@@ -30,8 +30,12 @@ public class PlayerResources : MonoBehaviour {
         //baseXPText = xpText.text;
         //baseResourceAText = resourceAText.text;
         //baseResourceBText = resourceBText.text;
-        xpBar.minValue = 0;
-        xpBar.maxValue = xpCap;
+        
+		if (xpBar != null)
+		{
+			xpBar.minValue = 0;
+			xpBar.maxValue = xpCap;
+		}
     }
 
     private void Update () {
@@ -39,7 +43,7 @@ public class PlayerResources : MonoBehaviour {
         //if (inventory.activeInHierarchy) UpdateUI();
 
         jumpReady = currXP >= xpCap;
-        jumpReadyText.SetActive(jumpReady);
+        if (jumpReadyText != null) jumpReadyText.SetActive(jumpReady);
         
 
     }
@@ -95,7 +99,8 @@ public class PlayerResources : MonoBehaviour {
         //xpText.text = baseXPText + currXP;
         //resourceAText.text = baseResourceAText + currResourceA;
         //resourceBText.text = baseResourceBText + currResourceB;
-        xpBar.value = currXP;
+        
+		if (xpBar != null) xpBar.value = currXP;
         if (currXP >= xpCap) {
             //allow scene to be reloaded
         }
