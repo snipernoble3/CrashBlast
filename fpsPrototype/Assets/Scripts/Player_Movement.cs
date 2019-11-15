@@ -136,7 +136,7 @@ public class Player_Movement : MonoBehaviour
 		movement.reduction.SetMultiplier("regular");
 		
 		// Make connections to HUD
-		hud = GameObject.Find("Canvas_HUD");
+		//hud = GameObject.Find("Canvas_HUD");
 		if (hud != null)
 		{
 			hud.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
