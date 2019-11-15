@@ -53,7 +53,7 @@ Material:
     - _Diffuse: 0.5
     - _FaceDilate: 0.1
     - _FaceUVSpeedX: 0
-    - _FaceUVSpeedY: 0.1
+    - _FaceUVSpeedY: 0.2
     - _GlowInner: 0.261
     - _GlowOffset: 0
     - _GlowOuter: 1
@@ -64,7 +64,7 @@ Material:
     - _MaskSoftnessY: 0
     - _OutlineSoftness: 0.05
     - _OutlineUVSpeedX: 0
-    - _OutlineUVSpeedY: 0
+    - _OutlineUVSpeedY: 0.2
     - _OutlineWidth: 0.071
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
