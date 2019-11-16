@@ -31,8 +31,6 @@ public class Golem : MonoBehaviour {
         target = GameObject.FindGameObjectWithTag("Player");
 
         rb = GetComponent<Rigidbody>();
-
-        GetComponent<Gravity_AttractedObject>().SetGravitySource(transform.parent.GetComponent<Gravity_Source>());
     }
 
     private void Update () {
@@ -142,6 +140,7 @@ public class Golem : MonoBehaviour {
         //spawnPoint.x += 2.5f; //doesnt work for negatives
         //spawnPoint.y += 2.5f; //see above
         canThrowThis = Instantiate(projectile, new Vector3(transform.position.x + spawnPoint.x, transform.position.y, transform.position.z + spawnPoint.y), transform.rotation);
+		//canThrowThis.transform.GetComponent<Gravity_AttractedObject>().SetGravitySource(transform.GetComponent<Gravity_Source>()); // Set the project's gravity source to match the golem's gravity source.
         return canThrowThis;
     }
 

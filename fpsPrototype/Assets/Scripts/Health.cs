@@ -68,7 +68,8 @@ public class Health : MonoBehaviour {
 
     void UpdateUI () {
         try {
-            healthText.text = baseText + currHealth;
+            //healthText.text = baseText + currHealth;
+			healthText.text = currHealth.ToString(); // Don't print the original text anymore.
         } catch (NullReferenceException e) {
 
         }
