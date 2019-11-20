@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 5e41cb9f74cefd147997a7c7dc2c1b1b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Planet N Compact
+  fontNames:
+  - Planet N Compact
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6237635e8e83a12418dcce452d1adcfe, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
