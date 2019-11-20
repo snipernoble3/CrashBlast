@@ -165,7 +165,8 @@ public class Shooting : MonoBehaviour
     }
     
     void UpdateAmmoCount () {
-        if (ammoUI != null) ammoUI.text = "" + currAmmo;
+        //if (ammoUI != null) ammoUI.text = "" + currAmmo;
+		if (ammoUI != null) ammoUI.text = "<font=\"GravityBlast_Dingbats SDF\" material=\"GravityBlast_Dingbats SDF_Holographic\">2</font> " + currAmmo;
     }
 
 }

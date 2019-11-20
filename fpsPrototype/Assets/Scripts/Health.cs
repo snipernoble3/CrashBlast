@@ -15,6 +15,7 @@ public class Health : MonoBehaviour {
 
     public TextMeshProUGUI healthText;
     private string baseText;
+	private int maxPips = 10;
 
     public ParticleSystem death;
     public ParticleSystem critDeath;
@@ -68,8 +69,17 @@ public class Health : MonoBehaviour {
 
     void UpdateUI () {
         try {
-            //healthText.text = baseText + currHealth;
-			healthText.text = currHealth.ToString(); // Don't print the original text anymore.
+            
+			//healthText.text = baseText + currHealth;
+
+			healthText.text = "0"; // 0 is the "shield" symbol in the dingbats
+			for (int i = 1; i <= currHealth && i <= maxPips; i++)
+			{
+				healthText.text += "1"; // 1 is the "pip" symbol in the dingbats
+				if (i == maxPips) healthText.text += "+"; // Indicate that there is more health than is currently displayed in the number of pips.
+			}
+			
+			//healthText.text = currHealth.ToString(); // Don't print the original text anymore.
         } catch (NullReferenceException e) {
 
         }
