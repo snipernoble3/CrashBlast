@@ -94,7 +94,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8218680724852597033
 MonoBehaviour:
@@ -109,8 +109,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 0}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 0
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!54 &3016374577844431547
 Rigidbody:
   m_ObjectHideFlags: 0
