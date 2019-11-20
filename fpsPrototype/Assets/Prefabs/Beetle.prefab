@@ -89,7 +89,7 @@ Transform:
   m_GameObject: {fileID: 5987044430576371578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.51, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children:
   - {fileID: 793437274869670070}
   - {fileID: 4384747206622748805}
@@ -142,7 +142,7 @@ MonoBehaviour:
   lookSpeed: 3
   moveSpeed: 10
   chargeSpeed: 20
-  damageOnHit: 2
+  damageOnHit: 1
   channelTime: 0.25
   chargeTime: 0.5
   cooldownTime: 0.75
@@ -179,8 +179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitySource: {fileID: 0}
-  blendToNewSource: 1
-  rotateToGravitySoruce: 0
+  rotateToGravitySource: 1
+  isChangingSource: 0
 --- !u!1001 &5654390492816772012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -251,17 +251,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 7754fbabd911b7d4fa23652e54294868,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.01
+      value: 0.0121
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7754fbabd911b7d4fa23652e54294868,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.01
+      value: 0.0121
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7754fbabd911b7d4fa23652e54294868,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.01
+      value: 0.0121
       objectReference: {fileID: 0}
     - target: {fileID: -6057140222963153312, guid: 7754fbabd911b7d4fa23652e54294868,
         type: 3}
