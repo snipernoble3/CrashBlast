@@ -5,19 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/Test_BeetlePit.unity
-    guid: ed938d0fbbfe00c428137443dc08a715
-  - enabled: 0
-    path: Assets/Scenes/Test_Explore.unity
-    guid: 753a85ac090d31f488a8c027e50a6105
-  - enabled: 0
-    path: Assets/Scenes/Test_BunnyHop.unity
-    guid: 1157c4aa54c459749965d78303de5bc6
   - enabled: 1
-    path: Assets/Scenes/Test_TinyPlanet.unity
-    guid: bde1c0d63adfce94da9498afd83028d4
+    path: Assets/Scenes/Test_TinyPlanet_FixedGravity.unity
+    guid: 37dadf2e916618040a6c080aa7984e2a
   m_configObjects: {}
