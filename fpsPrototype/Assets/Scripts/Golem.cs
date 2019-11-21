@@ -55,7 +55,7 @@ public class Golem : MonoBehaviour {
 
         } else if (aiming) {
 
-            Quaternion targetLookDirection = Quaternion.LookRotation(target.transform.position - transform.position);
+            Quaternion targetLookDirection = Quaternion.LookRotation(target.transform.position - transform.position, transform.position - GetComponent<Gravity_AttractedObject>().GetGravitySource().transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, 5f * Time.deltaTime);
 
         } else if (!attacking) { //if not attacking
@@ -69,12 +69,13 @@ public class Golem : MonoBehaviour {
                 //pick a new direction to move in
 
                 //move and rotate to the move direction
-                Quaternion targetLookDirection = Quaternion.LookRotation(targetLocation - transform.position);//, transform.position - GetComponent<Gravity_AttractedObject>().GetGravitySource().transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetLookDirection, 5f * Time.deltaTime);
+                Quaternion targetLookDirection = Quaternion.LookRotation(targetLocation - transform.position, transform.position - GetComponent<Gravity_AttractedObject>().GetGravitySource().transform.position);//, transform.position - GetComponent<Gravity_AttractedObject>().GetGravitySource().transform.position);
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, targetLookDirection, 5f * Time.deltaTime);
+
                 //rb.AddRelativeForce(transform.forward * moveForce, ForceMode.Impulse);
                 transform.position += transform.forward * moveForce * Time.fixedDeltaTime;
                 float distance = Vector3.Magnitude(targetLocation - transform.position);
-                if (timeMoving <= 0 || Mathf.Abs(distance) <= 1f) {
+                if (timeMoving <= 0 || Mathf.Abs(distance) <= 2f) {
                     timeToNextMove = Random.Range(1f, 4f);
                     moving = false;
                     waiting = true;
@@ -127,7 +128,7 @@ public class Golem : MonoBehaviour {
 
         yield return new WaitForSeconds(0.5f); //throw/follow through/reset to normal
 
-        timeToNextAttack = 10f;
+        timeToNextAttack = 6f;
         attacking = false;
     }
 
@@ -161,7 +162,7 @@ public class Golem : MonoBehaviour {
         Rigidbody tRB = throwable.GetComponent<Rigidbody>();
         tRB.isKinematic = false;
         tRB.useGravity = true;
-        tRB.AddForce(forwardVector.normalized * 30, ForceMode.VelocityChange);
+        tRB.AddForce(forwardVector.normalized * 50, ForceMode.VelocityChange);
         throwable.GetComponent<BoxCollider>().isTrigger = false;
         Destroy(throwable, 10.0f);
     }

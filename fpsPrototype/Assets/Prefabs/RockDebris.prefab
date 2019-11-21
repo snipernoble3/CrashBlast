@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1819728549762003890}
   - component: {fileID: 1819728549762003891}
   - component: {fileID: 54832532801139214}
+  - component: {fileID: 1840250678245916349}
   m_Layer: 0
   m_Name: RockDebris
   m_TagString: Untagged
@@ -78,6 +79,18 @@ MonoBehaviour:
   gravitySource: {fileID: 0}
   rotateToGravitySource: 0
   isChangingSource: 0
+--- !u!114 &1840250678245916349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819728549762003888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7dd17b1d3228f41b3f38974c01e557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1819728551333223506
 GameObject:
   m_ObjectHideFlags: 0
