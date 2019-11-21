@@ -20,6 +20,8 @@ public class Shooting : MonoBehaviour
     
     private bool reloading;
 	public Animator firstPersonArms_Animator;
+	public Transform barrel;
+	
     public GameObject firingPosition;
     public GameObject target;
     public GameObject endOfGun;
@@ -60,7 +62,11 @@ public class Shooting : MonoBehaviour
             }
         }
 		
-		if (Input.GetButton("Fire1") && currAmmo != 0) firstPersonArms_Animator.SetBool("fire", true);
+		if (Input.GetButton("Fire1") && currAmmo != 0)
+		{
+			firstPersonArms_Animator.SetBool("fire", true);
+			if (barrel != null) barrel.Rotate(new Vector3(0.0f, 15.0f, 0.0f));
+		}
 		else firstPersonArms_Animator.SetBool("fire", false);
 
         if (Input.GetButton("Reload") && !reloading && currAmmo != maxAmmo) {
