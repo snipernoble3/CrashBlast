@@ -1,26 +1,47 @@
 fileFormatVersion: 2
-guid: fc257895d0cd97049975d2aa0c8a0d9c
+guid: 27192ed56da1fa34e89a8cc57b5ab679
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
-      74: -16553271097316333
-    second: Gabriel_Armature|Gabriel_FirstPerson_APose
+      74: -5005185186640719726
+    second: Gabriel_Armature|Empty.001Action
   - first:
-      74: 942275645083015442
-    second: Gabriel_Armature|Gabriel_FirstPerson_Blast
+      74: 3251290356298533932
+    second: Gabriel_Armature|Empty.002Action
   - first:
-      74: 486617583676993002
-    second: Gabriel_Armature|Gabriel_FirstPerson_InspectHands
+      74: 3473297826287639978
+    second: Gabriel_Armature|Empty.003Action
   - first:
-      74: 1109592150257890252
-    second: Gabriel_Armature|Gabriel_FirstPerson_Rifle_Fire
+      74: -2457119279312590153
+    second: Gabriel_Armature|EmptyAction
   - first:
-      74: 7209787234706928245
-    second: Gabriel_Armature|Gabriel_FirstPerson_Rifle_Idle
+      74: -301992839305270670
+    second: Gabriel_Armature|Gabriel_Blast
   - first:
-      74: 5040646352488403205
-    second: Gabriel_Armature|Gabriel_FirstPerson_Rifle_Reload
+      74: 9203735882598309185
+    second: Gabriel_Armature|Gabriel_Fire_Reload
+  - first:
+      74: 6113418902884364693
+    second: Gabriel_Armature|Gabriel_Fire_Rifle
+  - first:
+      74: -2890757083239692769
+    second: Gabriel_Armature|Gabriel_Idle_Rifle
+  - first:
+      74: -9033013324198877764
+    second: Gabriel_Armature|Gabriel_InspectHands
+  - first:
+      74: -1197004410669563064
+    second: Gabriel_Armature|Rifle_LP.003Action
+  - first:
+      74: 9013480829354434677
+    second: Gabriel_Armature|Gabriel_Rifle_Fire
+  - first:
+      74: -2372003585974957061
+    second: Gabriel_Armature|Gabriel_Rifle_Idle
+  - first:
+      74: 1910274101631188646
+    second: Gabriel_Armature|Gabriel_Rifle_Reload
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -42,19 +63,19 @@ ModelImporter:
     importAnimatedCustomProperties: 0
     importConstraints: 0
     animationCompression: 0
-    animationRotationError: 0
-    animationPositionError: 0
-    animationScaleError: 0
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Gabriel_Armature|Gabriel_FirstPerson_APose
-      takeName: Gabriel_Armature|Gabriel_FirstPerson_APose
+      name: Gabriel_Armature|Gabriel_Blast
+      takeName: Gabriel_Armature|Gabriel_Blast
       internalID: 0
-      firstFrame: 1
-      lastFrame: 1
+      firstFrame: 0
+      lastFrame: 18
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -79,40 +100,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Gabriel_Armature|Gabriel_FirstPerson_Blast
-      takeName: Gabriel_Armature|Gabriel_FirstPerson_Blast
+      name: Gabriel_Armature|Gabriel_InspectHands
+      takeName: Gabriel_Armature|Gabriel_InspectHands
       internalID: 0
       firstFrame: 0
-      lastFrame: 17
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Gabriel_Armature|Gabriel_FirstPerson_InspectHands
-      takeName: Gabriel_Armature|Gabriel_FirstPerson_InspectHands
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 52
+      lastFrame: 116
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -137,11 +129,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Gabriel_Armature|Gabriel_FirstPerson_Rifle_Fire
-      takeName: Gabriel_Armature|Gabriel_FirstPerson_Rifle_Fire
+      name: Gabriel_Armature|Gabriel_Rifle_Fire
+      takeName: Gabriel_Armature|Gabriel_Rifle_Fire
       internalID: 0
       firstFrame: 0
-      lastFrame: 6
+      lastFrame: 4
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -166,11 +158,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Gabriel_Armature|Gabriel_FirstPerson_Rifle_Idle
-      takeName: Gabriel_Armature|Gabriel_FirstPerson_Rifle_Idle
+      name: Gabriel_Armature|Gabriel_Rifle_Idle
+      takeName: Gabriel_Armature|Gabriel_Rifle_Idle
       internalID: 0
       firstFrame: 0
-      lastFrame: 61
+      lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -195,11 +187,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Gabriel_Armature|Gabriel_FirstPerson_Rifle_Reload
-      takeName: Gabriel_Armature|Gabriel_FirstPerson_Rifle_Reload
+      name: Gabriel_Armature|Gabriel_Rifle_Reload
+      takeName: Gabriel_Armature|Gabriel_Rifle_Reload
       internalID: 0
       firstFrame: 0
-      lastFrame: 37
+      lastFrame: 34
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
