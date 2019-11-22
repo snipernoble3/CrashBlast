@@ -71,7 +71,8 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetButton("Reload") && !reloading && currAmmo != maxAmmo) {
             firstPersonArms_Animator.Play("Rifle_Reload", 0, 0.0f); // Play the reload animation.
-			StartCoroutine(Reload());
+            reloading = true;
+			//StartCoroutine(Reload());
         }
         
 
@@ -160,6 +161,13 @@ public class Shooting : MonoBehaviour
         GetComponent<LineRenderer>().enabled = false;
     }
 
+    public void Reload () {
+        currAmmo = maxAmmo;
+        UpdateAmmoCount();
+        reloading = false;
+    }
+    
+    /*
     IEnumerator Reload () {
         reloading = true;
 
@@ -169,6 +177,7 @@ public class Shooting : MonoBehaviour
         UpdateAmmoCount();
         reloading = false;
     }
+    */
     
     void UpdateAmmoCount () {
         //if (ammoUI != null) ammoUI.text = "" + currAmmo;
