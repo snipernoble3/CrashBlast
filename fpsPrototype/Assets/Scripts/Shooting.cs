@@ -65,7 +65,7 @@ public class Shooting : MonoBehaviour
 		if (Input.GetButton("Fire1") && currAmmo != 0)
 		{
 			firstPersonArms_Animator.SetBool("fire", true);
-			if (barrel != null) barrel.Rotate(new Vector3(0.0f, 15.0f, 0.0f));
+			if (barrel != null && !reloading) barrel.Rotate(new Vector3(0.0f, 15.0f, 0.0f));
 		}
 		else firstPersonArms_Animator.SetBool("fire", false);
 
@@ -74,8 +74,6 @@ public class Shooting : MonoBehaviour
             reloading = true;
 			//StartCoroutine(Reload());
         }
-        
-
     }
 
     private void LateUpdate () {
