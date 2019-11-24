@@ -101,7 +101,7 @@ MonoBehaviour:
   deviationDistance: 20
   maxAmmo: 50
   firstPersonArms_Animator: {fileID: 0}
-  barrel: {fileID: 8760667884839249177}
+  barrel: {fileID: 344657170324238953}
   firingPosition: {fileID: 0}
   target: {fileID: 0}
   endOfGun: {fileID: 7930877271256886367}
@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 8760667884839249177}
   - component: {fileID: 3749849576392546820}
   - component: {fileID: 5212484555449200724}
+  - component: {fileID: 344657170324238953}
   m_Layer: 9
   m_Name: GatlingRifle_Barrel
   m_TagString: Untagged
@@ -282,6 +283,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &344657170324238953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328998483876703207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a5b8df202bdcf47aad6a83a4df3a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7930877271256886367
 GameObject:
   m_ObjectHideFlags: 0

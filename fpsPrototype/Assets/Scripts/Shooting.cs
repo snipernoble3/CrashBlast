@@ -20,7 +20,7 @@ public class Shooting : MonoBehaviour
     
     private bool reloading;
 	public Animator firstPersonArms_Animator;
-	public Transform barrel;
+	public Weapon_Barrel barrel;
 	
     public GameObject firingPosition;
     public GameObject target;
@@ -65,9 +65,12 @@ public class Shooting : MonoBehaviour
 		if (Input.GetButton("Fire1") && currAmmo != 0)
 		{
 			firstPersonArms_Animator.SetBool("fire", true);
-			if (barrel != null && !reloading) barrel.Rotate(new Vector3(0.0f, 15.0f, 0.0f));
+			if (barrel != null && !reloading) barrel.Spin();
 		}
-		else firstPersonArms_Animator.SetBool("fire", false);
+		else
+		{
+			firstPersonArms_Animator.SetBool("fire", false);
+		}
 
         if (Input.GetButton("Reload") && !reloading && currAmmo != maxAmmo) {
             firstPersonArms_Animator.Play("Rifle_Reload", 0, 0.0f); // Play the reload animation.

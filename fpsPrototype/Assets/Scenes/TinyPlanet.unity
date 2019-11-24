@@ -1839,7 +1839,7 @@ PrefabInstance:
     - target: {fileID: 2331697997774483252, guid: d416ce69e9583ea4db2b794e683b2e22,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2331697997774483210, guid: d416ce69e9583ea4db2b794e683b2e22,
         type: 3}
@@ -3877,7 +3877,7 @@ PrefabInstance:
     - target: {fileID: 2331697997774483252, guid: d416ce69e9583ea4db2b794e683b2e22,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2331697997774483210, guid: d416ce69e9583ea4db2b794e683b2e22,
         type: 3}
@@ -5970,7 +5970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &883462905
 Transform:
   m_ObjectHideFlags: 0
@@ -13159,7 +13159,7 @@ PrefabInstance:
     - target: {fileID: 2331697997774483252, guid: d416ce69e9583ea4db2b794e683b2e22,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2331697997774483210, guid: d416ce69e9583ea4db2b794e683b2e22,
         type: 3}
@@ -14618,6 +14618,21 @@ PrefabInstance:
       propertyPath: ammoUI
       value: 
       objectReference: {fileID: 1450130518}
+    - target: {fileID: 7724421633871384064, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: rotationAmount
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724421633871384064, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: windUpRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724421633871384064, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: windDownRate
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
 --- !u!1001 &7834512189983992170
