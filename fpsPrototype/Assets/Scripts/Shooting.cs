@@ -202,8 +202,9 @@ public class Shooting : MonoBehaviour
 		//barrel.fireRateMultiplier = fireRateUpgrade;
 		//firstPersonArms_Animator.SetFloat("fireSpeed", fireRateUpgrade);
 		
-		barrel.fireRateMultiplier = 2;
-		firstPersonArms_Animator.SetFloat("fireSpeed", 2);
+		barrel.fireRateMultiplier = 2.0f;
+		firstPersonArms_Animator.SetFloat("fireSpeed", 2.0f);
+		firstPersonArms_Animator.SetFloat("reloadSpeed", 1.75f);
 		
         ammoUpgrade = maxAmmoUpgrade;
     }
