@@ -8,11 +8,13 @@ public class Weapon_Barrel : MonoBehaviour
 	private Quaternion targetRotation;
 	private float targetY;
 	
-	public float rotationAmount = 1500.0f;
+	public float rotationAmount = 1000.0f;
 	
 	public float windUpRate = 3.0f;
 	public float windDownRate = -1.0f;
 	private float WindUpDownMultiplier = 0.0f;
+	
+	public float fireRateMultiplier = 1.0f;
 	
 	bool shouldWindDown = true;
 	
@@ -48,7 +50,7 @@ public class Weapon_Barrel : MonoBehaviour
 	
 	private void SetTargetRotation()
 	{	
-		targetY += rotationAmount * WindUpDownMultiplier * Time.deltaTime;
+		targetY += rotationAmount * fireRateMultiplier * WindUpDownMultiplier * Time.deltaTime;
 		if (targetY < 0.0f) targetY += 360.0f;
 		if (targetY >= 360.0f) targetY -= 360.0f;
 		

@@ -197,6 +197,8 @@ public class Shooting : MonoBehaviour
 
     public void MaxUpgradeAll () {
         fireRateUpgrade = maxFireRateUpgrade;
+		barrel.fireRateMultiplier = fireRateUpgrade;
+		
         ammoUpgrade = maxAmmoUpgrade;
     }
 
