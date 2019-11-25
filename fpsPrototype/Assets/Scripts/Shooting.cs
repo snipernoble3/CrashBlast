@@ -197,7 +197,13 @@ public class Shooting : MonoBehaviour
 
     public void MaxUpgradeAll () {
         fireRateUpgrade = maxFireRateUpgrade;
-		barrel.fireRateMultiplier = fireRateUpgrade;
+		
+		//////// These were too fast, later set up a method for setting fire rate that caps these values instead of setting them to whatever we want lol.
+		//barrel.fireRateMultiplier = fireRateUpgrade;
+		//firstPersonArms_Animator.SetFloat("fireSpeed", fireRateUpgrade);
+		
+		barrel.fireRateMultiplier = 2;
+		firstPersonArms_Animator.SetFloat("fireSpeed", 2);
 		
         ammoUpgrade = maxAmmoUpgrade;
     }
