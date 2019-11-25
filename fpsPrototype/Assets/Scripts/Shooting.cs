@@ -33,6 +33,16 @@ public class Shooting : MonoBehaviour
     private float range = 150f;
     private Vector3[] linePositions = new Vector3[2];
 
+    //upgrades
+    [SerializeField] int fireRateUpgrade = 0;
+    float fireRatePercentReduction = 0.2f;
+    int maxFireRateUpgrade = 3; //capped at 60% firerate reduction
+
+    [SerializeField] int ammoUpgrade = 0;
+    float ammoCapPercentIncrease = 0.2f;
+    int maxAmmoUpgrade = 5; //capped at 200% base max ammo
+
+
     // Start is called before the first frame update
     void Start() {
         currAmmo = maxAmmo;
@@ -58,7 +68,7 @@ public class Shooting : MonoBehaviour
         if (Input.GetButton("Fire1") && timeToFire <= 0) {
             if (currAmmo != 0 && !reloading) {
                 Fire();
-                timeToFire = fireRate;
+                timeToFire = fireRate * (1 - (fireRatePercentReduction * fireRateUpgrade));
             }
         }
 		
@@ -72,7 +82,7 @@ public class Shooting : MonoBehaviour
 			firstPersonArms_Animator.SetBool("fire", false);
 		}
 
-        if (Input.GetButton("Reload") && !reloading && currAmmo != maxAmmo) {
+        if (Input.GetButton("Reload") && !reloading && currAmmo != (int)(maxAmmo * (1 + (ammoCapPercentIncrease * ammoUpgrade)))) {
             firstPersonArms_Animator.Play("Rifle_Reload", 0, 0.0f); // Play the reload animation.
             reloading = true;
 			//StartCoroutine(Reload());
@@ -163,7 +173,7 @@ public class Shooting : MonoBehaviour
     }
 
     public void Reload () {
-        currAmmo = maxAmmo;
+        currAmmo = (int)(maxAmmo * (1 + (ammoCapPercentIncrease * ammoUpgrade)));
         UpdateAmmoCount();
         reloading = false;
     }
@@ -183,6 +193,11 @@ public class Shooting : MonoBehaviour
     void UpdateAmmoCount () {
         //if (ammoUI != null) ammoUI.text = "" + currAmmo;
 		if (ammoUI != null) ammoUI.text = "<font=\"GravityBlast_Dingbats SDF\" material=\"GravityBlast_Dingbats SDF_Holographic\">2</font> " + currAmmo;
+    }
+
+    public void MaxUpgradeAll () {
+        fireRateUpgrade = maxFireRateUpgrade;
+        ammoUpgrade = maxAmmoUpgrade;
     }
 
 }

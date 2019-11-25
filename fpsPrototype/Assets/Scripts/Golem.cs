@@ -61,7 +61,7 @@ public class Golem : MonoBehaviour {
         } else if (!attacking) { //if not attacking
             //idle
             if (!moving && !waiting) {
-                timeToNextMove = 1f;
+                timeToNextMove = 0.2f;
                 waiting = true;
             }
 
@@ -128,7 +128,7 @@ public class Golem : MonoBehaviour {
 
         yield return new WaitForSeconds(0.5f); //throw/follow through/reset to normal
 
-        timeToNextAttack = 6f;
+        timeToNextAttack = 3f;
         attacking = false;
     }
 
@@ -164,7 +164,7 @@ public class Golem : MonoBehaviour {
         tRB.useGravity = true;
         tRB.AddForce(forwardVector.normalized * 50, ForceMode.VelocityChange);
         throwable.GetComponent<BoxCollider>().isTrigger = false;
-        Destroy(throwable, 10.0f);
+        Destroy(throwable, 5.0f);
     }
 
 }
