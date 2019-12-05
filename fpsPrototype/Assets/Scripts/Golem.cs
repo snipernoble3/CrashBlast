@@ -84,11 +84,12 @@ public class Golem : MonoBehaviour {
             } else if (waiting) {
                 //wait for a bit
                 if (timeToNextMove <= 0) {
-                    timeMoving = Random.Range(2f, 6f);
+                    timeMoving = Random.Range(1f, 4f);
                     moving = true;
                     waiting = false;
                     randLocation = Random.insideUnitCircle * 20f;
                     targetLocation = new Vector3(transform.position.x + randLocation.x, transform.position.y, transform.position.z - randLocation.y);
+                    TargetLocationCorrection();
                 }
             }
 
@@ -105,7 +106,23 @@ public class Golem : MonoBehaviour {
     }
 
 
+    private void TargetLocationCorrection () {
+        RaycastHit up;
+        RaycastHit down;
 
+        if (Physics.Raycast(targetLocation, targetLocation - gameObject.GetComponent<Gravity_AttractedObject>().GetGravitySource().transform.position, out down)) {
+            if (down.collider.gameObject.tag == "Planet") {
+                targetLocation = down.point;
+            }
+        }
+
+        if (Physics.Raycast(targetLocation, targetLocation + gameObject.GetComponent<Gravity_AttractedObject>().GetGravitySource().transform.position, out up)) {
+            if (up.collider.gameObject.tag == "Planet") {
+                targetLocation = up.point;
+            }
+        }
+
+    }
 
     private IEnumerator Attack () {
         //find and grab throw object

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Resource B
   - Bullet
+  - Planet
   layers:
   - Default
   - TransparentFX

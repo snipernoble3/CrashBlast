@@ -11604,7 +11604,7 @@ GameObject:
   - component: {fileID: 1702641562}
   m_Layer: 0
   m_Name: Surface
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12747,7 +12747,7 @@ GameObject:
   - component: {fileID: 1866275881}
   m_Layer: 0
   m_Name: TinyPlanet
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
