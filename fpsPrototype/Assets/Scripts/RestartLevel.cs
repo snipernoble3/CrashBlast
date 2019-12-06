@@ -18,9 +18,7 @@ public class RestartLevel : MonoBehaviour
 	
 	void Update()
     {
-		if (Input.GetButtonDown("Restart")) SceneManager.LoadScene(scene.buildIndex);
-
-        if (Input.GetKeyDown(KeyCode.B) && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerResources>().jumpReady) SceneManager.LoadScene(scene.buildIndex);
+		if (Input.GetButtonDown("Restart")) SceneManager.LoadScene(scene.buildIndex);        
 
 		if (Input.GetKeyDown(KeyCode.Equals) || Input.GetKeyDown(KeyCode.Plus)) if (levelToLoad + 1 <= numOfScenes)	levelToLoad++;
 		if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.Underscore)) if (levelToLoad - 1 >= 0)	levelToLoad--;

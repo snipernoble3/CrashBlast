@@ -78,6 +78,9 @@ public class ReductionMultiplier
 [RequireComponent(typeof(Rigidbody))]
 public class Player_Movement : MonoBehaviour
 {
+	private bool lookEnabled = true;
+	private bool moveEnabled = true;
+	
 	// Object References
 	public Gravity_Source gravitySource;
 	private GameObject mainCam;
@@ -176,26 +179,43 @@ public class Player_Movement : MonoBehaviour
 		
 		
 		// Inputs
-		GetInput_Mouse();
-		MouseLook();
-		GetInput_LateralMovement();
-		
-		if (holdJumpToKeepJumping && Input.GetButton("Jump"))
+		if (lookEnabled)
 		{
-			jumpQueue_isQueued = true;
-			jumpQueue_TimeSinceQueued = 0.0f;
+			GetInput_Mouse();
+			MouseLook();
 		}
-			
-		if (Input.GetButtonDown("Jump"))
+		
+		if (moveEnabled)
 		{
-			if (isGrounded) Jump();
-			else
+			GetInput_LateralMovement();
+			
+			if (holdJumpToKeepJumping && Input.GetButton("Jump"))
 			{
 				jumpQueue_isQueued = true;
 				jumpQueue_TimeSinceQueued = 0.0f;
 			}
+				
+			if (Input.GetButtonDown("Jump"))
+			{
+				if (isGrounded) Jump();
+				else
+				{
+					jumpQueue_isQueued = true;
+					jumpQueue_TimeSinceQueued = 0.0f;
+				}
+			}
 		}
     }
+	
+	public void EnableLook(bool lookState)
+	{
+		lookEnabled = lookState;
+	}
+	
+	public void EnableMove(bool moveState)
+	{
+		moveEnabled = moveState;
+	}
 	
 	void FixedUpdate()
 	{		
