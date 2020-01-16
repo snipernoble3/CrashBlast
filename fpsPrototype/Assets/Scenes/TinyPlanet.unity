@@ -1199,6 +1199,12 @@ MonoBehaviour:
   gravitySource: {fileID: 1866275885}
   rotateToGravitySource: 1
   isChangingSource: 0
+--- !u!1 &166046668 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 138201507168571446, guid: f1f02688bb546cc46bc69d7d28d1c555,
+    type: 3}
+  m_PrefabInstance: {fileID: 4392674233212273464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &171358500
 GameObject:
   m_ObjectHideFlags: 0
@@ -6328,6 +6334,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 928795000}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &930823753 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7724421633871384064, guid: f1f02688bb546cc46bc69d7d28d1c555,
+    type: 3}
+  m_PrefabInstance: {fileID: 4392674233212273464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a5b8df202bdcf47aad6a83a4df3a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &955436889
 GameObject:
   m_ObjectHideFlags: 0
@@ -6676,6 +6694,33 @@ MonoBehaviour:
   gravitySource: {fileID: 1866275885}
   rotateToGravitySource: 1
   isChangingSource: 0
+--- !u!1 &1026145887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3060409205732034378, guid: f1f02688bb546cc46bc69d7d28d1c555,
+    type: 3}
+  m_PrefabInstance: {fileID: 4392674233212273464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1026145889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026145887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff7445486f3c79141bd64626b4c4b135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1210096853}
+  firingPosition: {fileID: 166046668}
+  bullet: {fileID: 125204817742315580, guid: eb11a102ed1129c4ca035afbeb476eb9, type: 3}
+  arms: {fileID: 1156517649}
+  barrel: {fileID: 930823753}
+  ammoUI: {fileID: 1450130518}
+  fireRate: 0.05
+  maxAmmo: 50
+  deviationDistance: 25
 --- !u!1 &1056580801
 GameObject:
   m_ObjectHideFlags: 0
@@ -7340,6 +7385,12 @@ PrefabInstance:
       objectReference: {fileID: 1866275885}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b62571889945ad14cab5ae61f7791961, type: 3}
+--- !u!95 &1156517649 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1658836483472899388, guid: f1f02688bb546cc46bc69d7d28d1c555,
+    type: 3}
+  m_PrefabInstance: {fileID: 4392674233212273464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1160179296
 GameObject:
   m_ObjectHideFlags: 0
@@ -7601,6 +7652,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2598347306723740762, guid: b62571889945ad14cab5ae61f7791961,
     type: 3}
   m_PrefabInstance: {fileID: 187733885}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1210096853 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3820172613042789075, guid: f1f02688bb546cc46bc69d7d28d1c555,
+    type: 3}
+  m_PrefabInstance: {fileID: 4392674233212273464}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1218139562
 GameObject:
@@ -14805,6 +14862,11 @@ PrefabInstance:
       propertyPath: ammoUI
       value: 
       objectReference: {fileID: 1450130518}
+    - target: {fileID: 8255814268289144774, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7724421633871384064, guid: f1f02688bb546cc46bc69d7d28d1c555,
         type: 3}
       propertyPath: rotationAmount
@@ -14820,7 +14882,18 @@ PrefabInstance:
       propertyPath: windDownRate
       value: -1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8061603447038757043, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061603447038757043, guid: f1f02688bb546cc46bc69d7d28d1c555,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.167
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6348221785778024401, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f1f02688bb546cc46bc69d7d28d1c555, type: 3}
 --- !u!1001 &7834512189983992170
 PrefabInstance:

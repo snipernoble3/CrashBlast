@@ -7,7 +7,7 @@ public class ReloadOnArms : MonoBehaviour{
     [SerializeField] private GameObject g;
 
     void AnimReload () {
-        g.GetComponent<Shooting>().Reload();
+        g.GetComponent<Deliverance>().Reload();
     }
 
 }
